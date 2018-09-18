@@ -1,0 +1,21 @@
+{
+    "id": "f1d0d79d-d47e-4b56-9663-d8c11fe3a9f4",
+    "name": ".NET Fundamentals",
+    "repository": "https://github.com/dolittle/DotNET.Fundamentals.git",
+    "type": "dotnet",
+    "cascades": [
+        {
+            "id":"df378874-4df4-4fb4-bcc9-4bb9122870b3",
+            "name": "Runtime"
+        },
+        {
+            "id":"d4793d40-737d-48d9-ba14-9af4f13122fc",
+            "name": ".NET DependencyInversion Autofac"
+        }
+    ],    
+    "NuGetPackages": {
+        "release": {},
+        "preRelease": {}
+    },
+    "notifications": []
+}
