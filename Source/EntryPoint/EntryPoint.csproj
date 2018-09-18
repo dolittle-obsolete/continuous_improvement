@@ -5,9 +5,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <OutputType>Exe</OutputType>
+    <DefaultItemExcludes>gulp\**\*;node_modules\**\*;jspm_packages\**\*;bower_components\**\*;wwwroot\**\*;bin\**\*;obj\**\*;Builds\**\*</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Builds\**\*" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -28,9 +30,6 @@
 
     <PackageReference Include="Dolittle.DependencyInversion.Autofac" Version="2.0.0-alpha2*" />
     
-    <PackageReference Include="Dolittle.ReadModels.MongoDB" Version="2.0.0-alpha2*" />
-    <PackageReference Include="Dolittle.Runtime.Events.MongoDB" Version="2.0.0-alpha2*" />   
-
     <PackageReference Include="Dolittle.Concepts.Serialization.Json" Version="2.0.0-alpha2.*" />
 
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
