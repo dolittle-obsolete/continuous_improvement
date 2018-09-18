@@ -2,19 +2,19 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-using System.Threading.Tasks;
+using Dolittle.Collections;
 
 namespace Orchestrations
 {
     /// <summary>
-    /// Defines a performer in an orchestra
+    /// Represents an implementation of <see cref="IConductor"/>
     /// </summary>
-    public interface IPerformer<T>
+    public class Conductor : IConductor
     {
-        /// <summary>
-        /// The method that gets called when the performer should perform
-        /// </summary>
-        /// <param name="score">The score</param>
-        Task Perform(T score);
+        /// <inheritdoc/>
+        public void Conduct<T>(ScoreOf<T> score)
+        {
+            score.Steps.ForEach(_ => _.Perform(score.Context).Wait());
+        }
     }
 }
