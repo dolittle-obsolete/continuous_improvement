@@ -7,6 +7,7 @@ using Dolittle.AspNetCore.Bootstrap;
 using Dolittle.DependencyInversion.Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
@@ -20,7 +21,7 @@ namespace EntryPoint
     {
         readonly IHostingEnvironment _hostingEnvironment;
         readonly ILoggerFactory _loggerFactory;
-        BootResult _bootResult;
+        //BootResult _bootResult;
 
         /// <summary>
         /// 
@@ -46,7 +47,7 @@ namespace EntryPoint
             });
             services.AddMvc();
 
-            _bootResult = services.AddDolittle(_loggerFactory);
+            //_bootResult = services.AddDolittle(_loggerFactory);
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace EntryPoint
         /// <param name="containerBuilder"></param>
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
-            containerBuilder.AddDolittle(_bootResult.Assemblies, _bootResult.Bindings);
+            //containerBuilder.AddDolittle(_bootResult.Assemblies, _bootResult.Bindings);
         }
 
         /// <summary>
@@ -80,8 +81,12 @@ namespace EntryPoint
 
             app.UseMvc();
 
-            app.UseDolittle();
-            app.RunAsSinglePageApplication();
+            var routeBuilder = new RouteBuilder(app);
+            routeBuilder.MapPost<GitHub.Trigger>(app,$"triggers/github/{{{GitHub.Trigger.TenantRouteValueName}:guid}}/{{{GitHub.Trigger.ProjectRouteValueName}:guid}}");
+            app.UseRouter(routeBuilder.Build());
+
+            //app.UseDolittle();
+            //app.RunAsSinglePageApplication();
         }
 
     }
