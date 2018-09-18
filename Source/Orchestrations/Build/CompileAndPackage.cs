@@ -16,24 +16,21 @@ namespace Orchestrations.Build
     /// 
     /// </summary>
     /// <typeparam name="Context"></typeparam>
-    public class JobScheduler : IPerformer<Context>
+    public class CompileAndPackage : IPerformer<Context>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public void Perform(Context context)
+        public async Task Perform(Context context)
         {
             // Cleanup non-active Build jobs
             // If any build jobs are running that we are not tracking - start tracking them
 
-            //while (!System.Diagnostics.Debugger.IsAttached) System.Threading.Thread.Sleep(10);
             var config = new KubernetesClientConfiguration { Host = "http://127.0.0.1:8001" };
             var client = new Kubernetes(config);
 
             var @namespace = "dolittle";
-            
-
             var metadata = new V1ObjectMeta
             {
                 Name = Guid.NewGuid().ToString(),
@@ -55,8 +52,8 @@ namespace Orchestrations.Build
                                     Image = "dolittlebuild/dotnet",
                                     ImagePullPolicy = "IfNotPresent",
                                     Env = new [] {
-                                        new V1EnvVar("REPOSITORY","https://github.com/dolittle/DotNET.Fundamentals.git"),
-                                        new V1EnvVar("COMMIT","beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c")
+                                        new V1EnvVar("REPOSITORY",context.Project.Repository.ToString()),
+                                        new V1EnvVar("COMMIT",context.Commit)
                                     }
                                 }
                             },
@@ -66,29 +63,19 @@ namespace Orchestrations.Build
                 }
             };
 
-            Console.WriteLine("Starting job");
-            var resetEvent = new ManualResetEventSlim(false);
-
-            Task.Run(async () => {
+            await Task.Run(async () => {
                 var status = await client.CreateNamespacedJobAsync(job, @namespace);
                 for(;;) 
                 {
                     Thread.Sleep(500);
                     status = await client.ReadNamespacedJobStatusAsync(metadata.Name, @namespace);
-                    Console.Write($".");
                     if( (status.Status.Active ?? 0) == 0 ) 
                     {
-                        Console.WriteLine("\nDone");
                         // Cleanup
-                        resetEvent.Set();
                         break;
                     }
-                    
-                    
                 }
             });
-
-            resetEvent.Wait();           
         }
     }
 }
