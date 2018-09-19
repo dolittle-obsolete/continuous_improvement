@@ -102,7 +102,7 @@ namespace Orchestrations
         /// <summary>
         /// Gets the path to publishable artifacts
         /// </summary>
-        public string PublishPath => Path.Combine(VersionRoot,"public");
+        public string PublishPath => Path.Combine(VersionRoot,"publish");
 
         /// <summary>
         /// Gets the full path to the source 
