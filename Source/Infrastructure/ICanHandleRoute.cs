@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace EntryPoint
+namespace Infrastructure
 {
     /// <summary>
     /// Defines a handler for routes

@@ -12,20 +12,26 @@ using k8s.Models;
 
 namespace Orchestrations.Build
 {
+
     /// <summary>
-    /// 
+    /// Represents a <see cref="IPerformer{T}"/> that is capable of dealing with compilation and packaging
     /// </summary>
     /// <typeparam name="Context"></typeparam>
     public class CompileAndPackage : IPerformer<Context>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
+        /// <inheritdoc/>
+        public bool CanPerform(Context score)
+        {
+            return true;
+        }
+
+        /// <inheritdoc/>
         public async Task Perform(Context context)
         {
             // Cleanup non-active Build jobs
             // If any build jobs are running that we are not tracking - start tracking them
+
+            context.LogInformation("Compiling and packaging");
 
             var config = new KubernetesClientConfiguration { Host = "http://127.0.0.1:8001" };
             var client = new Kubernetes(config);
@@ -41,6 +47,8 @@ namespace Orchestrations.Build
                 Metadata = metadata,
                 Spec = new V1JobSpec
                 {
+                    Completions = 1,
+
                     Template = new V1PodTemplateSpec
                     {
                         Metadata = metadata,
@@ -49,15 +57,56 @@ namespace Orchestrations.Build
                             Containers = new [] {
                                 new V1Container {
                                     Name = "build",
-                                    Image = "dolittlebuild/dotnet",
+                                    Image = $"dolittlebuild/{context.Project.Type}",
                                     ImagePullPolicy = "IfNotPresent",
                                     Env = new [] {
                                         new V1EnvVar("REPOSITORY",context.Project.Repository.ToString()),
-                                        new V1EnvVar("COMMIT",context.Commit)
+                                        new V1EnvVar("COMMIT",context.Commit),
+                                        new V1EnvVar("PULL_REQUEST", context.IsPullRequest.ToString()),
+                                        new V1EnvVar("VERSION", context.Version)
+                                    },
+                                    VolumeMounts = new[] {
+                                        new V1VolumeMount {
+                                            Name = "azure",
+                                            MountPath = "/repository",
+                                            SubPath = context.SourcePath
+                                        },
+                                        new V1VolumeMount {
+                                            Name = "azure",
+                                            MountPath = "/packages",
+                                            SubPath = context.PackagePath
+                                        },
+                                        new V1VolumeMount {
+                                            Name = "azure",
+                                            MountPath = "/output",
+                                            SubPath = context.OutputPath
+                                        },
+                                        new V1VolumeMount {
+                                            Name = "azure",
+                                            MountPath = "/publish",
+                                            SubPath = context.PublishPath
+                                        },
+                                        new V1VolumeMount {
+                                            Name = "azure",
+                                            MountPath = "/testresults",
+                                            SubPath = context.TestResultsPath
+                                        }
                                     }
                                 }
                             },
-                            RestartPolicy = "Never"
+                            Volumes = new[] {
+                                new V1Volume {
+                                    Name = "azure",
+                                    AzureFile = new V1AzureFileVolumeSource {
+                                        SecretName = "azure-storage-secret",
+                                        ShareName = "continuousimprovement",
+                                        ReadOnlyProperty = false
+                                    }
+
+                                }
+                            },
+                            RestartPolicy = "Never",
+                            
                         }
                     }
                 }
