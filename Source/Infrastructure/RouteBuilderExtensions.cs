@@ -2,16 +2,19 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+using Dolittle.DependencyInversion;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace EntryPoint
+namespace Infrastructure
 {
     /// <summary>
     /// Extensions for <see cref="RouteBuilder"/>
     /// </summary>
-    public static class route_builder_extensions
+    public static class RouteBuilderExtensions
     {
+        public static IContainer Container;
+
         /// <summary>
         /// Map a Post method to a <see cref="ICanHandleRoute"/>
         /// </summary>
@@ -23,7 +26,7 @@ namespace EntryPoint
         {
             routeBuilder.MapPost(template, async (request, response, routeData) => {
                 //var handler = (T)application.ApplicationServices.GetService(typeof(T));
-                var handler = Program.Container.Get<T>();
+                var handler = Container.Get<T>();
                 await handler.Handle(request, response, routeData);
             });
         }

@@ -15,13 +15,21 @@ namespace Orchestrations.SourceControl
     public class GetLatest : IPerformer<Context>
     {
         /// <inheritdoc/>
+        public bool CanPerform(Context score)
+        {
+            return !score.IsPullRequest;
+        }
+
+        /// <inheritdoc/>
         public Task Perform(Context score)
         {
-            var gitFolder = Path.Combine(score.Source, ".git");
+            var gitFolder = Path.Combine(score.FullSourcePath, ".git");
             if (!Directory.Exists(gitFolder))
             {
+                score.LogInformation("Cloning");
                 var cloneOptions = new CloneOptions();
                 cloneOptions.RecurseSubmodules = true;
+                cloneOptions.OnCheckoutProgress = (string path, int completedSteps, int totalSteps) => score.LogInformation(path);
 
                 /*
                 cloneOptions.CredentialsProvider = (_url, _user, _cred) => 
@@ -31,17 +39,26 @@ namespace Orchestrations.SourceControl
                                                             Password = "password"
                                                         };
                 */
+                //if( Directory.Exists(score.SourcePath) ) Directory.Delete(score.SourcePath);
 
-                Repository.Clone(score.Project.Repository.ToString(), score.Source, cloneOptions);
+                Repository.Clone(score.Project.Repository.ToString(), score.FullSourcePath, cloneOptions);
             }
             else
             {
-                using(var repo = new Repository(score.Source))
+                score.LogInformation("Repository already exists - pulling latest");
+                using(var repo = new Repository(score.FullSourcePath))
                 {
                     var pullOptions = new PullOptions();
                     pullOptions.FetchOptions = new FetchOptions();
                     var signature = new Signature(
                         new Identity("<Dolittle CI>", "post@dolittle.com"), DateTimeOffset.Now);
+
+                    pullOptions.FetchOptions.Prune = true;
+                    pullOptions.FetchOptions.TagFetchMode = TagFetchMode.All;
+                    pullOptions.FetchOptions.OnProgress = (string message) => {
+                        score.LogInformation(message);
+                        return true;
+                    };
 
                     Commands.Pull(repo, signature, pullOptions);
                 }
