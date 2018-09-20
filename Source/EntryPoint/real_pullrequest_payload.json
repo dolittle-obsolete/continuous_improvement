@@ -477,4 +477,4 @@
         "type": "User",
         "site_admin": false
     }
-}rl":"https: //api.github.com/users/einari/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/einari/subscriptions","organizations_url":"https://api.github.com/users/einari/orgs","repos_url":"https://api.github.com/users/einari/repos","events_url":"https://api.github.com/users/einari/events{/privacy}","received_events_url":"https://api.github.com/users/einari/received_events","type":"User","site_admin":false}}
+}
