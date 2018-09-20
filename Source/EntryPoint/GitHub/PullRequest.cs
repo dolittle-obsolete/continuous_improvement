@@ -7,7 +7,7 @@ using System;
 
 namespace EntryPoint.GitHub
 {
-    #pragma warning disable 1591
+#pragma warning disable 1591
     public class PullRequest
     {
         public string url;
