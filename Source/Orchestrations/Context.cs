@@ -96,7 +96,7 @@ namespace Orchestrations
         public void LogInformation(string message)
         {
             var outputFolder = Path.Combine(BasePath,Version,"output");
-            var logFile = Path.Combine(outputFolder,"logs.txt");
+            var logFile = Path.Combine(outputFolder,"log.txt");
             if( !Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
             File.AppendAllText(logFile,$"{message}\n");
             Console.WriteLine(message);
