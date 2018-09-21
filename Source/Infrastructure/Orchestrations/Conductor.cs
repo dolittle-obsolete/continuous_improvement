@@ -23,13 +23,15 @@ namespace Infrastructure.Orchestrations
         /// <inheritdoc/>
         public void Conduct<T>(ScoreOf<T> score)
         {
-            score.Steps.ForEach(_ => {
+            score.Steps.ForEach(_ =>
+            {
                 var performer = _container.Get(_);
                 var canPerform = _.GetMethod("CanPerform");
                 var perform = _.GetMethod("Perform");
-                if( (bool)canPerform.Invoke(performer, new[] {score}) ) 
+                var context = score.Context;
+                if ((bool) canPerform.Invoke(performer, new object[] { context }))
                 {
-                    var task = perform.Invoke(performer, new [] { score }) as Task;
+                    var task = perform.Invoke(performer, new object[] { context }) as Task;
                     task.Wait();
                 }
             });
