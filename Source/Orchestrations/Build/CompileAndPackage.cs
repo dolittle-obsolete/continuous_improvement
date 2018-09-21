@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Infrastructure.Orchestrations;
 using k8s;
 using k8s.Models;
+using Dolittle.Logging;
 
 namespace Orchestrations.Build
 {
@@ -20,6 +21,17 @@ namespace Orchestrations.Build
     /// <typeparam name="Context"></typeparam>
     public class CompileAndPackage : IPerformer<Context>
     {
+        readonly ILogger _logger;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        public CompileAndPackage(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         /// <inheritdoc/>
         public bool CanPerform(Context score)
         {
@@ -44,6 +56,9 @@ namespace Orchestrations.Build
             {
                 config.AccessToken = File.ReadAllText(kubernetesTokenPath);
             }
+
+            _logger.Information($"Using Kubernetes API @ '{kubernetesApi}'");
+            _logger.Information($"Using Access Token '{config.AccessToken}'");
             
             var client = new Kubernetes(config);
 
