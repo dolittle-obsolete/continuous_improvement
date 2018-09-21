@@ -42,6 +42,7 @@ namespace Orchestrations.Build
             var deleteOptions = new V1DeleteOptions();
 
             await _kubernetes.DeleteNamespacedJobAsync(deleteOptions, jobName, @namespace);
+            await _kubernetes.DeleteNamespacedPodAsync(deleteOptions, jobName, @namespace);
         }
     }
 }
