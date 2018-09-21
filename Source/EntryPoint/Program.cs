@@ -26,22 +26,6 @@ namespace EntryPoint
         /// <param name="args">Arguments for the process</param>
         public static void Main(string[] args)
         {
-            var loggerFactory = new LoggerFactory();
-            var logAppenders = Dolittle.Logging.Bootstrap.EntryPoint.Initialize(loggerFactory);
-            var logger = new Logger(logAppenders);
-
-            var assemblies = Dolittle.Assemblies.Bootstrap.EntryPoint.Initialize(logger);
-            var typeFinder = Dolittle.Types.Bootstrap.EntryPoint.Initialize(assemblies);
-
-
-            var bindings = new[] {
-                new BindingBuilder(Binding.For(typeof(IAssemblies))).To(assemblies).Build(),
-                new BindingBuilder(Binding.For(typeof(Dolittle.Logging.ILogger))).To(logger).Build()
-            };
-
-            var result = Dolittle.DependencyInversion.Bootstrap.Boot.Start(assemblies, typeFinder, logger, bindings);
-            RouteBuilderExtensions.Container = result.Container;
-
             CreateWebHostBuilder(args).Build().Run();
         }
 
