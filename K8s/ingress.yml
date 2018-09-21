@@ -1,0 +1,17 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: continuousimprovement
+  namespace: dolittle
+  annotations:
+      traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+spec:
+  rules:
+  - host: dolittle.studio
+    http:
+      paths:
+      - path: /continuousimprovement
+        backend:
+          serviceName: continuousimprovement
+          servicePort: 80
