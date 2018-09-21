@@ -21,7 +21,7 @@ namespace EntryPoint
     {
         readonly IHostingEnvironment _hostingEnvironment;
         readonly ILoggerFactory _loggerFactory;
-        //BootResult _bootResult;
+        BootResult _bootResult;
 
         /// <summary>
         /// 
@@ -47,7 +47,7 @@ namespace EntryPoint
             });
             services.AddMvc();
 
-            //_bootResult = services.AddDolittle(_loggerFactory);
+            _bootResult = services.AddDolittle(_loggerFactory);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace EntryPoint
         /// <param name="containerBuilder"></param>
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
-            //containerBuilder.AddDolittle(_bootResult.Assemblies, _bootResult.Bindings);
+            containerBuilder.AddDolittle(_bootResult.Assemblies, _bootResult.Bindings);
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace EntryPoint
 
             app.UseGitHubTrigger();
 
-            //app.UseDolittle();
-            //app.RunAsSinglePageApplication();
+            app.UseDolittle();
+            app.RunAsSinglePageApplication();
         }
 
     }

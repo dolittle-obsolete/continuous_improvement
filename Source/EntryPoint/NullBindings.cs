@@ -5,7 +5,12 @@
 using System.Globalization;
 using System.Security.Claims;
 using Dolittle.DependencyInversion;
+using Dolittle.ReadModels;
+using Dolittle.ReadModels.MongoDB;
+using Dolittle.Runtime.Events.Store;
+using Dolittle.Runtime.Events.Store.MongoDB;
 using Dolittle.Security;
+using MongoDB.Driver;
 
 namespace EntryPoint
 {
@@ -17,9 +22,20 @@ namespace EntryPoint
         /// <inheritdoc/>
         public void Provide(IBindingProviderBuilder builder)
         {
-            builder.Bind<ClaimsPrincipal>().To(() => new ClaimsPrincipal(new ClaimsIdentity()));
-            builder.Bind<CultureInfo>().To(() => CultureInfo.InvariantCulture);
-            builder.Bind<ICanResolvePrincipal>().To(new DefaultPrincipalResolver());
+            var client = new MongoClient("mongodb://localhost:27017");
+ 	        var database = client.GetDatabase("EventStore");
+            var eventStoreConfig = new EventStoreConfig(database,Dolittle.Logging.Logger.Internal);
+            builder.Bind<EventStoreConfig>().To(eventStoreConfig);
+ 	 
+ 	        builder.Bind<IEventStore>().To<Dolittle.Runtime.Events.Store.MongoDB.EventStore>();            
+
+            builder.Bind<Dolittle.ReadModels.MongoDB.Configuration>().To(new Dolittle.ReadModels.MongoDB.Configuration
+            {
+                Url = "mongodb://localhost:27017",
+                UseSSL = false,
+                DefaultDatabase = "Demo"
+            });
+            builder.Bind(typeof(IReadModelRepositoryFor<>)).To(typeof(ReadModelRepositoryFor<>));
         }
     }
 }
