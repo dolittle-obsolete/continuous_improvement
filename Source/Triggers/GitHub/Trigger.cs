@@ -90,14 +90,13 @@ namespace Triggers.GitHub
                 return;
             }
 
-            response.StatusCode = StatusCodes.Status200OK;
-
+            #pragma warning disable 4014 // Don't force await - we want this to run in background and let GitHub continue their business
             Task.Run(() =>
             {
                 int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
 
                 var sourceControl = new SourceControlContext(project.Repository, "beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c", isPullRequest);
-                var context = new Context(tenantId, project, sourceControl, basePath, buildNumber);
+                var context = new Context(tenantId, project, sourceControl, projectPath, buildNumber);
                 var score = new ScoreOf<Context>(context);
                 score.AddStep<GetLatest>();
                 score.AddStep<GetVersion>();
@@ -105,14 +104,21 @@ namespace Triggers.GitHub
                 _conductor.Conduct(score);
             });
 
+            response.StatusCode = StatusCodes.Status200OK;
+
             await Task.CompletedTask;
         }
 
         int GetBuildNumberForCurrentBuild(string projectPath)
         {
             var buildNumberFile = Path.Combine(projectPath, "buildNumber");
-            var buildNumberAsText = File.ReadAllText(buildNumberFile);
-            var buildNumber = int.Parse(buildNumberAsText) + 1;
+            var buildNumber = 1;
+            
+            if( File.Exists(buildNumberFile)) 
+            {
+                var buildNumberAsText = File.ReadAllText(buildNumberFile);
+                buildNumber = int.Parse(buildNumberAsText) + 1;
+            }
             File.WriteAllText(buildNumberFile, buildNumber.ToString());
             return buildNumber;
         }
