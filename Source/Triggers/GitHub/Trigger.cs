@@ -92,7 +92,7 @@ namespace Triggers.GitHub
 
             response.StatusCode = StatusCodes.Status200OK;
 
-            await Task.Run(() =>
+            Task.Run(() =>
             {
                 int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
 
@@ -104,6 +104,8 @@ namespace Triggers.GitHub
                 score.AddStep<CompileAndPackage>();
                 _conductor.Conduct(score);
             });
+
+            await Task.CompletedTask;
         }
 
         int GetBuildNumberForCurrentBuild(string projectPath)
