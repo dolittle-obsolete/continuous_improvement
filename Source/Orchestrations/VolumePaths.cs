@@ -14,6 +14,11 @@ namespace Orchestrations
     public class VolumePaths
     {
         readonly Context _context;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="VolumePaths"/>
+        /// </summary>
+        /// <param name="context"><see cref="Context"/> for the paths</param>
         public VolumePaths(Context context)
         {
            _context = context;
