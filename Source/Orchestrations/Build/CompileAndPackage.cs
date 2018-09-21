@@ -52,6 +52,7 @@ namespace Orchestrations.Build
             var metadata = new V1ObjectMeta
             {
                 Name = Guid.NewGuid().ToString(),
+                Labels = { { "type", "build" } }
             };
 
             var job = new V1Job
