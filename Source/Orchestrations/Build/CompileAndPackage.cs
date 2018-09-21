@@ -18,19 +18,24 @@ namespace Orchestrations.Build
     /// <summary>
     /// Represents a <see cref="IPerformer{T}"/> that is capable of dealing with compilation and packaging
     /// </summary>
-    /// <typeparam name="Context"></typeparam>
     public class CompileAndPackage : IPerformer<Context>
     {
         readonly ILogger _logger;
+        readonly Kubernetes _kubernetes;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of <see cref="CompileAndPackage"/>
         /// </summary>
-        /// <param name="logger"></param>
-        public CompileAndPackage(ILogger logger)
+        /// <param name="kubernetes"><see cref="Kubernetes"/> client</param>
+        /// <param name="logger"><see cref="ILogger"/> for logging</param>
+        public CompileAndPackage(
+            Kubernetes kubernetes,
+            ILogger logger)
         {
+            _kubernetes = kubernetes;
             _logger = logger;
         }
+
 
         /// <inheritdoc/>
         public bool CanPerform(Context score)
@@ -42,26 +47,6 @@ namespace Orchestrations.Build
         public async Task Perform(Context context)
         {
             context.LogInformation("Compiling and packaging");
-
-            var localApi = "http://127.0.0.1:8001";
-            var kubernetesApi = Environment.GetEnvironmentVariable("KUBERNETES_API") ?? localApi;
-
-            var kubernetesTokenPath = "/var/run/secrets/kubernetes.io/serviceaccount/token";
-
-            var config = new KubernetesClientConfiguration 
-            { 
-                Host = kubernetesApi,
-                SkipTlsVerify = true
-            };
-            if( kubernetesApi != localApi && File.Exists(kubernetesTokenPath))
-            {
-                config.AccessToken = File.ReadAllText(kubernetesTokenPath);
-            }
-
-            _logger.Information($"Using Kubernetes API @ '{kubernetesApi}'");
-            _logger.Information($"Using Access Token '{config.AccessToken}'");
-            
-            var client = new Kubernetes(config);
 
             var @namespace = "dolittle";
             var metadata = new V1ObjectMeta
@@ -85,12 +70,13 @@ namespace Orchestrations.Build
                                 new V1Container {
                                     Name = "build",
                                     Image = $"dolittlebuild/{context.Project.Type}",
-                                    ImagePullPolicy = "IfNotPresent",
+                                    ImagePullPolicy = "Always",
                                     Env = new [] {
                                         new V1EnvVar("REPOSITORY",context.Project.Repository.ToString()),
                                         new V1EnvVar("COMMIT",context.SourceControl.Commit),
                                         new V1EnvVar("PULL_REQUEST", context.IsPullRequest.ToString()),
-                                        new V1EnvVar("VERSION", context.Version)
+                                        new V1EnvVar("VERSION", context.Version),
+                                        new V1EnvVar("CALLBACK", $"http://continuousimprovement/jobDone?jobName={metadata.Name}")
                                     },
                                     VolumeMounts = new[] {
                                         new V1VolumeMount {
@@ -137,19 +123,7 @@ namespace Orchestrations.Build
                 }
             };
 
-            await Task.Run(async () => {
-                var status = await client.CreateNamespacedJobAsync(job, @namespace);
-                for(;;) 
-                {
-                    Thread.Sleep(500);
-                    status = await client.ReadNamespacedJobStatusAsync(metadata.Name, @namespace);
-                    if( (status.Status.Active ?? 0) == 0 ) 
-                    {
-                        // Cleanup
-                        break;
-                    }
-                }
-            });
+            await _kubernetes.CreateNamespacedJobAsync(job, @namespace);
         }
     }
 }
