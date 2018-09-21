@@ -42,7 +42,7 @@ namespace Orchestrations.Build
             };
             if( kubernetesApi != localApi && File.Exists(kubernetesTokenPath))
             {
-                config.AccessToken = File.ReadAllText(kubernetesApi);
+                config.AccessToken = File.ReadAllText(kubernetesTokenPath);
             }
             
             var client = new Kubernetes(config);
