@@ -5,14 +5,14 @@
 namespace Infrastructure.Orchestrations
 {
     /// <summary>
-    /// Defines the conductor that conduct a <see cref="Score"/>
+    /// Defines the conductor that conduct a <see cref="ScoreOf{T}"/>
     /// </summary>
     public interface IConductor
     {
         /// <summary>
-        /// Conduct a specific <see cref="Score"/>
+        /// Conduct a specific <see cref="ScoreOf{T}"/>
         /// </summary>
-        /// <param name="score"></param>
+        /// <param name="score"><see cref="ScoreOf{T}">Score</see> to conduct</param>
         void Conduct<T>(ScoreOf<T> score);
     }
 }
