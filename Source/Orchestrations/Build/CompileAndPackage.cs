@@ -50,7 +50,8 @@ namespace Orchestrations.Build
 
             var config = new KubernetesClientConfiguration 
             { 
-                Host = kubernetesApi
+                Host = kubernetesApi,
+                SkipTlsVerify = true
             };
             if( kubernetesApi != localApi && File.Exists(kubernetesTokenPath))
             {
