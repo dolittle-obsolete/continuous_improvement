@@ -36,7 +36,7 @@ namespace Infrastructure.Orchestrations
         /// <summary>
         /// Add a step to the score
         /// </summary>
-        /// <param name="performer"></param>
+        /// <typeparam name="TPerformer">Type of performer</typeparam>
         public void AddStep<TPerformer>() where TPerformer:IPerformer<T>
         {
             _steps.Add(typeof(TPerformer));
