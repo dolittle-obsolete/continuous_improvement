@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +31,20 @@ namespace Orchestrations.Build
         {
             context.LogInformation("Compiling and packaging");
 
-            var config = new KubernetesClientConfiguration { Host = "http://127.0.0.1:8001" };
+            var localApi = "http://127.0.0.1:8001";
+            var kubernetesApi = Environment.GetEnvironmentVariable("KUBERNETES_API") ?? localApi;
+
+            var kubernetesTokenPath = "/var/run/secrets/kubernetes.io/serviceaccount/token";
+
+            var config = new KubernetesClientConfiguration 
+            { 
+                Host = kubernetesApi
+            };
+            if( kubernetesApi != localApi && File.Exists(kubernetesTokenPath))
+            {
+                config.AccessToken = File.ReadAllText(kubernetesApi);
+            }
+            
             var client = new Kubernetes(config);
 
             var @namespace = "dolittle";
