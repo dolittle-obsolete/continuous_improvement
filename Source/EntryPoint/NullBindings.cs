@@ -5,8 +5,6 @@
 using System.Globalization;
 using System.Security.Claims;
 using Dolittle.DependencyInversion;
-using Dolittle.Execution;
-using Dolittle.Runtime.Execution;
 using Dolittle.Security;
 
 namespace EntryPoint
@@ -19,10 +17,8 @@ namespace EntryPoint
         /// <inheritdoc/>
         public void Provide(IBindingProviderBuilder builder)
         {
-            builder.Bind<ExecutionContextPopulator>().To((ExecutionContext, details) => { });
             builder.Bind<ClaimsPrincipal>().To(() => new ClaimsPrincipal(new ClaimsIdentity()));
             builder.Bind<CultureInfo>().To(() => CultureInfo.InvariantCulture);
-            builder.Bind<ICallContext>().To(new DefaultCallContext());
             builder.Bind<ICanResolvePrincipal>().To(new DefaultPrincipalResolver());
         }
     }

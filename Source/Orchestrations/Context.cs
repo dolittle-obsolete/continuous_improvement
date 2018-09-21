@@ -4,39 +4,35 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using System.IO;
-using Dolittle.Runtime.Tenancy;
+using Dolittle.Tenancy;
 using Read.Configuration;
 
 namespace Orchestrations
 {
+
     /// <summary>
     /// Represents the continuous improvement context 
     /// </summary>
-    public class Context
+    public partial class Context
     {
         /// <summary>
         /// Initializes a new instance of <see cref="Context"/>
         /// </summary>
         /// <param name="project"><see cref="Project"/> configuration</param>
-        /// <param name="commit"><see cref="string">Commit</see> to build</param>
-        /// <remarks>
-        /// Commit is typically the SHA in Git for instance - currently Git is the only supported
-        /// source control provider
-        /// </remarks>
+        /// <param name="sourceControlContext"><see cref="SourceControlContext"/> to build</param>
         public Context(
             TenantId tenantId,
             Project project,
+            SourceControlContext sourceControlContext,
             string basePath,
-            string commit,
-            int buildNumber,
-            bool isPullRequest)
+            int buildNumber)
         {
             Tenant = tenantId;
             Project = project;
             BasePath = basePath;
-            Commit = commit;
             BuildNumber = buildNumber;
-            IsPullRequest = isPullRequest;
+            Version = $"1.0.0-{BuildNumber}";
+            Volumes = new VolumePaths(this);
         }
 
         /// <summary>
@@ -50,14 +46,14 @@ namespace Orchestrations
         public Project Project { get; }
 
         /// <summary>
+        /// Gets the <see cref="SourceControlContext"/>
+        /// </summary>
+        public SourceControlContext SourceControl { get; }
+
+        /// <summary>
         /// Gets the path to the folder where the source is located
         /// </summary>
         public string BasePath { get; }
-
-        /// <summary>
-        /// Gets the commit that triggered the build
-        /// </summary>
-        public string Commit { get; }
 
         /// <summary>
         /// Gets the build number for the context
@@ -70,55 +66,27 @@ namespace Orchestrations
         public bool IsPullRequest { get; }
 
         /// <summary>
-        /// Gets or sets the  version for the context
+        /// Gets the paths for volumes
         /// </summary>
-        public string Version { get; set;  } = "1.0.0";
-
-        /// <summary>
-        /// Gets the root folder of the project
-        /// </summary>
-        public string ProjectRoot => Path.Combine(Tenant.ToString(), Project.Id.ToString());
-
-        /// <summary>
-        /// Gets the root folder of the version being built
-        /// </summary>
-        public string VersionRoot => Path.Combine(ProjectRoot, Version);
-
-        /// <summary>
-        /// Gets the path to the packages - typically used for deployable packages
-        /// </summary>
-        public string PackagePath => Path.Combine(VersionRoot,"packages");
+        public VolumePaths Volumes { get; }
 
         /// <summary>
         /// Gets the path to the source
         /// </summary>
-        public string SourcePath => Path.Combine(ProjectRoot,"source");
+        public string SourcePath 
+        {
+            get
+            {
+                return SourceControl.IsPullRequest?
+                            Path.Combine(BasePath,Version,"source"):
+                            Path.Combine(BasePath,"source");
+            }
+        }
 
         /// <summary>
-        /// Gets the path to the output - typically used for build logs
+        /// Gets or sets the  version for the context
         /// </summary>
-        public string OutputPath => Path.Combine(VersionRoot,"output");
-
-        /// <summary>
-        /// Gets the path to publishable artifacts
-        /// </summary>
-        public string PublishPath => Path.Combine(VersionRoot,"publish");
-
-        /// <summary>
-        /// Gets the full path to the source 
-        /// </summary>
-        public string FullSourcePath => Path.Combine(BasePath, SourcePath);
-
-        /// <summary>
-        /// Gets the full path to the log file
-        /// </summary>
-        public string LogFile => Path.Combine(BasePath, OutputPath, "log.txt");
-
-        /// <summary>
-        /// Gets the path to test results
-        /// </summary>
-        /// <value></value>
-        public string TestResultsPath { get; }
+        public string Version { get; set; } 
 
         /// <summary>
         /// Append information to log file
@@ -126,9 +94,10 @@ namespace Orchestrations
         /// <param name="message">Message to append</param>
         public void LogInformation(string message)
         {
-            var outputFolder = Path.GetDirectoryName(LogFile);
+            var outputFolder = Volumes.OutputPath;
+            var logFile = Path.Combine(outputFolder,"logs.txt");
             if( !Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
-            File.AppendAllText(LogFile,$"{message}\n");
+            File.AppendAllText(logFile,$"{message}\n");
             Console.WriteLine(message);
         }
     }

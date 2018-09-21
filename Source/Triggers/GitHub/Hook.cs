@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 
-namespace EntryPoint.GitHub
+namespace Triggers.GitHub
 {
     #pragma warning disable 1591
     public class Hook

@@ -2,8 +2,7 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-
-namespace Orchestrations
+namespace Infrastructure.Orchestrations
 {
     /// <summary>
     /// Defines the conductor that conduct a <see cref="Score"/>

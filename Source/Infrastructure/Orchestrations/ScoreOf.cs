@@ -2,16 +2,17 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+using System;
 using System.Collections.Generic;
 
-namespace Orchestrations
+namespace Infrastructure.Orchestrations
 {
     /// <summary>
     /// Represents a score that can be performed and should be <see cref="IConductor">conducted</see>
     /// </summary>
     public class ScoreOf<T>
     {
-        readonly List<IPerformer<T>> _steps = new List<IPerformer<T>>();
+        readonly List<Type> _steps = new List<Type>();
 
         /// <summary>
         /// Initializes a new instance of <see cref="ScoreOf{T}"/>
@@ -30,15 +31,15 @@ namespace Orchestrations
         /// <summary>
         /// Gets all the steps for the score
         /// </summary>
-        public IEnumerable<IPerformer<T>> Steps => _steps;
+        public IEnumerable<Type> Steps => _steps;
 
         /// <summary>
         /// Add a step to the score
         /// </summary>
         /// <param name="performer"></param>
-        public void AddStep(IPerformer<T> performer)
+        public void AddStep<TPerformer>() where TPerformer:IPerformer<T>
         {
-            _steps.Add(performer);
+            _steps.Add(typeof(TPerformer));
         }
     }
 }
