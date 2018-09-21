@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: continuousimprovement
+  namespace: dolittle
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: continuousimprovement
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - create
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: continuousimprovement
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: continuousimprovement
+subjects:
+- kind: ServiceAccount
+  name: continuousimprovement
+  namespace: dolittle
