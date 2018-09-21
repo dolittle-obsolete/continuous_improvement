@@ -31,6 +31,7 @@ namespace Orchestrations
             Project = project;
             BasePath = basePath;
             BuildNumber = buildNumber;
+            SourceControl = sourceControlContext;
             Version = $"1.0.0-{BuildNumber}";
             Volumes = new VolumePaths(this);
         }
@@ -94,7 +95,7 @@ namespace Orchestrations
         /// <param name="message">Message to append</param>
         public void LogInformation(string message)
         {
-            var outputFolder = Volumes.OutputPath;
+            var outputFolder = Path.Combine(BasePath,Version,"output");
             var logFile = Path.Combine(outputFolder,"logs.txt");
             if( !Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
             File.AppendAllText(logFile,$"{message}\n");
