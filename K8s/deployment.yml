@@ -11,6 +11,7 @@
           app: continuousimprovement
           name: continuousimprovement
       spec:
+        serviceAccountName: continuousimprovement
         containers:
         - name: continuousimprovement
           image: dolittle/continuousimprovement
@@ -21,7 +22,7 @@
           - name: "BASE_PATH"
             value: "/build"
           - name: "KUBERNETES_API"
-            value: "http://kubernetes.default.svc"
+            value: "https://kubernetes.default.svc"
           volumeMounts:
           - name: azure
             mountPath: /build           
