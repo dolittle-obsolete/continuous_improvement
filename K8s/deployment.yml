@@ -1,0 +1,33 @@
+---
+  kind: Deployment
+  apiVersion: extensions/v1beta1
+  metadata:
+    name: continuousimprovement
+    namespace: dolittle
+  spec:
+    template:
+      metadata:
+        labels:
+          app: continuousimprovement
+          name: continuousimprovement
+      spec:
+        containers:
+        - name: continuousimprovement
+          image: dolittle/continuousimprovement
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+          env:
+          - name: "BASE_PATH"
+            value: "/build"
+          - name: "KUBERNETES_API"
+            value: "http://kubernetes.default.svc"
+          volumeMounts:
+          - name: azure
+            mountPath: /build           
+        volumes:
+          - name: azure
+            azureFile:
+              secretName: azure-storage-secret
+              shareName: continuousimprovement
+              readOnly: false            
