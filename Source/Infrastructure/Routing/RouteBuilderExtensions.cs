@@ -6,7 +6,7 @@ using Dolittle.DependencyInversion;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Infrastructure
+namespace Infrastructure.Routing
 {
     /// <summary>
     /// Extensions for <see cref="RouteBuilder"/>

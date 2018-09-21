@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Infrastructure.Orchestrations;
 using LibGit2Sharp;
 
 namespace Orchestrations.SourceControl
@@ -23,7 +24,7 @@ namespace Orchestrations.SourceControl
         /// <inheritdoc/>
         public Task Perform(Context score)
         {
-            var gitFolder = Path.Combine(score.FullSourcePath, ".git");
+            var gitFolder = Path.Combine(score.SourcePath, ".git");
             if (!Directory.Exists(gitFolder))
             {
                 score.LogInformation("Cloning");
@@ -41,12 +42,12 @@ namespace Orchestrations.SourceControl
                 */
                 //if( Directory.Exists(score.SourcePath) ) Directory.Delete(score.SourcePath);
 
-                Repository.Clone(score.Project.Repository.ToString(), score.FullSourcePath, cloneOptions);
+                Repository.Clone(score.Project.Repository.ToString(), score.SourcePath, cloneOptions);
             }
             else
             {
                 score.LogInformation("Repository already exists - pulling latest");
-                using(var repo = new Repository(score.FullSourcePath))
+                using(var repo = new Repository(score.SourcePath))
                 {
                     var pullOptions = new PullOptions();
                     pullOptions.FetchOptions = new FetchOptions();

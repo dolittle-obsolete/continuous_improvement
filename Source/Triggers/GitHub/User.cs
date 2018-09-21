@@ -2,23 +2,27 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-
-namespace EntryPoint.GitHub
+namespace Triggers.GitHub
 {
     #pragma warning disable 1591
-    public class Organization
+    public class User
     {
         public string login;
-        public string id;
-        public string node_id;
+        public int id;
+        public string avatar_url;
+        public string gravatar_id;
         public string url;
+        public string html_url;
+        public string followers_url;
+        public string following_url;
+        public string gists_url;
+        public string starred_url;
+        public string subscription_url;
+        public string organizations_url;
         public string repos_url;
         public string events_url;
-        public string hooks_url;
-        public string issues_url;
-        public string members_url;
-        public string public_members_url;
-        public string avatar_url;
-        public string description;
+        public string received_events_url;
+        public string type;
+        public bool site_admin;
     }
 }

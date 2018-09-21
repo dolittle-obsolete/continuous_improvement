@@ -6,17 +6,11 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Autofac.Extensions.DependencyInjection;
 using System.IO;
-using Orchestrations.Build;
-using Orchestrations;
-using Dolittle.Hosting;
-using Dolittle.Serialization.Json;
-using Read.Configuration;
 using Dolittle.DependencyInversion;
 using Dolittle.Assemblies;
 using Microsoft.Extensions.Logging;
 using Dolittle.Logging;
-using Orchestrations.SourceControl;
-using Infrastructure;
+using Infrastructure.Routing;
 
 namespace EntryPoint
 {
@@ -54,7 +48,6 @@ namespace EntryPoint
         static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
-                
                 .ConfigureServices(services => services.AddAutofac())
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>();

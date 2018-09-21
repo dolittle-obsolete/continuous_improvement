@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace Infrastructure
+namespace Infrastructure.Routing
 {
     /// <summary>
     /// Defines a handler for routes

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System.Threading.Tasks;
 
-namespace Orchestrations
+namespace Infrastructure.Orchestrations
 {
     /// <summary>
     /// Defines a performer in an orchestra

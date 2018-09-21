@@ -7,11 +7,10 @@ using Dolittle.AspNetCore.Bootstrap;
 using Dolittle.DependencyInversion.Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using Infrastructure;
+using Triggers;
 
 namespace EntryPoint
 {
@@ -82,9 +81,7 @@ namespace EntryPoint
 
             app.UseMvc();
 
-            var routeBuilder = new RouteBuilder(app);
-            routeBuilder.MapPost<GitHub.Trigger>(app,$"triggers/github/{{{GitHub.Trigger.TenantRouteValueName}:guid}}/{{{GitHub.Trigger.ProjectRouteValueName}:guid}}");
-            app.UseRouter(routeBuilder.Build());
+            app.UseGitHubTrigger();
 
             //app.UseDolittle();
             //app.RunAsSinglePageApplication();

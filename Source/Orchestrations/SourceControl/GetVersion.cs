@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure.Orchestrations;
 using LibGit2Sharp;
 
 namespace Orchestrations.SourceControl
@@ -23,7 +24,7 @@ namespace Orchestrations.SourceControl
         public Task Perform(Context score)
         {
             score.LogInformation("Getting version");
-            using(var repo = new Repository(score.FullSourcePath))
+            using(var repo = new Repository(score.SourcePath))
             { 
                 var tag = repo.Tags.ToArray().LastOrDefault();
                 if( tag != null ) score.Version = $"{tag.FriendlyName}.{score.BuildNumber}";
