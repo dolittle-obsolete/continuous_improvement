@@ -94,6 +94,7 @@ namespace Triggers.GitHub
             Task.Run(() =>
             {
                 int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
+                _logger.Information($"BuildNumber is {buildNumber}");
 
                 var sourceControl = new SourceControlContext(project.Repository, "beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c", isPullRequest);
                 var context = new Context(tenantId, project, sourceControl, projectPath, buildNumber);
