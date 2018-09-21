@@ -24,50 +24,68 @@ namespace Orchestrations.SourceControl
         /// <inheritdoc/>
         public Task Perform(Context score)
         {
+            score.LogInformation($"Get latest source into '{score.SourcePath}'");
+
             var gitFolder = Path.Combine(score.SourcePath, ".git");
             if (!Directory.Exists(gitFolder))
-            {
-                score.LogInformation("Cloning");
-                var cloneOptions = new CloneOptions();
-                cloneOptions.RecurseSubmodules = true;
-                cloneOptions.OnCheckoutProgress = (string path, int completedSteps, int totalSteps) => score.LogInformation(path);
-
-                /*
-                cloneOptions.CredentialsProvider = (_url, _user, _cred) => 
-                                                        new UsernamePasswordCredentials 
-                                                        {
-                                                            Username = "username", 
-                                                            Password = "password"
-                                                        };
-                */
-                //if( Directory.Exists(score.SourcePath) ) Directory.Delete(score.SourcePath);
-
-                Repository.Clone(score.Project.Repository.ToString(), score.SourcePath, cloneOptions);
-            }
+                Clone(score);
             else
             {
-                score.LogInformation("Repository already exists - pulling latest");
-                using(var repo = new Repository(score.SourcePath))
+                try
                 {
-                    var pullOptions = new PullOptions();
-                    pullOptions.FetchOptions = new FetchOptions();
-                    var signature = new Signature(
-                        new Identity("<Dolittle CI>", "post@dolittle.com"), DateTimeOffset.Now);
-
-                    pullOptions.FetchOptions.Prune = true;
-                    pullOptions.FetchOptions.TagFetchMode = TagFetchMode.All;
-                    pullOptions.FetchOptions.OnProgress = (string message) => {
-                        score.LogInformation(message);
-                        return true;
-                    };
-
-                    Commands.Pull(repo, signature, pullOptions);
+                    Pull(score);
+                } 
+                catch
+                {
+                    score.LogInformation("Problems pulling - recreating");
+                    Directory.Delete(score.SourcePath, true);
+                    Clone(score);
                 }
             }
 
-            // Checkout specific commit
-
             return Task.CompletedTask;
+        }
+
+        void Pull(Context score)
+        {
+            score.LogInformation("Repository already exists - pulling latest");
+            using(var repo = new Repository(score.SourcePath))
+            {
+                var pullOptions = new PullOptions();
+                pullOptions.FetchOptions = new FetchOptions();
+                var signature = new Signature(
+                    new Identity("<Dolittle CI>", "post@dolittle.com"), DateTimeOffset.Now);
+
+                pullOptions.FetchOptions.Prune = true;
+                pullOptions.FetchOptions.TagFetchMode = TagFetchMode.All;
+                pullOptions.FetchOptions.OnProgress = (string message) =>
+                {
+                    score.LogInformation(message);
+                    return true;
+                };
+
+                Commands.Pull(repo, signature, pullOptions);
+            }
+        }
+
+        void Clone(Context score)
+        {
+            score.LogInformation("Cloning");
+            var cloneOptions = new CloneOptions();
+            cloneOptions.RecurseSubmodules = true;
+            cloneOptions.OnCheckoutProgress = (string path, int completedSteps, int totalSteps) => score.LogInformation(path);
+
+            /*
+            cloneOptions.CredentialsProvider = (_url, _user, _cred) => 
+                                                    new UsernamePasswordCredentials 
+                                                    {
+                                                        Username = "username", 
+                                                        Password = "password"
+                                                    };
+            */
+            //if( Directory.Exists(score.SourcePath) ) Directory.Delete(score.SourcePath);
+
+            Repository.Clone(score.Project.Repository.ToString(), score.SourcePath, cloneOptions);
         }
     }
 }
