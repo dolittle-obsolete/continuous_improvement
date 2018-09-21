@@ -18,8 +18,11 @@ namespace Orchestrations
         /// <summary>
         /// Initializes a new instance of <see cref="Context"/>
         /// </summary>
+        /// <param name="tenantId"><see cref="TenantId"/> for the context</param>
         /// <param name="project"><see cref="Project"/> configuration</param>
         /// <param name="sourceControlContext"><see cref="SourceControlContext"/> to build</param>
+        /// <param name="basePath">Base path for the build</param>
+        /// <param name="buildNumber">Build number for the context</param>
         public Context(
             TenantId tenantId,
             Project project,
