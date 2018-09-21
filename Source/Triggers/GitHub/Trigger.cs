@@ -5,8 +5,10 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Dolittle.Logging;
 using Dolittle.Serialization.Json;
 using Infrastructure.Orchestrations;
 using Infrastructure.Routing;
@@ -33,63 +35,75 @@ namespace Triggers.GitHub
         /// Gets the route value name holding the project
         /// </summary>
         public const string ProjectRouteValueName = "project";
+
         readonly ISerializer _serializer;
         readonly IConductor _conductor;
+        readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Trigger"/>
         /// </summary>
-        /// <param name="serializer"></param>
-        /// <param name="conductor"></param>
-        public Trigger(ISerializer serializer, IConductor conductor)
+        /// <param name="serializer">The <see cref="ISerializer"/> to use for deserialization of configuration and payloads</param>
+        /// <param name="conductor">The <see cref="IConductor"/> of the score></param>
+        /// <param name="logger">The <see cref="ILogger"/> used for logging</param>
+        public Trigger(
+            ISerializer serializer,
+            IConductor conductor,
+            ILogger logger)
         {
             _serializer = serializer;
             _conductor = conductor;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
+            _logger.Information("Handling trigger");
+
             var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
             var tenantId = Guid.Parse(routeData.Values[TenantRouteValueName].ToString());
             var projectId = Guid.Parse(routeData.Values[ProjectRouteValueName].ToString());
             var projectPath = Path.Combine(basePath, tenantId.ToString(), projectId.ToString());
             var configurationFile = Path.Combine(projectPath, "configuration.json");
 
-            // Secret key - if not present - return Not authorized
-            // StatusCodes.Status401Unauthorized
-
+            var projectAsJson = File.ReadAllText(configurationFile);
+            var project = _serializer.FromJson<Project>(projectAsJson);
 
             var @event = request.Headers["X-GitHub-Event"];
             var delivery = request.Headers["X-GitHub-Delivery"];
             var signature = request.Headers["X-Hub-Signature"];
-
             var isPullRequest = @event.Contains("pull-request");
 
             var content = new byte[request.ContentLength.Value];
             await request.Body.ReadAsync(content, 0, content.Length);
             var json = Encoding.UTF8.GetString(content);
 
-            //File.WriteAllText("payload.json",json);
-            //var payload = _serializer.FromJson<Payload>(json);
-
-
-            var projectAsJson = File.ReadAllText(configurationFile);
-            var project = _serializer.FromJson<Project>(projectAsJson);
-            int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
-
-            var sourceControl = new SourceControlContext(project.Repository,"beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c", isPullRequest);
-           
-            var context = new Context(tenantId, project, sourceControl, basePath, buildNumber);
-            var score = new ScoreOf<Context>(context);
-            score.AddStep<GetLatest>();
-            score.AddStep<GetVersion>();
-            score.AddStep<CompileAndPackage>();
-
-            _conductor.Conduct(score);
+            var secret = Encoding.UTF8.GetBytes(project.SecretKey);
+            var sha1 = GetSHA1(json, secret);
+            var expectedSignature = $"sha1={sha1}";
+            _logger.Information($"Received signature '{signature}'");
+            _logger.Information($"Expected signature '{expectedSignature}");
+            if (!signature.Any(_ => _ == expectedSignature))
+            {
+                response.StatusCode = StatusCodes.Status401Unauthorized;
+                return;
+            }
 
             response.StatusCode = StatusCodes.Status200OK;
-            await Task.CompletedTask;
+
+            await Task.Run(() =>
+            {
+                int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
+
+                var sourceControl = new SourceControlContext(project.Repository, "beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c", isPullRequest);
+                var context = new Context(tenantId, project, sourceControl, basePath, buildNumber);
+                var score = new ScoreOf<Context>(context);
+                score.AddStep<GetLatest>();
+                score.AddStep<GetVersion>();
+                score.AddStep<CompileAndPackage>();
+                _conductor.Conduct(score);
+            });
         }
 
         int GetBuildNumberForCurrentBuild(string projectPath)
@@ -99,6 +113,16 @@ namespace Triggers.GitHub
             var buildNumber = int.Parse(buildNumberAsText) + 1;
             File.WriteAllText(buildNumberFile, buildNumber.ToString());
             return buildNumber;
+        }
+
+        string GetSHA1(string input, byte[] key)
+        {
+            byte[] byteArray = Encoding.ASCII.GetBytes(input);
+            using(var myhmacsha1 = new HMACSHA1(key))
+            {
+                var hashArray = myhmacsha1.ComputeHash(byteArray);
+                return hashArray.Aggregate("", (s, e) => s + String.Format("{0:x2}", e), s => s);
+            }
         }
     }
 }
