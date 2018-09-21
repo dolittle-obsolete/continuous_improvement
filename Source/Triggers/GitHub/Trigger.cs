@@ -50,19 +50,21 @@ namespace Triggers.GitHub
         /// <inheritdoc/>
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
+            var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
+            var tenantId = Guid.Parse(routeData.Values[TenantRouteValueName].ToString());
+            var projectId = Guid.Parse(routeData.Values[ProjectRouteValueName].ToString());
+            var projectPath = Path.Combine(basePath, tenantId.ToString(), projectId.ToString());
+            var configurationFile = Path.Combine(projectPath, "configuration.json");
+
+            // Secret key - if not present - return Not authorized
+            // StatusCodes.Status401Unauthorized
+
+
             var @event = request.Headers["X-GitHub-Event"];
             var delivery = request.Headers["X-GitHub-Delivery"];
             var signature = request.Headers["X-Hub-Signature"];
 
             var isPullRequest = @event.Contains("pull-request");
-
-            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "Builds");
-            basePath = "/Volumes/continuousimprovement";
-
-            var tenantId = Guid.Parse(routeData.Values[TenantRouteValueName].ToString());
-            var projectId = Guid.Parse(routeData.Values[ProjectRouteValueName].ToString());
-
-            var projectPath = Path.Combine(basePath, tenantId.ToString(), projectId.ToString());
 
             var content = new byte[request.ContentLength.Value];
             await request.Body.ReadAsync(content, 0, content.Length);
@@ -71,7 +73,6 @@ namespace Triggers.GitHub
             //File.WriteAllText("payload.json",json);
             //var payload = _serializer.FromJson<Payload>(json);
 
-            var configurationFile = Path.Combine(projectPath, "configuration.json");
 
             var projectAsJson = File.ReadAllText(configurationFile);
             var project = _serializer.FromJson<Project>(projectAsJson);
