@@ -24,6 +24,11 @@ namespace Read.Configuration
         public ProjectName Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the secret key that is used to verify that the trigger is legitimate
+        /// </summary>
+        public string SecretKey { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="Uri"/> for the repository to use
         /// </summary>
         public Uri Repository { get; set; }
