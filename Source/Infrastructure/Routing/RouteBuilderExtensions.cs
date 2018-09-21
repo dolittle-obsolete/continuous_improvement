@@ -13,8 +13,6 @@ namespace Infrastructure.Routing
     /// </summary>
     public static class RouteBuilderExtensions
     {
-        public static IContainer Container;
-
         /// <summary>
         /// Map a Post method to a <see cref="ICanHandleRoute"/>
         /// </summary>
@@ -25,8 +23,7 @@ namespace Infrastructure.Routing
         public static void MapPost<T>(this RouteBuilder routeBuilder, IApplicationBuilder application, string template) where T:ICanHandleRoute
         {
             routeBuilder.MapPost(template, async (request, response, routeData) => {
-                //var handler = (T)application.ApplicationServices.GetService(typeof(T));
-                var handler = Container.Get<T>();
+                var handler = (T)application.ApplicationServices.GetService(typeof(T));
                 await handler.Handle(request, response, routeData);
             });
         }
