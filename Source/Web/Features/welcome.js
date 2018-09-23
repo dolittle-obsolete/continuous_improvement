@@ -20,7 +20,7 @@ export class welcome {
 
         var query = new AllProjects();
         this._queryCoordinator.execute(query).then(result => {
-            result.items.forEach(_ => self.projects.push(_));
+            self.projects = result.items;
         });
     }
 
@@ -33,9 +33,7 @@ export class welcome {
         var query = new ImprovementsForProject();
         query.project = id;
         this._queryCoordinator.execute(query).then(result => {
-            debugger;
-            result.items.forEach(_ => self.improvements.push(_));
+            self.improvements = result.items;
         });
-
     }
 }
