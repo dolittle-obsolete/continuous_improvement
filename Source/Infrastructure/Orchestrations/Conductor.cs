@@ -2,10 +2,12 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+using System.Reflection;
 using System.Threading.Tasks;
 using Dolittle.Collections;
 using Dolittle.DependencyInversion;
 using Dolittle.Logging;
+using Dolittle.Reflection;
 
 namespace Infrastructure.Orchestrations
 {
@@ -31,23 +33,36 @@ namespace Infrastructure.Orchestrations
         /// <inheritdoc/>
         public void Conduct<T>(ScoreOf<T> score)
         {
-            score.Steps.ForEach(_ =>
+            score.Steps.ForEach(step =>
             {
-                _logger.Information($"Performer {_.Name}");
-                var performer = _container.Get(_);
-                var canPerform = _.GetMethod("CanPerform");
-                var perform = _.GetMethod("Perform");
-                var context = score.Context;
-
-                _logger.Information($"Checking if performer can perform");
-                if ((bool) canPerform.Invoke(performer, new object[] { context }))
-                {
-                    _logger.Information("Perfoming");
-                    var task = perform.Invoke(performer, new object[] { context }) as Task;
-                    task.Wait();
-                    _logger.Information("Performed");
-                }
+                _logger.Information($"Performer {step.Type.Name}");
+                var performer = _container.Get(step.Type);
+                SetConfigurationForPerformer(step, performer);
+                PerformIfCanPerform(score.Context, step, performer);
             });
+        }
+
+        void PerformIfCanPerform<T>(T context, Step step, object performer)
+        {
+            var canPerform = step.Type.GetMethod("CanPerform");
+            var perform = step.Type.GetMethod("Perform");
+            _logger.Information($"Checking if performer can perform");
+            if ((bool)canPerform.Invoke(performer, new object[] { context }))
+            {
+                _logger.Information("Perfoming");
+                var task = perform.Invoke(performer, new object[] { context }) as Task;
+                task.Wait();
+                _logger.Information("Performed");
+            }
+        }
+
+        void SetConfigurationForPerformer(Step step, object performer)
+        {
+            if (step.Configuration != null && step.Type.HasInterface(typeof(INeedConfigurationOf<>)))
+            {
+                var configProperty = step.Type.GetProperty("Config", BindingFlags.Public | BindingFlags.Instance);
+                configProperty.SetValue(performer, step.Configuration);
+            }
         }
     }
 }
