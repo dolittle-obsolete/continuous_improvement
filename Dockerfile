@@ -9,22 +9,23 @@ WORKDIR /src/Source/EntryPoint
 RUN dotnet restore --ignore-failed-sources
 RUN dotnet publish -c Release -o out
 
-# Build the static content
-# FROM node:latest AS node-build
-# WORKDIR /src
-# COPY ./Source/Web/. ./Source/Web
-# WORKDIR /src/Source/Web
-# RUN yarn global add webpack
-# RUN yarn global add webpack-cli
-# RUN yarn add babel-loader
-# RUN yarn
-# RUN webpack -p --env.production
+ # Build the interaction layer
+ FROM node:latest AS node-build
+ WORKDIR /src
+ COPY ./Source/Web/. ./Source/Web
+ WORKDIR /src/Source/Web
+ RUN yarn global add webpack
+ RUN yarn global add webpack-cli
+ RUN yarn add babel-loader@7
+ RUN yarn
+ RUN webpack -p --env.production
+ #--output-public-path /continuousimprovement
 
 # Build runtime image
 FROM microsoft/dotnet:2.2-sdk-bionic
 WORKDIR /app
 COPY --from=dotnet-build /src/Source/EntryPoint/out ./
-# COPY --from=node-build /src/Source/Web/wwwroot ./wwwroot
+COPY --from=node-build /src/Source/Web/wwwroot ./wwwroot
 
 ENV BASE_PATH=
 ENV KUBERNETES_API=
