@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orchestrations.Build;
 using Swashbuckle.AspNetCore.Swagger;
-using Triggers;
+using Orchestrations.Triggers;
 using Infrastructure.Routing;
 
 namespace EntryPoint
@@ -93,6 +93,5 @@ namespace EntryPoint
             app.UseDolittle();
             app.RunAsSinglePageApplication();
         }
-
     }
 }

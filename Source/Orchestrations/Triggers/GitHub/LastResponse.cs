@@ -2,15 +2,13 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-namespace Triggers.GitHub
+namespace Orchestrations.Triggers.GitHub
 {
     #pragma warning disable 1591
-    public class PullRequestCommit
+    public class LastResponse
     {
-        public string label;
-        public string @ref;
-        public string sha;
-        public User user;
-        public Repository repository;
+        public string code;
+        public string status;
+        public string message;
     }
 }

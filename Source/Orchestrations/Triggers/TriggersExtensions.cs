@@ -6,7 +6,7 @@ using Infrastructure.Routing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Triggers
+namespace Orchestrations.Triggers
 {
     /// <summary>
     /// Holds extension methods to work with setting up triggers
