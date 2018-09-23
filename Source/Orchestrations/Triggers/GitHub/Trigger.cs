@@ -19,7 +19,7 @@ using Orchestrations.Build;
 using Orchestrations.SourceControl;
 using Read.Configuration;
 
-namespace Triggers.GitHub
+namespace Orchestrations.Triggers.GitHub
 {
     /// <summary>
     /// Represents a handler for triggers coming from GitHub

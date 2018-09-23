@@ -20,7 +20,6 @@
     <ProjectReference Include="..\Read\Read.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Orchestrations\Orchestrations.csproj" />
-    <ProjectReference Include="..\Triggers\Triggers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

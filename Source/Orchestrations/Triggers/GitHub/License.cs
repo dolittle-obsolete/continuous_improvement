@@ -2,13 +2,15 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-namespace Triggers.GitHub
+namespace Orchestrations.Triggers.GitHub
 {
     #pragma warning disable 1591
-    public class LastResponse
+    public class License
     {
-        public string code;
-        public string status;
-        public string message;
+        public string key { get; set; }
+        public string name { get; set; }
+        public string spdx_id { get; set; }
+        public string url { get; set; }
+        public string node_id { get; set; }
     }
 }
