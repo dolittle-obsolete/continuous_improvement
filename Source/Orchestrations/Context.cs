@@ -9,11 +9,10 @@ using Read.Configuration;
 
 namespace Orchestrations
 {
-
     /// <summary>
     /// Represents the continuous improvement context 
     /// </summary>
-    public partial class Context
+    public class Context
     {
         /// <summary>
         /// Initializes a new instance of <see cref="Context"/>
