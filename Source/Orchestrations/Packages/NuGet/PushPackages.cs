@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Dolittle.Collections;
 using Infrastructure.Orchestrations;
 using NuGet.Configuration;
 
@@ -36,7 +37,7 @@ namespace Orchestrations.Packages.NuGet
             var packageSourceProvider = new PackageSourceProvider(settings);
 
             var repositoriesToPushTo = Config.Repositories.Where(_ => _.CanPush(score));
-            await repositoriesToPushTo.ForEach(async _ =>
+            Parallel.ForEach(repositoriesToPushTo, async _ =>
             {
                 try
                 {
@@ -63,6 +64,8 @@ namespace Orchestrations.Packages.NuGet
                     throw;
                 }
             });
+
+            await Task.CompletedTask;
         }
     }
 }
