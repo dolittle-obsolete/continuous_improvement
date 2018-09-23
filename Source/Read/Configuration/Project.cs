@@ -42,5 +42,6 @@ namespace Read.Configuration
         /// Gets or sets the <see cref="ProjectCascade">projects</see> to cascade to
         /// </summary>
         public IEnumerable<ProjectCascade> Cascades { get; set; } = new ProjectCascade[0];
+
     }
 }
