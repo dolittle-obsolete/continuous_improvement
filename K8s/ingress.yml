@@ -4,14 +4,12 @@ kind: Ingress
 metadata:
   name: continuousimprovement
   namespace: dolittle
-  annotations:
-      traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
-  - host: dolittle.studio
+  - host: continuousimprovement.dolittle.studio
     http:
       paths:
-      - path: /continuousimprovement
+      - path: /
         backend:
           serviceName: continuousimprovement
           servicePort: 80

@@ -1,4 +1,33 @@
 {
   "artifacts": {
+    "605a65f5-8c8f-485e-ba64-bb221ebf50ed": {
+      "commands": [],
+      "events": [],
+      "eventSources": [],
+      "readModels": [
+        {
+          "artifact": "aebdec3d-455c-43cb-b1be-96ef458d81b9",
+          "generation": 1,
+          "type": "Read.Projects.Project, Read"
+        },
+        {
+          "artifact": "cd2e9cec-6569-4185-b995-41a4efc8ba7b",
+          "generation": 1,
+          "type": "Read.Projects.Improvement, Read"
+        }
+      ],
+      "queries": [
+        {
+          "artifact": "bc10b6f3-7649-40fe-b1c0-6eaf54b06a4a",
+          "generation": 1,
+          "type": "Read.Projects.AllProjects, Read"
+        },
+        {
+          "artifact": "8b91c6df-3b36-4229-a0c1-0e81c4139387",
+          "generation": 1,
+          "type": "Read.Projects.ImprovementsForProject, Read"
+        }
+      ]
+    }
   }
 }
