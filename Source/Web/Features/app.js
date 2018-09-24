@@ -9,7 +9,8 @@ export class app {
     configureRouter(config, router) {
         config.options.pushState = true;
         config.map([
-            { route: ['', 'welcome'], name: 'welcome', moduleId: PLATFORM.moduleName('welcome'), layoutView: PLATFORM.moduleName('layout_fullscreen.html') }
+            { route: ['', 'Projects/List'], name: 'Project List', moduleId: PLATFORM.moduleName('Projects/List') },
+            { route: 'Projects/Improvements/:id', name: 'Improvements', moduleId: PLATFORM.moduleName('Projects/Improvements') }
         ]);
 
         this.router = router;

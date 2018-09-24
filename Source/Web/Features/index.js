@@ -7,7 +7,7 @@ import { AllProjects } from './Projects/AllProjects';
 import { ImprovementsForProject } from './Projects/ImprovementsForProject';
 
 @inject(CommandCoordinator, QueryCoordinator)
-export class welcome {
+export class index {
     projects=[];
 
     improvements=[];

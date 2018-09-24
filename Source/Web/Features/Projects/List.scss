@@ -1,0 +1,51 @@
+@import '../../styles/Settings/all';
+@import '../../styles/Tools/all';
+.project-list {
+    @extend %flex-container-vertical;
+    padding: $grid-gutter;
+    > ul {
+        @extend %flex-container-horizontal;
+        flex-wrap: wrap;
+        li {
+            border: 0.0625rem solid $color-gray-dark;
+            display: block;
+            flex: 0 1 18rem;
+            margin: $grid-gutter;
+            transition: transform 0.3s ease-in-out;
+            > a {
+                display: block;
+                font-size: 2rem;
+                padding: $grid-gutter;
+                text-align: center;
+                color: #fff;
+            }
+            h3 {
+                margin-bottom: 0;
+            }
+        }
+        figure {
+            height: 6rem;
+            padding: $grid-gutter;
+
+            img {
+                height: 100%;
+            }
+        }
+        .environment-versions {
+            @extend %flex-container-horizontal;
+            border-top: 0.0625rem solid $color-gray-dark;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            justify-content: center;
+            padding: $grid-gutter/4;
+            @include media-bp-min(desktop) {
+                height: 3.0625rem;
+                position: relative;
+                z-index: 1;
+                > div {
+                    padding: 0.625rem 0;
+                }
+            }
+        }
+    }
+}

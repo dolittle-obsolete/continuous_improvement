@@ -1,0 +1,13 @@
+<template>
+    <require from="./Improvements.scss"></require>
+    <section class="page-content improvements-page">
+        <section class="acrylic improvements">
+            <ul>
+                <li repeat.for="improvement of improvements">
+                    <a href="" route-href="route.bind: 'Details'; params.bind: { version: improvement.version }">${improvement.version}</a>
+                </li>
+            </ul>
+        </section>
+        <router-view containerless></router-view>
+    </section>
+</template>

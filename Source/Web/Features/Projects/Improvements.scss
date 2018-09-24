@@ -1,0 +1,20 @@
+@import '../../styles/Settings/all';
+@import '../../styles/Tools/all';
+.improvements-page {
+    @extend %flex-container-horizontal;
+    align-items: stretch;
+
+    .improvements {
+        flex: 0 0 18rem;
+        padding: $grid-gutter;
+        li {
+        }
+        a {
+            color: #fff;
+            font-size: 1.2rem;
+            padding: $grid-gutter;     
+            display: block;       
+            border-bottom: 0.0625rem solid $color-gray-lightest;
+        }   
+    }
+}
