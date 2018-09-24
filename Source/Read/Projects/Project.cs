@@ -21,5 +21,10 @@ namespace Read.Projects
         /// Gets or sets the name of the project
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current build version of the project
+        /// </summary>
+        public string Version { get; set; }
     }
 }
