@@ -15,9 +15,9 @@
     "dolittle.styles": "https://github.com/dolittle/dolittle.styles.git#2.9.4"
   },
   "dependencies": {
-    "@dolittle/commands": "^1.0.5",
+    "@dolittle/commands": "^1.0.6",
     "@dolittle/core": "^1.0.2",
-    "@dolittle/queries": "^1.0.6",
+    "@dolittle/queries": "^1.0.7",
     "aurelia-http-client": "^1.2.1",
     "aurelia-open-id-connect": "^1.0.3"
   }

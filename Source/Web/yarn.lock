@@ -82,9 +82,9 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@dolittle/commands@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@dolittle/commands/-/commands-1.0.5.tgz#84fb52c8f26bee68b21618d167b0f8009a5ef309"
+"@dolittle/commands@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@dolittle/commands/-/commands-1.0.6.tgz#4088601890f053e1f2857fc77ab89092c80a10a5"
   dependencies:
     "@dolittle/core" "1.0.0"
 
@@ -96,9 +96,9 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@dolittle/core/-/core-1.0.2.tgz#3fa2431097d911c3ab91ba2dd18d043e4c06bec0"
 
-"@dolittle/queries@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@dolittle/queries/-/queries-1.0.6.tgz#07f902f2079defa71f48e0b9157861997ce4657e"
+"@dolittle/queries@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@dolittle/queries/-/queries-1.0.7.tgz#2659019a417ebe1feb2b667b5f5853002fe14861"
   dependencies:
     "@dolittle/core" "1.0.0"
 
@@ -2695,7 +2695,7 @@ doctrine@^2.0.0:
     wallaby-webpack "^3.9.5"
     webpack "^4.2.0"
 
-"dolittle.styles@https://github.com/dolittle/dolittle.styles.git":
+"dolittle.styles@https://github.com/dolittle/dolittle.styles.git#2.9.4":
   version "2.9.4"
   resolved "https://github.com/dolittle/dolittle.styles.git#9ab1e313d4426b3a46c62ff4dc94fe905bad208d"
 
