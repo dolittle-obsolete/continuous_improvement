@@ -90,13 +90,20 @@ namespace Orchestrations.Triggers.GitHub
                 return;
             }
 
+            var commit = "";
+            if( !isPullRequest ) 
+            {
+                var pushEvent = _serializer.FromJson<PushEvent>(json);
+                commit = pushEvent.after;
+            }
+
             #pragma warning disable 4014 // Don't force await - we want this to run in background and let GitHub continue their business
             Task.Run(() =>
             {
                 int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
                 _logger.Information($"BuildNumber is {buildNumber}");
 
-                var sourceControl = new SourceControlContext(project.Repository, "beb7544a44dff9283ba2f1d5c3cc8a567dfffa6c", isPullRequest);
+                var sourceControl = new SourceControlContext(project.Repository, commit, isPullRequest);
                 var context = new Context(tenantId, project, sourceControl, projectPath, buildNumber);
                 var score = new ScoreOf<Context>(context);
                 score.AddStep<GetLatest>();
