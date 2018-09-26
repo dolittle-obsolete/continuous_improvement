@@ -13,19 +13,19 @@ using Microsoft.AspNetCore.Routing;
 namespace Orchestrations.Build
 {
     /// <summary>
-    /// Represents a <see cref="ICanHandleRoute"/> that gets called when a <see cref="CompileAndPackage"/> is finished
+    /// Represents a <see cref="ICanHandleRoute"/> that gets called when a <see cref="BuildJobs"/> is finished
     /// </summary>
-    public class CompileAndPackageFinished : ICanHandleRoute
+    public class BuildJobDone : ICanHandleRoute
     {
         readonly ILogger _logger;
         private readonly Kubernetes _kubernetes;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CompileAndPackageFinished"/>
+        /// Initializes a new instance of <see cref="BuildJobDone"/>
         /// </summary>
         /// <param name="kubernetes"><see cref="Kubernetes"/> client</param>
         /// <param name="logger"><see cref="ILogger"/> to use for logging</param>
-        public CompileAndPackageFinished(Kubernetes kubernetes, ILogger logger)
+        public BuildJobDone(Kubernetes kubernetes, ILogger logger)
         {
             _logger = logger;
             _kubernetes = kubernetes;

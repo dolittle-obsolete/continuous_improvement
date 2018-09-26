@@ -87,7 +87,7 @@ namespace EntryPoint
             app.UseGitHubTrigger();
 
             var routeBuilder = new RouteBuilder(app);
-            routeBuilder.MapPost<CompileAndPackageFinished>(app, $"jobDone");
+            routeBuilder.MapPost<BuildJobDone>(app, $"buildJobDone");
             app.UseRouter(routeBuilder.Build());
 
             app.UseDolittle();

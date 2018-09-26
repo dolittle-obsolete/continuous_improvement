@@ -1,3 +1,4 @@
+
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
@@ -12,23 +13,24 @@ using Infrastructure.Orchestrations;
 using k8s;
 using k8s.Models;
 using Dolittle.Logging;
+using Dolittle.Collections;
 
 namespace Orchestrations.Build
 {
     /// <summary>
     /// Represents a <see cref="IPerformer{T}"/> that is capable of dealing with compilation and packaging
     /// </summary>
-    public class CompileAndPackage : IPerformer<Context>
+    public class BuildJobs : IPerformer<Context>
     {
         readonly ILogger _logger;
         readonly Kubernetes _kubernetes;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CompileAndPackage"/>
+        /// Initializes a new instance of <see cref="BuildJobs"/>
         /// </summary>
         /// <param name="kubernetes"><see cref="Kubernetes"/> client</param>
         /// <param name="logger"><see cref="ILogger"/> for logging</param>
-        public CompileAndPackage(
+        public BuildJobs(
             Kubernetes kubernetes,
             ILogger logger)
         {
@@ -44,18 +46,31 @@ namespace Orchestrations.Build
         }
 
         /// <inheritdoc/>
-        public async Task Perform(Context context)
+        public Task Perform(Context context)
         {
             context.LogInformation("Compiling and packaging");
 
+            var tasks = new List<Task>();
+            context.Project.Builds.ForEach(_ => tasks.Add(StartJobFor(context, _)));
+
+            Task.WaitAll(tasks.ToArray());
+
+            return Task.CompletedTask;
+        }
+
+
+        Task StartJobFor(Context context, Read.Configuration.Build build)
+        {
             var @namespace = "dolittle";
+
             var metadata = new V1ObjectMeta
             {
                 Name = Guid.NewGuid().ToString(),
                 Labels = { { "type", "build" } }
             };
 
-            var job = new V1Job
+
+           var job = new V1Job
             {
                 Metadata = metadata,
                 Spec = new V1JobSpec
@@ -70,14 +85,18 @@ namespace Orchestrations.Build
                             Containers = new [] {
                                 new V1Container {
                                     Name = "build",
-                                    Image = $"dolittlebuild/{context.Project.Type}",
+                                    Image = $"dolittlebuild/{build.Type}",
                                     ImagePullPolicy = "Always",
                                     Env = new [] {
                                         new V1EnvVar("REPOSITORY",context.Project.Repository.ToString()),
                                         new V1EnvVar("COMMIT",context.SourceControl.Commit),
                                         new V1EnvVar("PULL_REQUEST", context.IsPullRequest.ToString()),
                                         new V1EnvVar("VERSION", context.Version),
-                                        new V1EnvVar("CALLBACK", $"http://continuousimprovement/jobDone?jobName={metadata.Name}")
+                                        new V1EnvVar("BASE_PATH", build.BasePath),
+                                        new V1EnvVar("PACKAGE", build.Package.ToString()),
+                                        new V1EnvVar("PUBLISH", build.Publish.ToString()),
+                                        new V1EnvVar("FOLDER_WITH_PROJECT_TO_PUBLISH", build.FolderWithProjectToPublish),
+                                        new V1EnvVar("CALLBACK", $"http://continuousimprovement/buildJobDone?buildJobName={metadata.Name}")
                                     },
                                     VolumeMounts = new[] {
                                         new V1VolumeMount {
@@ -124,7 +143,7 @@ namespace Orchestrations.Build
                 }
             };
 
-            await _kubernetes.CreateNamespacedJobAsync(job, @namespace);
+            return _kubernetes.CreateNamespacedJobAsync(job, @namespace);
         }
     }
 }

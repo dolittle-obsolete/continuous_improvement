@@ -34,14 +34,13 @@ namespace Read.Configuration
         public Uri Repository { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of project
+        /// Gets or sets the builds to perform for the project
         /// </summary>
-        public string Type { get; set; } = string.Empty;
+        public IEnumerable<Build> Builds { get; set; } = new Build[0];
 
         /// <summary>
         /// Gets or sets the <see cref="ProjectCascade">projects</see> to cascade to
         /// </summary>
         public IEnumerable<ProjectCascade> Cascades { get; set; } = new ProjectCascade[0];
-
     }
 }
