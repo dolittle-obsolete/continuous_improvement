@@ -101,7 +101,7 @@ namespace Orchestrations.Triggers.GitHub
                 var score = new ScoreOf<Context>(context);
                 score.AddStep<GetLatest>();
                 score.AddStep<GetVersion>();
-                score.AddStep<CompileAndPackage>();
+                score.AddStep<BuildJobs>();
                 _conductor.Conduct(score);
             });
 
