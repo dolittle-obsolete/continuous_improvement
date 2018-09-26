@@ -48,26 +48,29 @@ namespace Orchestrations.Build
         /// <inheritdoc/>
         public Task Perform(Context context)
         {
-            context.LogInformation("Compiling and packaging");
-
-            var tasks = new List<Task>();
-            context.Project.Builds.ForEach(_ => tasks.Add(StartJobFor(context, _)));
-
-            Task.WaitAll(tasks.ToArray());
-
+            context.LogInformation("Building jobs");
+            context.Project.Builds.ForEach(async _ => await StartJobFor(context, _));
             return Task.CompletedTask;
         }
 
 
-        Task StartJobFor(Context context, Read.Configuration.Build build)
+        async Task StartJobFor(Context context, Read.Configuration.Build build)
         {
             var @namespace = "dolittle";
 
             var metadata = new V1ObjectMeta
             {
-                Name = Guid.NewGuid().ToString(),
-                Labels = { { "type", "build" } }
+                Name = Guid.NewGuid().ToString() //,
+                //Labels = { { "type", "build" } }
             };
+
+            context.LogInformation($"---");
+            context.LogInformation($"Type : {build.Type}");
+            context.LogInformation($"BasePath : {build.BasePath}");
+            context.LogInformation($"Package : {build.Package}");
+            context.LogInformation($"Publish : {build.Publish}");
+            context.LogInformation($"Folder with project to publish : {build.FolderWithProjectToPublish}");
+            context.LogInformation($"---");
 
 
            var job = new V1Job
@@ -143,7 +146,7 @@ namespace Orchestrations.Build
                 }
             };
 
-            return _kubernetes.CreateNamespacedJobAsync(job, @namespace);
+            await _kubernetes.CreateNamespacedJobAsync(job, @namespace);
         }
     }
 }
