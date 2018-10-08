@@ -1,5 +1,83 @@
 <template>
     <require from="./ImprovementDetails.scss"></require>
     <section class="page-content improvements-details-page">
+        <section class="steps acrylic">
+            <h1>Steps</h1>
+
+            <ol>
+                <li>
+                    <img src="check.png">
+                    Get latest source
+                </li>
+                <li>
+                    <img src="check.png">
+                    Version
+                </li>
+                <li>
+                    <img src="check.png">
+                    Build core
+                </li>
+                <li>
+                    <img src="error.png">
+                    Build interaction layer
+                </li>
+                <li>
+                    <img src="question.png">
+                    Package
+                </li>
+                <li>
+                    <img src="question.png">
+                    Provision
+                </li>
+                <li>
+                    <img src="question.png">
+                    Rollout
+                </li>
+                <li>
+                    <img src="question.png">
+                    Notifications
+                </li>    
+            </ol>
+
+        </section>
+        <section class="details acrylic">
+            <h1>Details</h1>
+            <img src="console.png">
+            <img src="error.png">
+            <img src="sign_warning.png">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Severity
+                        </th>
+                        <th>
+                            Source
+                        </th>
+                        <th>
+                            Line
+                        </th>
+                        <th>
+                            Message
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="error.png"></td>
+                        <td><a href="#">CommandCoordinator.cs</a></td>
+                        <td><a href="#">117</a></td>
+                        <td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019" target="_blank">CS0019</a>: <a href="#">Operator 'operator' cannot be applied to operands of type 'type' and 'type'</a></td>
+                    </tr>
+                    <tr>
+                        <td><img src="sign_warning.png"></td>
+                        <td><a href="#">Geodesics.cs</a></td>
+                        <td><a href="#">53</a></td>
+                        <td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1691" target="_blank">CS1691</a>: <a href="#">'number' is not a valid warning number</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
     </section>
 </template>
