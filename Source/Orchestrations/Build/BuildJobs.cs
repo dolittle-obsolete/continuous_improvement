@@ -99,7 +99,7 @@ namespace Orchestrations.Build
                                         new V1EnvVar("PACKAGE", build.Package.ToString()),
                                         new V1EnvVar("PUBLISH", build.Publish.ToString()),
                                         new V1EnvVar("FOLDER_WITH_PROJECT_TO_PUBLISH", build.FolderWithProjectToPublish),
-                                        new V1EnvVar("CALLBACK", $"http://continuousimprovement/buildJobDone?buildJobName={metadata.Name}")
+                                        new V1EnvVar("CALLBACK", $"http://continuousimprovement/buildJobDone?jobName={metadata.Name}")
                                     },
                                     VolumeMounts = new[] {
                                         new V1VolumeMount {
