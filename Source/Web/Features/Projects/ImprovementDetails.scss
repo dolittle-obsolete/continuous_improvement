@@ -2,5 +2,24 @@
 @import '../../styles/Tools/all';
 .improvements-details-page {
     display: flex;
-
+    padding: $grid-gutter * 3;
+    .details {
+        padding: $grid-gutter $grid-gutter * 2;
+        position: relative;
+        .view_toggle {
+            position: absolute;
+            top: $grid-gutter;
+            right: $grid-gutter;
+            display: flex;
+            a {
+                display: block;
+                + a {
+                    margin-left: $grid-gutter;
+                }
+            }
+            img {
+                height: 2rem;
+            }
+        }
+    }
 }
