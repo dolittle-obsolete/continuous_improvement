@@ -1,0 +1,9 @@
+<template>
+    <require from="./side_bar.scss"></require>
+    <nav class="side_bar ${is_subnavigation ? 'sub_navigation':''}" class.bind="expanded ? 'expanded' : ''">
+        <a if.bind="!hide_trigger" class="expand-trigger" href="#" click.delegate="toggle_side_bar()" class.bind="side_bar_expanded ? 'close': 'open'">
+            <img src="../../../assets/icons/Back.svg" alt="">
+        </a>
+        <slot></slot>
+    </nav>
+</template>

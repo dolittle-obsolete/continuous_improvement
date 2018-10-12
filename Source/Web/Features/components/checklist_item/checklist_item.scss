@@ -1,0 +1,20 @@
+@import '../../../styles/Settings/all';
+
+.checklist_item {
+    align-items: center;
+    justify-content: flex-start;
+    color: #fff;
+    display: flex;
+    padding: 1rem;
+    white-space: nowrap;
+    img {
+        height: 1.5rem;
+        max-width: unset;
+    }
+    span {
+        margin-left: $grid-gutter/2;
+    }
+    .status_indicator {
+        margin-left: auto;
+    }
+}

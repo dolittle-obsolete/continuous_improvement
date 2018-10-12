@@ -11,5 +11,13 @@ body {
             background: rgba(0, 0, 0, 0.01) url($app-background-image) fixed center;
             background-size: cover;
         }
+
+    }
+    table tbody tr:nth-child(2n) {
+        background-color: rgba(#333333, 0.6);
+    }
+    .default_layout {
+        padding: 0;
+        height: 100vh;
     }
 }
