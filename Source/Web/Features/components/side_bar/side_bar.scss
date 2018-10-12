@@ -1,0 +1,38 @@
+@import '../../../styles/Settings/all';
+@import '../../../styles/Tools/all';
+$app_header-height: 0;
+$side_bar-width: 0;
+.side_bar {
+    position: fixed;
+    background-color: lighten($color-gray-darkest, 7%);
+    flex: 0 0 15rem;
+    left: 0;
+    top: $app_header-height;
+    bottom: 0;
+    width: $side_bar-width;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    transform: translateZ(0);
+    z-index: 980;
+    .expand-trigger {
+        padding: 1rem;
+        display: inline-block;
+        transition: transform 0.2s ease-in-out;
+        transform: rotate(180deg);
+        transform-origin: center;
+        img {
+            display: block;
+        }
+        &.close {
+            transform: rotate(0deg);
+        }
+    }
+    &.expanded {
+        width: $side_bar-expanded-width;
+    }
+    &.sub_navigation {
+        z-index: 970;
+        background-color: lighten($color-gray-darkest, 15%);
+        left: $side_bar-width;
+    }
+}

@@ -1,13 +1,35 @@
 <template>
     <require from="./Improvements.scss"></require>
-    <section class="page-content improvements-page">
-        <section class="acrylic improvements">
-            <ul>
-                <li repeat.for="improvement of improvements">
-                    <a href="" route-href="route.bind: 'Details'; params.bind: { version: improvement.version }">${improvement.version}</a>
-                </li>
-            </ul>
+    <div class="improvements-page">
+
+        <section class="steps">
+            <side-bar expanded="true" hide_trigger.one-time="true" is_subnavigation="true">
+                <header>
+                    <h1>Steps</h1>
+
+                </header>
+                <checklist-item nav_url="" icon_name="code_branch" text="Get latest source"></checklist-item>
+                <checklist-item nav_url="" icon_name="version" text="Version"></checklist-item>
+                <checklist-item nav_url="" icon_name="core" text="Build core"></checklist-item>
+                <checklist-item nav_url="" icon_name="interaction" text="Build interaction layer"></checklist-item>
+                <checklist-item nav_url="" icon_name="package" text="Package"></checklist-item>
+                <checklist-item nav_url="" icon_name="provisioning" text="Provision"></checklist-item>
+                <checklist-item nav_url="" icon_name="deploy" text="Rollout"></checklist-item>
+                <checklist-item nav_url="" icon_name="notification" text="Notifications"></checklist-item>
+                <footer>
+                    <label>
+                        Select Improvement:<br />
+                        <select>
+                            <option repeat.for="improvement of improvements" model.bind="improvement.version">
+                                ${improvement.version}
+                            </option>
+                        </select>
+                    </label></footer>
+            </side-bar>
         </section>
-        <router-view containerless></router-view>
-    </section>
+        <section class="page-content improvements-page">
+            <router-view containerless></router-view>
+        </section>
+    </div>
+
 </template>

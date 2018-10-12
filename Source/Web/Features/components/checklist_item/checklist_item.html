@@ -1,0 +1,11 @@
+
+<template>
+        <require from="./checklist_item.scss"></require>
+        <a href.bind="nav_url" class="checklist_item" title.bind="text">
+            <img src.bind="icon_url" alt.bind="icon_name">
+            <span>${text}</span>
+            
+            <img class="status_indicator" src.bind="status_success_icon" alt.bind="icon_name" if.bind="show_success()">
+            <img class="status_indicator" src.bind="status_fail_icon" alt.bind="icon_name" else>
+        </a>
+    </template>

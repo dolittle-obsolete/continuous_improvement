@@ -3,18 +3,36 @@
 .improvements-page {
     @extend %flex-container-horizontal;
     align-items: stretch;
-
-    .improvements {
-        flex: 0 0 18rem;
+    height: 100%;
+    .steps {
+        flex: 0 0 20rem;
         padding: $grid-gutter;
-        li {
+        margin-right: $grid-gutter;
+        .side_bar.expanded {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
-        a {
-            color: #fff;
-            font-size: 1.2rem;
-            padding: $grid-gutter;     
-            display: block;       
-            border-bottom: 0.0625rem solid $color-gray-lightest;
-        }   
+        header {
+            padding: $grid-gutter;
+        }
+        footer {
+            padding: $grid-gutter;
+            margin-top: auto;
+        }
     }
+
+    // .improvements {
+    //     flex: 0 0 14rem;
+    //     padding: $grid-gutter;
+    //     li {
+    //     }
+    //     a {
+    //         color: #fff;
+    //         font-size: 1.2rem;
+    //         padding: $grid-gutter;
+    //         display: block;
+    //         border-bottom: 0.0625rem solid $color-gray-lightest;
+    //     }
+    // }
 }

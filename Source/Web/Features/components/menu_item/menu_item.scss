@@ -1,0 +1,15 @@
+@import '../../../styles/Settings/all';
+
+.menu_item {
+    color: #fff;
+    display: block;
+    padding: 1rem;
+    white-space: nowrap;
+    img {
+        height: 1rem;
+        max-width: unset;
+    }
+    span {
+        margin-left: $grid-gutter/2;
+    }
+}
