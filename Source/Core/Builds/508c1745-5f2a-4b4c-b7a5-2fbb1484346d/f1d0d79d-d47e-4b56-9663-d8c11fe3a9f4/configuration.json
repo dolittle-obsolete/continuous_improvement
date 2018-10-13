@@ -13,7 +13,7 @@
         }
     ],
     "cascades": [],
-    "notifications": [
+    "notificationChannels": [
         {
             "name": "Dolittle Teams Development Channel",
             "type": "Teams",
@@ -22,7 +22,7 @@
             }
         }
     ],
-    "packages": [
+    "packageSources": [
         {
             "type": "NuGet",
             "source": "https://api.nuget.org/v3",
@@ -42,7 +42,7 @@
             "condition": "All"
         }
     ],
-    "containers": [
+    "containerRegistries": [
         {
             "registry": "... docker registry",
             "username": "",

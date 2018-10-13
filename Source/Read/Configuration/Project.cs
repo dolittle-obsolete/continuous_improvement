@@ -42,5 +42,20 @@ namespace Read.Configuration
         /// Gets or sets the <see cref="ProjectCascade">projects</see> to cascade to
         /// </summary>
         public IEnumerable<ProjectCascade> Cascades { get; set; } = new ProjectCascade[0];
+
+        /// <summary>
+        /// Gets or sets the <see cref="NotificationChannels">notification channels</see> to perform at the end
+        /// </summary>
+        public IEnumerable<NotificationChannel> NotificationChannels { get; set; } = new NotificationChannel[0];
+
+        /// <summary>
+        ///  Gets or sets the <see cref="PackageSource">package sourceas</see> to publish any packages to
+        /// </summary>
+        public IEnumerable<PackageSource> PackageSources { get; set; } = new PackageSource[0];
+
+        /// <summary>
+        /// Gets or sets the <see cref="ContainerRegistry">container regisitries</see> to publish any container images to
+        /// </summary>
+        public IEnumerable<ContainerRegistry> ContainerRegistries { get; set; } = new ContainerRegistry[0];
     }
 }
