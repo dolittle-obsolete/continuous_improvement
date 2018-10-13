@@ -2,28 +2,28 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-using System;
 
 namespace Read.Configuration
 {
     /// <summary>
-    /// Represents the configuration of a NuGet server for publishing packages to
+    /// Represents the configuration of a notification
     /// </summary>
-    public class NuGetPackageServerConfiguration 
+    public class NotificationChannel
     {
         /// <summary>
-        /// Gets or sets the <see cref="Uri"/> for the server
+        /// Gets or sets the name of the <see cref="NotificationChannel"/>
         /// </summary>
-        public Uri Server { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the access key to use
+        /// Gets or sets the type of the <see cref="NotificationChannel"/>
         /// </summary>
-        public string Key { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
-        /// Get whether or not the server configuration is enabled or not
+        /// Gets or sets the configuration for the specific <see cref="NotificationChannel">notification channel type</see>
         /// </summary>
-        public bool IsEnabled => Server != null && !string.IsNullOrEmpty(Key);
+        /// <value></value>
+        public object Configuration { get; set; }
     }
 }
