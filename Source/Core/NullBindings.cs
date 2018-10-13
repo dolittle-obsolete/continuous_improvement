@@ -13,7 +13,7 @@ using Dolittle.Runtime.Events.Store.MongoDB;
 using Dolittle.Security;
 using MongoDB.Driver;
 
-namespace EntryPoint
+namespace Core
 {
     /// <summary>
     /// 

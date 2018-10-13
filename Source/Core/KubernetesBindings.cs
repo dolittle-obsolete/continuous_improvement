@@ -7,7 +7,7 @@ using System.IO;
 using Dolittle.DependencyInversion;
 using k8s;
 
-namespace EntryPoint
+namespace Core
 {
     /// <summary>
     /// Represents bindings for the Kubernetes client
