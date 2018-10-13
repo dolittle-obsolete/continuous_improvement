@@ -5,15 +5,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <OutputType>Exe</OutputType>
-    <DefaultItemExcludes>gulp\**\*;node_modules\**\*;jspm_packages\**\*;bower_components\**\*;wwwroot\**\*;bin\**\*;obj\**\*;Builds\**\*</DefaultItemExcludes>
     <DolittleGenerateProxies>True</DolittleGenerateProxies>   
     <DolittleProxiesBasePath>../Web/Features</DolittleProxiesBasePath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="Builds\**\*" />
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Concepts\Concepts.csproj" />

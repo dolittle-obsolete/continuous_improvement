@@ -31,9 +31,9 @@ let karmaOptions = {
 let server = new karma.Server(karmaOptions).start()
 */
 
-glob("../EntryPoint/*.csproj", (err, matches) => {
+glob("../Core/*.csproj", (err, matches) => {
     if (matches.length) {
-        let dotnet = spawn('dotnet', ['watch','run'], {cwd: '../EntryPoint'});
+        let dotnet = spawn('dotnet', ['watch','run'], {cwd: '../Core'});
         dotnet.stdout.on('data', (data) => {
             console.log(data.toString());
         });

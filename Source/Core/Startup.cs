@@ -15,7 +15,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Orchestrations.Triggers;
 using Infrastructure.Routing;
 
-namespace EntryPoint
+namespace Core
 {
     /// <summary>
     /// Startup for ASP.NET Core

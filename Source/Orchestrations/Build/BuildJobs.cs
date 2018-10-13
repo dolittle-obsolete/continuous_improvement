@@ -72,8 +72,7 @@ namespace Orchestrations.Build
             context.LogInformation($"Folder with project to publish : {build.FolderWithProjectToPublish}");
             context.LogInformation($"---");
 
-
-           var job = new V1Job
+            var job = new V1Job
             {
                 Metadata = metadata,
                 Spec = new V1JobSpec

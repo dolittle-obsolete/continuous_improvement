@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Dolittle.Logging;
 using Infrastructure.Routing;
 
-namespace EntryPoint
+namespace Core
 {
 
     /// <summary>
