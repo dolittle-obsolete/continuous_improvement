@@ -44,6 +44,16 @@ namespace Orchestrations
             score.AddStep<GetVersion>();
             score.AddStep<BuildJobs>();
 
+            /*
+                if there are package sources configured, add steps per package source - the performer decides if it is going to be performed
+
+                if there are container registries configured, add steps per registry - the performer decides if it is going to be performed
+
+                if there are notification channels - add each
+
+                if there are project cascades - add step for each
+             */
+
             return score;
         }
 
