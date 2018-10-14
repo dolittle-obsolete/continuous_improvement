@@ -2,17 +2,22 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+using Dolittle.Concepts;
+
 namespace Infrastructure.Orchestrations
-{
+{  
     /// <summary>
-    /// Defines the conductor that conduct a <see cref="ScoreOf{T}"/>
+    /// Represents the number of a <see cref="Step"/>
     /// </summary>
-    public interface IConductor
+    public class StepNumber : ConceptAs<int>
     {
         /// <summary>
-        /// Conduct a specific <see cref="ScoreOf{T}"/>
+        /// Implicitly convert from <see cref="int"/> to <see cref="StepNumber"/>
         /// </summary>
-        /// <param name="score"><see cref="ScoreOf{T}">Score</see> to conduct</param>
-        void Conduct<T>(ScoreOf<T> score) where T:BaseContext;
+        /// <param name="number">Integer to convert from</param>
+        public static implicit operator StepNumber(int number)
+        {
+            return new StepNumber() { Value = number };
+        }
     }
 }

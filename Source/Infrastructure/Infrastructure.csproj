@@ -10,6 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.1" />
     <PackageReference Include="Dolittle.DependencyInversion" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.Tenancy" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Serialization.Json" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Concepts.Serialization.Json" Version="2.0.0-alpha2*" />
   </ItemGroup>
 
 </Project>

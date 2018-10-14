@@ -22,33 +22,33 @@ namespace Orchestrations.SourceControl
         }
 
         /// <inheritdoc/>
-        public Task Perform(Context score)
+        public Task Perform(IPerformerLog log, Context score)
         {
-            score.LogInformation($"Get latest source into '{score.SourcePath}'");
+            log.Information($"Get latest source into '{score.SourcePath}'");
 
             var gitFolder = Path.Combine(score.SourcePath, ".git");
             if (!Directory.Exists(gitFolder))
-                Clone(score);
+                Clone(log, score);
             else
             {
                 try
                 {
-                    Pull(score);
+                    Pull(log, score);
                 } 
                 catch
                 {
-                    score.LogInformation("Problems pulling - recreating");
+                    log.Information("Problems pulling - recreating");
                     Directory.Delete(score.SourcePath, true);
-                    Clone(score);
+                    Clone(log, score);
                 }
             }
 
             return Task.CompletedTask;
         }
 
-        void Pull(Context score)
+        void Pull(IPerformerLog log, Context score)
         {
-            score.LogInformation("Repository already exists - pulling latest");
+            log.Information("Repository already exists - pulling latest");
             using(var repo = new Repository(score.SourcePath))
             {
                 var pullOptions = new PullOptions();
@@ -60,7 +60,7 @@ namespace Orchestrations.SourceControl
                 pullOptions.FetchOptions.TagFetchMode = TagFetchMode.All;
                 pullOptions.FetchOptions.OnProgress = (string message) =>
                 {
-                    score.LogInformation(message);
+                    log.Information(message);
                     return true;
                 };
 
@@ -68,12 +68,12 @@ namespace Orchestrations.SourceControl
             }
         }
 
-        void Clone(Context score)
+        void Clone(IPerformerLog log, Context score)
         {
-            score.LogInformation("Cloning");
+            log.Information("Cloning");
             var cloneOptions = new CloneOptions();
             cloneOptions.RecurseSubmodules = true;
-            cloneOptions.OnCheckoutProgress = (string path, int completedSteps, int totalSteps) => score.LogInformation(path);
+            cloneOptions.OnCheckoutProgress = (string path, int completedSteps, int totalSteps) => log.Information(path);
 
             /*
             cloneOptions.CredentialsProvider = (_url, _user, _cred) => 

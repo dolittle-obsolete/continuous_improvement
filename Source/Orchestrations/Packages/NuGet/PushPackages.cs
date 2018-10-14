@@ -31,7 +31,7 @@ namespace Orchestrations.Packages.NuGet
         }
 
         /// <inheritdoc/>
-        public async Task Perform(Context score)
+        public async Task Perform(IPerformerLog log, Context score)
         {
             var settings = new Settings("./");
             var packageSourceProvider = new PackageSourceProvider(settings);

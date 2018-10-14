@@ -21,14 +21,14 @@ namespace Orchestrations.SourceControl
         }
 
         /// <inheritdoc/>
-        public Task Perform(Context score)
+        public Task Perform(IPerformerLog log, Context score)
         {
-            score.LogInformation("Getting version");
+            log.Information("Getting version");
             using(var repo = new Repository(score.SourcePath))
             { 
                 var tag = repo.Tags.ToArray().LastOrDefault();
                 if( tag != null ) score.Version = $"{tag.FriendlyName}.{score.BuildNumber}";
-                score.LogInformation($"Version is {score.Version}");
+                log.Information($"Version is {score.Version}");
             }
 
             return Task.CompletedTask;

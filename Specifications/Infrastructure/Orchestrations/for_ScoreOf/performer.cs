@@ -13,7 +13,7 @@ namespace Infrastructure.Orchestrations.for_ScoreOf
             return true;
         }
 
-        public Task Perform(score_context score)
+        public Task Perform(IPerformerLog log, score_context score)
         {
             return Task.CompletedTask;
         }

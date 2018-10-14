@@ -8,6 +8,7 @@ using Dolittle.Collections;
 using Dolittle.DependencyInversion;
 using Dolittle.Logging;
 using Dolittle.Reflection;
+using Dolittle.Serialization.Json;
 
 namespace Infrastructure.Orchestrations
 {
@@ -18,20 +19,23 @@ namespace Infrastructure.Orchestrations
     {
         readonly IContainer _container;
         private readonly ILogger _logger;
+        private readonly ISerializer _serializer;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Conductor"/>
         /// </summary>
         /// <param name="container"><see cref="IContainer"/> to manage instances</param>
         /// <param name="logger"><see cref="ILogger"/> for logging</param>
-        public Conductor(IContainer container, ILogger logger)
+        /// <param name="serializer"><see cref="ISerializer"/> for JSON serialization</param>
+        public Conductor(IContainer container, ILogger logger, ISerializer serializer)
         {
             _container = container;
             _logger = logger;
+            _serializer = serializer;
         }
 
         /// <inheritdoc/>
-        public void Conduct<T>(ScoreOf<T> score)
+        public void Conduct<T>(ScoreOf<T> score) where T:BaseContext
         {
             score.Steps.ForEach(step =>
             {
@@ -42,7 +46,7 @@ namespace Infrastructure.Orchestrations
             });
         }
 
-        void PerformIfCanPerform<T>(T context, Step step, object performer)
+        void PerformIfCanPerform<T>(T context, Step step, object performer) where T:BaseContext
         {
             var canPerform = step.Type.GetMethod("CanPerform");
             var perform = step.Type.GetMethod("Perform");
@@ -50,7 +54,8 @@ namespace Infrastructure.Orchestrations
             if ((bool)canPerform.Invoke(performer, new object[] { context }))
             {
                 _logger.Information("Perfoming");
-                var task = perform.Invoke(performer, new object[] { context }) as Task;
+                var log = new PerformerLog(context.OutputPath, step.Number, performer.GetType().Name, _serializer);
+                var task = perform.Invoke(performer, new object[] { log, context }) as Task;
                 task.Wait();
                 _logger.Information("Performed");
             }

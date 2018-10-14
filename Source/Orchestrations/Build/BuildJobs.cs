@@ -46,15 +46,15 @@ namespace Orchestrations.Build
         }
 
         /// <inheritdoc/>
-        public Task Perform(Context context)
+        public Task Perform(IPerformerLog log, Context context)
         {
-            context.LogInformation("Building jobs");
-            context.Project.Builds.ForEach(async _ => await StartJobFor(context, _));
+            log.Information("Building jobs");
+            context.Project.Builds.ForEach(async _ => await StartJobFor(log, context, _));
             return Task.CompletedTask;
         }
 
 
-        async Task StartJobFor(Context context, Read.Configuration.Build build)
+        async Task StartJobFor(IPerformerLog log, Context context, Read.Configuration.Build build)
         {
             var @namespace = "dolittle";
 
@@ -64,13 +64,13 @@ namespace Orchestrations.Build
                 //Labels = { { "type", "build" } }
             };
 
-            context.LogInformation($"---");
-            context.LogInformation($"Type : {build.Type}");
-            context.LogInformation($"BasePath : {build.BasePath}");
-            context.LogInformation($"Package : {build.Package}");
-            context.LogInformation($"Publish : {build.Publish}");
-            context.LogInformation($"Folder with project to publish : {build.FolderWithProjectToPublish}");
-            context.LogInformation($"---");
+            log.Information($"---");
+            log.Information($"Type : {build.Type}");
+            log.Information($"BasePath : {build.BasePath}");
+            log.Information($"Package : {build.Package}");
+            log.Information($"Publish : {build.Publish}");
+            log.Information($"Folder with project to publish : {build.FolderWithProjectToPublish}");
+            log.Information($"---");
 
             var job = new V1Job
             {

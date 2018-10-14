@@ -9,7 +9,7 @@ namespace Infrastructure.Orchestrations.for_Conductor.given
     public class a_conductor : all_dependencies
     {
         protected static Conductor conductor;
-        Establish context = () => conductor = new Conductor(container.Object, logger);
+        Establish context = () => conductor = new Conductor(container.Object, logger, serializer);
     }
 
 

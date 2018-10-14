@@ -8,10 +8,11 @@ using Dolittle.Reflection;
 
 namespace Infrastructure.Orchestrations
 {
+
     /// <summary>
     /// Represents a score that can be performed and should be <see cref="IConductor">conducted</see>
     /// </summary>
-    public class ScoreOf<T>
+    public class ScoreOf<T> where T:BaseContext
     {
         readonly List<Step> _steps = new List<Step>();
 
@@ -41,7 +42,8 @@ namespace Infrastructure.Orchestrations
         public void AddStep<TPerformer>() where TPerformer:IPerformer<T>
         {
             ThrowIfPerformerNeedsConfiguration<TPerformer>();
-            _steps.Add(new Step(typeof(TPerformer)));
+            var number = _steps.Count()+1;
+            _steps.Add(new Step(typeof(TPerformer), number));
         }
 
         /// <summary>
@@ -52,7 +54,8 @@ namespace Infrastructure.Orchestrations
         public void AddStep<TPerformer, TConfig>(TConfig configuration) where TPerformer:IPerformer<T>
         {
             ThrowIfPerformerDosNotNeedConfiguration<TPerformer>();
-            _steps.Add(new Step(typeof(TPerformer), configuration));
+            var number = _steps.Count()+1;
+            _steps.Add(new Step(typeof(TPerformer), number, configuration));
         }
 
         void ThrowIfPerformerNeedsConfiguration<TPerformer>() where TPerformer : IPerformer<T>

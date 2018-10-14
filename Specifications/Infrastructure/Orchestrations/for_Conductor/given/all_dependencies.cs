@@ -6,6 +6,7 @@ using Moq;
 using Machine.Specifications;
 using Dolittle.Logging;
 using Dolittle.DependencyInversion;
+using Dolittle.Serialization.Json;
 
 namespace Infrastructure.Orchestrations.for_Conductor.given
 {
@@ -13,11 +14,13 @@ namespace Infrastructure.Orchestrations.for_Conductor.given
     {
         protected static Mock<IContainer> container;
         protected static ILogger logger;
+        protected static ISerializer serializer;
 
         Establish context = () => 
         {
             logger = Mock.Of<ILogger>();
             container = new Mock<IContainer>();
+            serializer = Mock.Of<ISerializer>();
         };
     }
 }
