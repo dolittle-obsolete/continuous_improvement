@@ -17,7 +17,7 @@ namespace Infrastructure.Orchestrations.for_Conductor
             return can_perform_result;
         }
 
-        public virtual Task Perform(score_context score)
+        public virtual Task Perform(IPerformerLog log, score_context score)
         {
             perform_called = true;
             perform_score = score;

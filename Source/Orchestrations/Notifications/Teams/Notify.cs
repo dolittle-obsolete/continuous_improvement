@@ -34,7 +34,7 @@ namespace Orchestrations.Notifications.Teams
         }
 
         /// <inheritdoc/>
-        public async Task Perform(Context score)
+        public async Task Perform(IPerformerLog log, Context score)
         {
             var client = new HttpClient();
             var messageCard = new MessageCard

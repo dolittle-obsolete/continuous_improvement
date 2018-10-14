@@ -9,7 +9,7 @@ namespace Infrastructure.Orchestrations.for_Conductor
 
         class first_performer : performer 
         {
-            public override Task Perform(score_context score)
+            public override Task Perform(IPerformerLog log, score_context score)
             {
                 return Task.Run(() => 
                 {
@@ -21,7 +21,7 @@ namespace Infrastructure.Orchestrations.for_Conductor
         }
         class second_performer : performer 
         {
-            public override Task Perform(score_context score)
+            public override Task Perform(IPerformerLog log, score_context score)
             {
                 last_performer = "second";
                 return Task.CompletedTask;

@@ -5,5 +5,9 @@
 
 namespace Infrastructure.Orchestrations.for_ScoreOf
 {
-    public class score_context {}
+    public class score_context : BaseContext
+    {
+        public score_context() : base("") {}
+
+    }
 }

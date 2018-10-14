@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using Dolittle.Tenancy;
+using Infrastructure.Orchestrations;
 using Read.Configuration;
 
 namespace Orchestrations
@@ -12,7 +13,7 @@ namespace Orchestrations
     /// <summary>
     /// Represents the continuous improvement context 
     /// </summary>
-    public class Context
+    public class Context : BaseContext
     {
         /// <summary>
         /// Initializes a new instance of <see cref="Context"/>
@@ -27,15 +28,16 @@ namespace Orchestrations
             Project project,
             SourceControlContext sourceControlContext,
             string basePath,
-            int buildNumber)
+            int buildNumber) : base(basePath)
         {
             Tenant = tenantId;
             Project = project;
-            BasePath = basePath;
             BuildNumber = buildNumber;
             SourceControl = sourceControlContext;
             Version = $"1.0.0-{BuildNumber}";
             Volumes = new VolumePaths(this);
+
+            if( !Directory.Exists(OutputPath)) Directory.CreateDirectory(OutputPath);
         }
 
         /// <summary>
@@ -52,11 +54,6 @@ namespace Orchestrations
         /// Gets the <see cref="SourceControlContext"/>
         /// </summary>
         public SourceControlContext SourceControl { get; }
-
-        /// <summary>
-        /// Gets the path to the folder where the source is located
-        /// </summary>
-        public string BasePath { get; }
 
         /// <summary>
         /// Gets the build number for the context
@@ -86,22 +83,12 @@ namespace Orchestrations
             }
         }
 
+        /// <inheritdoc/>
+        public override string OutputPath { get { return Path.Combine(BasePath, Version, "output"); } }
+
         /// <summary>
         /// Gets or sets the  version for the context
         /// </summary>
         public string Version { get; set; } 
-
-        /// <summary>
-        /// Append information to log file
-        /// </summary>
-        /// <param name="message">Message to append</param>
-        public void LogInformation(string message)
-        {
-            var outputFolder = Path.Combine(BasePath,Version,"output");
-            var logFile = Path.Combine(outputFolder,"log.txt");
-            if( !Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
-            File.AppendAllText(logFile,$"{message}\n");
-            Console.WriteLine(message);
-        }
     }
 }

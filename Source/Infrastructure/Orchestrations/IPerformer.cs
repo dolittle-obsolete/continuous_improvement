@@ -21,7 +21,8 @@ namespace Infrastructure.Orchestrations
         /// <summary>
         /// The method that gets called when the performer should perform
         /// </summary>
+        /// <param name="log"><see cref="IPerformerLog"/> for logging</param>
         /// <param name="score">The score</param>
-        Task Perform(T score);
+        Task Perform(IPerformerLog log, T score);
     }
 }
