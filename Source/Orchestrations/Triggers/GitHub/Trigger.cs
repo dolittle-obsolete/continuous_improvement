@@ -39,6 +39,7 @@ namespace Orchestrations.Triggers.GitHub
         readonly ISerializer _serializer;
         readonly IConductor _conductor;
         readonly ILogger _logger;
+        private readonly IScoreConfigurator _scoreConfigurator;
 
         /// <summary>
         /// Initializes a new instance of <see cref="Trigger"/>
@@ -46,14 +47,17 @@ namespace Orchestrations.Triggers.GitHub
         /// <param name="serializer">The <see cref="ISerializer"/> to use for deserialization of configuration and payloads</param>
         /// <param name="conductor">The <see cref="IConductor"/> of the score></param>
         /// <param name="logger">The <see cref="ILogger"/> used for logging</param>
+        /// <param name="scoreConfigurator">The <see cref="IScoreConfigurator"/> for configuring the score</param>
         public Trigger(
             ISerializer serializer,
             IConductor conductor,
-            ILogger logger)
+            ILogger logger,
+            IScoreConfigurator scoreConfigurator)
         {
             _serializer = serializer;
             _conductor = conductor;
             _logger = logger;
+            _scoreConfigurator = scoreConfigurator;
         }
 
         /// <inheritdoc/>
@@ -69,6 +73,7 @@ namespace Orchestrations.Triggers.GitHub
 
             var projectAsJson = File.ReadAllText(configurationFile);
             var project = _serializer.FromJson<Project>(projectAsJson);
+
 
             var @event = request.Headers["X-GitHub-Event"];
             var delivery = request.Headers["X-GitHub-Delivery"];
@@ -97,21 +102,10 @@ namespace Orchestrations.Triggers.GitHub
                 commit = pushEvent.after;
             }
 
+            var score = _scoreConfigurator.From(tenantId, project, commit, isPullRequest);
+
             #pragma warning disable 4014 // Don't force await - we want this to run in background and let GitHub continue their business
-            Task.Run(() =>
-            {
-                int buildNumber = GetBuildNumberForCurrentBuild(projectPath);
-                _logger.Information($"BuildNumber is {buildNumber}");
-
-                var sourceControl = new SourceControlContext(project.Repository, commit, isPullRequest);
-                var context = new Context(tenantId, project, sourceControl, projectPath, buildNumber);
-                var score = new ScoreOf<Context>(context);
-                score.AddStep<GetLatest>();
-                score.AddStep<GetVersion>();
-                score.AddStep<BuildJobs>();
-                _conductor.Conduct(score);
-            });
-
+            Task.Run(() => _conductor.Conduct(score));
             response.StatusCode = StatusCodes.Status200OK;
 
             await Task.CompletedTask;
