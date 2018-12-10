@@ -1,0 +1,15 @@
+{
+  "application": "79a5f2f8-bd91-de33-4e9b-73b87b418124",
+  "boundedContext": "ba661bba-1e37-c7e4-942f-4f3c1220f9db",
+  "boundedContextName": "Build",
+  "resources": {
+    "eventStore": {
+      "production": "Azure",
+      "development": "MongoDB"
+    }
+  },
+  "core": {
+    "language": "csharp"
+  },
+  "interaction": []
+}

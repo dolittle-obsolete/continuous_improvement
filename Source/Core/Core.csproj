@@ -7,6 +7,7 @@
     <OutputType>Exe</OutputType>
     <DolittleGenerateProxies>True</DolittleGenerateProxies>   
     <DolittleProxiesBasePath>../Web/Features</DolittleProxiesBasePath>
+    <DolittleUseModules>False</DolittleUseModules>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Content Include=".dolittle\**\*" CopyToPublishDirectory="Always"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
 
     <PackageReference Include="libgit2sharp" Version="0.25.2" />
@@ -26,7 +32,7 @@
 
     <PackageReference Include="Dolittle.AspNetCore" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.SDK" Version="2.0.0-alpha2*" />
-    <PackageReference Include="DolittleArtifactsBuild" Version="2.0.0-alpha2*" />
+    <PackageReference Include="Dolittle.Build" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.ReadModels.MongoDB" Version="2.0.0-alpha2*" />
     <PackageReference Include="Dolittle.Runtime.Events.MongoDB" Version="2.0.0-alpha2*" />
 

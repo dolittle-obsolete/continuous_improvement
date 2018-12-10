@@ -82,6 +82,15 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
+"@dolittle/aurelia@^1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@dolittle/aurelia/-/aurelia-1.0.14.tgz#f739ed63ca41db2bdd22daef1ce1362980bb303c"
+  dependencies:
+    "@dolittle/commands" "^1.0.6"
+    "@dolittle/core" "^1.0.2"
+    "@dolittle/queries" "^1.0.7"
+    aurelia-bootstrapper "^2.2.0"
+
 "@dolittle/commands@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@dolittle/commands/-/commands-1.0.6.tgz#4088601890f053e1f2857fc77ab89092c80a10a5"

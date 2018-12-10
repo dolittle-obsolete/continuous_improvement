@@ -5,7 +5,7 @@ COPY ./README.md /Packages
 COPY ./Build ./Build
 COPY ./NuGet.Config ./
 COPY ./Source/. ./Source
-WORKDIR /src/Source/EntryPoint
+WORKDIR /src/Source/Core
 RUN dotnet restore --ignore-failed-sources
 RUN dotnet publish -c Release -o out
 
@@ -24,7 +24,7 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM microsoft/dotnet:2.2-sdk-bionic
 WORKDIR /app
-COPY --from=dotnet-build /src/Source/EntryPoint/out ./
+COPY --from=dotnet-build /src/Source/Core/out ./
 COPY --from=node-build /src/Source/Web/wwwroot ./wwwroot
 
 ENV BASE_PATH=
@@ -32,4 +32,4 @@ ENV KUBERNETES_API=
 VOLUME ["/build"]
 
 EXPOSE 80
-ENTRYPOINT ["dotnet", "EntryPoint.dll"]
+ENTRYPOINT ["dotnet", "Core.dll"]

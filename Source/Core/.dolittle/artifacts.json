@@ -1,29 +1,29 @@
 {
   "artifacts": {
-    "605a65f5-8c8f-485e-ba64-bb221ebf50ed": {
+    "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
       "commands": [],
       "events": [],
       "eventSources": [],
       "readModels": [
         {
-          "artifact": "aebdec3d-455c-43cb-b1be-96ef458d81b9",
-          "generation": 1,
-          "type": "Read.Projects.Project, Read"
-        },
-        {
-          "artifact": "cd2e9cec-6569-4185-b995-41a4efc8ba7b",
+          "artifact": "b666eefd-158d-4021-89e8-d194dab1c0d0",
           "generation": 1,
           "type": "Read.Projects.Improvement, Read"
+        },
+        {
+          "artifact": "656e7dec-8b45-4d89-bf16-c7762eed89d7",
+          "generation": 1,
+          "type": "Read.Projects.Project, Read"
         }
       ],
       "queries": [
         {
-          "artifact": "bc10b6f3-7649-40fe-b1c0-6eaf54b06a4a",
+          "artifact": "0dee2257-b336-4a1d-a0cc-9e36660cc3aa",
           "generation": 1,
           "type": "Read.Projects.AllProjects, Read"
         },
         {
-          "artifact": "8b91c6df-3b36-4229-a0c1-0e81c4139387",
+          "artifact": "2489f6a0-ce73-4c8f-8818-56c118a9f570",
           "generation": 1,
           "type": "Read.Projects.ImprovementsForProject, Read"
         }

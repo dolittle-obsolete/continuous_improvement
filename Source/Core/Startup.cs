@@ -14,6 +14,7 @@ using Orchestrations.Build;
 using Swashbuckle.AspNetCore.Swagger;
 using Orchestrations.Triggers;
 using Infrastructure.Routing;
+using Dolittle.Booting;
 
 namespace Core
 {
@@ -24,7 +25,7 @@ namespace Core
     {
         readonly IHostingEnvironment _hostingEnvironment;
         readonly ILoggerFactory _loggerFactory;
-        BootResult _bootResult;
+        BootloaderResult _bootResult;
 
         /// <summary>
         /// 
