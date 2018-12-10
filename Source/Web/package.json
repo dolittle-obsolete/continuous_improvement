@@ -18,6 +18,7 @@
     "@dolittle/commands": "^1.0.6",
     "@dolittle/core": "^1.0.2",
     "@dolittle/queries": "^1.0.7",
+    "@dolittle/aurelia": "^1.0.14",
     "aurelia-http-client": "^1.2.1",
     "aurelia-open-id-connect": "^1.0.3"
   }
