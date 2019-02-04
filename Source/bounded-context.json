@@ -6,6 +6,10 @@
     "eventStore": {
       "production": "Azure",
       "development": "MongoDB"
+    },
+    "readModels": {
+      "production": "MongoDB",
+      "development": "MongoDB"
     }
   },
   "core": {
