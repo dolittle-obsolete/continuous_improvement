@@ -8,8 +8,10 @@ process.env.DOLITTLE_COMPONENT_DIR = path.resolve('./Components');
 
 const config = require('@dolittle/build.aurelia/webpack.config.js');
 
-config.entry = {
-    app: ['babel-polyfill', 'aurelia-bootstrapper'],
-    vendor: ['bluebird']
+module.exports = () => {
+    const obj = config.apply(null, arguments);
+    obj.devServer = {
+        historyApiFallback: true
+    };
+    return obj;
 };
-module.exports = config;
