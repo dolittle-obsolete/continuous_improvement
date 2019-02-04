@@ -4,16 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 import { ReadModel } from  '@dolittle/readmodels';
 
-export class Project extends ReadModel
+export class RepositoriesList extends ReadModel
 {
     constructor() {
         super();
         this.artifact = {
-           id: 'bf2f7fcf-5286-4f90-b5ea-e7525dc626f5',
+           id: 'b2b161aa-c4c0-4791-8bed-fa2de1ef6555',
            generation: '1'
         };
-        this.id = '00000000-0000-0000-0000-000000000000';
-        this.name = '';
-        this.version = '';
+        this.repositories = [];
     }
 }
