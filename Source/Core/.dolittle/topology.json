@@ -4,6 +4,15 @@
     "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
       "name": "Projects",
       "subFeatures": {}
+    },
+    "b5f1d19f-1ce0-40ed-88a4-cbe7c8d684ba": {
+      "name": "SourceControl",
+      "subFeatures": {
+        "a6b102a5-9afa-49a6-bd65-30a0f49d9c45": {
+          "name": "GitHub",
+          "subFeatures": {}
+        }
+      }
     }
   }
 }
