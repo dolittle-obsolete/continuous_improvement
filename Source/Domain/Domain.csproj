@@ -3,15 +3,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors> <!-- FIXME: REMOVE -->
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
     <ProjectReference Include="..\Concepts\Concepts.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dolittle.SDK" Version="2.0.*" />
+    <PackageReference Include="Dolittle.SDK" Version="2.*" />
   </ItemGroup>
 
 </Project>
