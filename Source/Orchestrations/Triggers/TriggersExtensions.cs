@@ -20,7 +20,7 @@ namespace Orchestrations.Triggers
         public static void UseGitHubTrigger(this IApplicationBuilder app)
         {
             var routeBuilder = new RouteBuilder(app);
-            routeBuilder.MapPost<GitHub.Trigger>(app,$"triggers/github/{{{GitHub.Trigger.TenantRouteValueName}:guid}}/{{{GitHub.Trigger.ProjectRouteValueName}:guid}}");
+            routeBuilder.MapPost<GitHub.Trigger>(app,$"triggers/github/");
             app.UseRouter(routeBuilder.Build());
         }
     }

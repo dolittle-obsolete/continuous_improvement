@@ -18,6 +18,8 @@ using Orchestrations;
 using Orchestrations.Build;
 using Orchestrations.SourceControl;
 using Read.Configuration;
+using Octokit;
+using Octokit.Internal;
 
 namespace Orchestrations.Triggers.GitHub
 {
@@ -41,6 +43,8 @@ namespace Orchestrations.Triggers.GitHub
         readonly ILogger _logger;
         private readonly IScoreConfigurator _scoreConfigurator;
 
+        private readonly IJsonSerializer _githubSerializer;
+
         /// <summary>
         /// Initializes a new instance of <see cref="Trigger"/>
         /// </summary>
@@ -58,13 +62,26 @@ namespace Orchestrations.Triggers.GitHub
             _conductor = conductor;
             _logger = logger;
             _scoreConfigurator = scoreConfigurator;
+            _githubSerializer = new SimpleJsonSerializer();
         }
 
         /// <inheritdoc/>
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
-            _logger.Information("Handling trigger");
+            _logger.Trace("Handling trigger");
 
+            var eventType = request.Headers["X-GitHub-Event"].Single();
+            var deliveryId = Guid.Parse(request.Headers["X-GitHub-Delivery"].Single());
+            //request.Headers["X-Hub-Signature"]; // TODO: Verify signature
+
+            _logger.Information($"GitHub trigger {deliveryId} - {eventType}");
+
+            var reader = new StreamReader(request.Body);
+            var json = await reader.ReadToEndAsync();
+
+            
+
+            /*
             var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
             var tenantId = Guid.Parse(routeData.Values[TenantRouteValueName].ToString());
             var projectId = Guid.Parse(routeData.Values[ProjectRouteValueName].ToString());
@@ -107,6 +124,8 @@ namespace Orchestrations.Triggers.GitHub
             #pragma warning disable 4014 // Don't force await - we want this to run in background and let GitHub continue their business
             Task.Run(() => _conductor.Conduct(score));
             response.StatusCode = StatusCodes.Status200OK;
+
+            */
 
             await Task.CompletedTask;
         }
