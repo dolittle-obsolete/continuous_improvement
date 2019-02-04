@@ -3,12 +3,14 @@
   
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors> <!-- FIXME: REMOVE -->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="KubernetesClient" Version="1.2.0" />
     <PackageReference Include="libgit2sharp" Version="0.25.2" />
     <PackageReference Include="nuget.commands" Version="4.8.0" />
+    <PackageReference Include="Octokit" Version="0.32.0" />
   </ItemGroup>
 
   <ItemGroup>
