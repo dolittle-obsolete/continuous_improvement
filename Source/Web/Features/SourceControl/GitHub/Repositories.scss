@@ -1,0 +1,16 @@
+@import '../../../styles/Settings/all';
+@import '../../../styles/Tools/all';
+.github-repositories-page {
+    @extend %flex-container-vertical;
+    padding: $grid-gutter;
+    height: 100%;
+    text-align: center;
+
+    .page-content {
+        text-align: initial;
+        margin: auto;
+        height: 100%;
+        width: 100em;
+        padding: $grid-gutter;
+    }
+}

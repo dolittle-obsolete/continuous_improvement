@@ -1,0 +1,6 @@
+@import '../../../styles/Settings/all';
+@import '../../../styles/Tools/all';
+.github-authorize {
+    @extend %flex-container-vertical;
+    padding: $grid-gutter;
+}

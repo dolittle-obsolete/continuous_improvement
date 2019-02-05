@@ -15,6 +15,12 @@ using Swashbuckle.AspNetCore.Swagger;
 using Orchestrations.Triggers;
 using Infrastructure.Routing;
 using Dolittle.Booting;
+using System.Net.Http;
+using System;
+using Core.SourceControl.GitHub;
+using Infrastructure.Services.Github.Webhooks;
+using Infrastructure.Services.Github.UserAuthentication;
+using Infrastructure.Services.Github.Installation;
 
 namespace Core
 {
@@ -78,6 +84,12 @@ namespace Core
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });
+
+                app.UseCors(builder => {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
             }
 
             app.UseDefaultFiles();
@@ -85,13 +97,34 @@ namespace Core
 
             app.UseMvc();
 
-            app.UseGitHubTrigger();
+            //app.UseGitHubTrigger();
+            app.UseGitHubWebhookHandler();
+            app.UseGitHubUserAuthentication();
+            app.UseGitHubInstallationHandler();
 
             var routeBuilder = new RouteBuilder(app);
             routeBuilder.MapPost<BuildJobDone>(app, $"buildJobDone");
             app.UseRouter(routeBuilder.Build());
 
             app.UseDolittle();
+
+            /*
+            app.Run(async context => {
+                Console.WriteLine($"Proxying request!");
+                var proxyClient = new HttpClient();
+
+                var proxyUri = new UriBuilder(context.Request.Scheme, "localhost", 8080, context.Request.Path, context.Request.QueryString.ToUriComponent()).Uri;
+                var proxyResult = await proxyClient.GetAsync(proxyUri);
+
+                context.Response.StatusCode = (int)proxyResult.StatusCode;
+
+                using (var proxyStream = await proxyResult.Content.ReadAsStreamAsync())
+                {
+                    await proxyStream.CopyToAsync(context.Response.Body);
+                }
+            });
+            */
+
             app.RunAsSinglePageApplication();
         }
     }
