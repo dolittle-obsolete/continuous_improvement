@@ -1,6 +1,17 @@
-const config = require('dolittle.javascript.build.aurelia/webpack.config.js');
-config.entry = {
-    app: ['babel-polyfill', 'aurelia-bootstrapper'],
-    vendor: ['bluebird']
+const path = require('path');
+require('dotenv').config();
+
+process.env.DOLITTLE_WEBPACK_ROOT = path.resolve('../Core');
+process.env.DOLITTLE_WEBPACK_OUT = path.resolve('../Core/wwwroot');
+process.env.DOLITTLE_FEATURES_DIR = path.resolve('./Features');
+process.env.DOLITTLE_COMPONENT_DIR = path.resolve('./Components');
+
+const config = require('@dolittle/build.aurelia/webpack.config.js');
+
+module.exports = () => {
+    const obj = config.apply(null, arguments);
+    obj.devServer = {
+        historyApiFallback: true
+    };
+    return obj;
 };
-module.exports = config;

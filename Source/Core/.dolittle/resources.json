@@ -1,0 +1,14 @@
+{
+    "445f8ea8-1a6f-40d7-b2fc-796dba92dc44": {
+        "eventStore": {
+            "host": "mongodb://localhost:27017",
+            "database": "ci_event_store",
+            "useSSL": false
+        },
+        "readModels": {
+            "host": "mongodb://localhost:27017",
+            "database": "ci_read_models",
+            "useSSL": false
+        }
+    }
+}

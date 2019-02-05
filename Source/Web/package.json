@@ -1,11 +1,13 @@
 {
-  "name": "sentry",
+  "name": "continuous_improvement",
   "version": "1.0.0",
   "description": "",
   "main": "karma.conf.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "./run.js"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open --watch --progress --hot",
+    "run": "cd .. && dolittle run"
   },
   "author": "",
   "license": "ISC",
@@ -19,11 +21,11 @@
     "webpack-notifier": "^1.7.0"
   },
   "dependencies": {
-    "@dolittle/commands": "^1.0.6",
-    "@dolittle/core": "^1.0.2",
-    "@dolittle/queries": "^1.0.7",
-    "@dolittle/aurelia": "^1.0.14",
+    "@dolittle/commands": "^1.0.10",
+    "@dolittle/core": "^1.0.4",
+    "@dolittle/queries": "^1.0.12",
     "aurelia-http-client": "^1.2.1",
-    "aurelia-open-id-connect": "^1.0.3"
+    "aurelia-open-id-connect": "^1.0.3",
+    "dotenv": "^6.1.0"
   }
 }

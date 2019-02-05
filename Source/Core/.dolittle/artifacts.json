@@ -1,33 +1,87 @@
 {
-  "artifacts": {
-    "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
-      "commands": [],
-      "events": [],
-      "eventSources": [],
-      "readModels": [
-        {
-          "artifact": "b666eefd-158d-4021-89e8-d194dab1c0d0",
-          "generation": 1,
-          "type": "Read.Projects.Improvement, Read"
-        },
-        {
-          "artifact": "656e7dec-8b45-4d89-bf16-c7762eed89d7",
-          "generation": 1,
-          "type": "Read.Projects.Project, Read"
-        }
-      ],
-      "queries": [
-        {
-          "artifact": "0dee2257-b336-4a1d-a0cc-9e36660cc3aa",
-          "generation": 1,
-          "type": "Read.Projects.AllProjects, Read"
-        },
-        {
-          "artifact": "2489f6a0-ce73-4c8f-8818-56c118a9f570",
-          "generation": 1,
-          "type": "Read.Projects.ImprovementsForProject, Read"
-        }
-      ]
+  "a6b102a5-9afa-49a6-bd65-30a0f49d9c45": {
+    "commands": {
+      "b5f1af0e-7a99-4727-9a51-393908b5a1c6": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.RegisterInstallation, Domain"
+      },
+      "3d0acaed-77ff-4714-b522-13107fc74101": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.UpdateInstallationRepositories, Domain"
+      },
+      "137bdcbf-a3e6-45ee-a52a-76fdd8674a5c": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.TriggerUpdateOfRepositories, Domain"
+      }
+    },
+    "events": {
+      "8c865643-4fef-43bb-add1-17414bd08bbe": {
+        "generation": 1,
+        "type": "Events.SourceControl.GitHub.InstallationRegistered, Events"
+      },
+      "244ac6f4-4a69-4f8b-9a74-cb5ab95819f4": {
+        "generation": 1,
+        "type": "Events.SourceControl.GitHub.InstallationRepositoriesUpdateReceived, Events"
+      },
+      "2a5959f5-6e42-4b70-9134-0ea0ae551e4e": {
+        "generation": 1,
+        "type": "Events.SourceControl.GitHub.InstallationRepositoriesRefreshed, Events"
+      }
+    },
+    "eventSources": {
+      "7ab3224e-315d-403c-852e-a596be24bafc": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.Application, Domain"
+      }
+    },
+    "readModels": {
+      "b2b161aa-c4c0-4791-8bed-fa2de1ef6555": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.RepositoriesList, Read"
+      },
+      "af660c47-0856-4909-9944-03798051ce9e": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.InstallationRepositories, Read"
+      },
+      "82302672-cc9b-4e0d-b20f-2c6449f181bf": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.InstallationsList, Read"
+      }
+    },
+    "queries": {
+      "b91452fe-f166-4c41-b303-9da0a9fed36e": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.AllAvailableRepositories, Read"
+      },
+      "daafd308-0928-468a-a5e8-70b03ef80da9": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.AllInstallations, Read"
+      }
+    }
+  },
+  "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "b4cc9975-a9b1-4abe-a634-bfc5f6614bb8": {
+        "generation": 1,
+        "type": "Read.Projects.Improvement, Read"
+      },
+      "bf2f7fcf-5286-4f90-b5ea-e7525dc626f5": {
+        "generation": 1,
+        "type": "Read.Projects.Project, Read"
+      }
+    },
+    "queries": {
+      "834bb6b7-8dd0-42c9-8dc4-adebed78ecd4": {
+        "generation": 1,
+        "type": "Read.Projects.AllProjects, Read"
+      },
+      "3184019c-54df-40f1-86c4-f8252b199cb5": {
+        "generation": 1,
+        "type": "Read.Projects.ImprovementsForProject, Read"
+      }
     }
   }
 }
