@@ -1,0 +1,15 @@
+{
+    "profiles": {
+        "Web": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5000",
+                "BASE_PATH": "./Builds",
+                "KUBERNETES_API": "http://127.0.0.1:8001",
+                "MONGO": "mongodb://localhost:27017"
+            }
+        }
+    }
+}
