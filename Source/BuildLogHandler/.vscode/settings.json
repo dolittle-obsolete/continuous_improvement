@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.envelope": "json",
+        "*.event": "json",
+        "*.props": "xml",
+        "*.tpp": "cpp",
+        "iosfwd": "cpp",
+        "string": "cpp"
+    },
+    "terminal.integrated.shell.windows": "cmd.exe"
+}
