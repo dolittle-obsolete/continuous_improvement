@@ -4,5 +4,6 @@ export class ImprovementDetails {
     }
 
     activate(params) {
+        console.log(params);
     }
 }

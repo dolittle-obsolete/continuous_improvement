@@ -71,6 +71,10 @@
       "bf2f7fcf-5286-4f90-b5ea-e7525dc626f5": {
         "generation": 1,
         "type": "Read.Projects.Project, Read"
+      },
+      "d65470f9-ce77-4f9d-ba67-d6a6d035f08c": {
+        "generation": 1,
+        "type": "Read.Projects.Step, Read"
       }
     },
     "queries": {
@@ -81,6 +85,10 @@
       "3184019c-54df-40f1-86c4-f8252b199cb5": {
         "generation": 1,
         "type": "Read.Projects.ImprovementsForProject, Read"
+      },
+      "e24db2a2-5165-462c-a8be-3d0fdebb8786": {
+        "generation": 1,
+        "type": "Read.Projects.StepsForImprovement, Read"
       }
     }
   }
