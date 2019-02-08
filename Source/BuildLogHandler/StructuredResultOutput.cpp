@@ -5,7 +5,7 @@
 #include <string>
 #include "StructuredResultOutput.h"
 
-void StructuredResultOutput::Write(std::string project, std::string file, int line, int column, Severity severity, std::string code, std::string message)
+void StructuredResultOutput::Write(std::string project, std::string file, int line, int column, Severity severity, std::string code, std::string message, int originalLine)
 {
     printf("Project : %s\n",project.c_str());
     printf("File : %s\n",file.c_str());
@@ -13,4 +13,5 @@ void StructuredResultOutput::Write(std::string project, std::string file, int li
     printf("Problem : %d\n", severity);
     printf("Code : %s\n", code.c_str());
     printf("Message : %s\n", message.c_str());
+    printf("OriginalLine : %d\n", originalLine);
 }

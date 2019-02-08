@@ -13,5 +13,5 @@ private:
 
 public:
   CSharpParser(StructuredResultOutput *structuredResultOutput);
-  void Handle(std::string input);
+  void Handle(std::string input, int originalLine);
 };

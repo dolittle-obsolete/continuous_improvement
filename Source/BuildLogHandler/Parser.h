@@ -7,5 +7,5 @@
 class Parser
 {
 public:
-  virtual void Handle(std::string input) = 0;
+  virtual void Handle(std::string input, int originalLine) = 0;
 };

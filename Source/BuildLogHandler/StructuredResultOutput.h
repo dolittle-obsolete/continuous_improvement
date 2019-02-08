@@ -14,5 +14,5 @@ enum Severity
 class StructuredResultOutput
 {
 public:
-    void Write(std::string project, std::string file, int line, int column, Severity severity, std::string code, std::string message);
+    void Write(std::string project, std::string file, int line, int column, Severity severity, std::string code, std::string message, int originalLine);
 };

@@ -15,6 +15,7 @@ using namespace std;
 
 int main()
 {
+  auto originalLine = 0;
   auto logWriter = new LogWriter();
   auto structuredResultOutput = new StructuredResultOutput();
   Parser* o = new CSharpParser(structuredResultOutput);
@@ -23,7 +24,8 @@ int main()
   while (fgets(buffer, sizeof(buffer), stdin))
   {
     logWriter->Write(buffer);
-    o->Handle(buffer);    
+    o->Handle(buffer, originalLine);
+    originalLine++;
   }  
 
   return 0;

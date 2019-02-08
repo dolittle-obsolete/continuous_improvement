@@ -17,7 +17,7 @@ CSharpParser::CSharpParser(StructuredResultOutput *structuredResultOutput)
   _structuredResultOutput = structuredResultOutput;
 }
 
-void CSharpParser::Handle(std::string input)
+void CSharpParser::Handle(std::string input, int originalLine)
 {
 
   cmatch cm;
@@ -32,6 +32,6 @@ void CSharpParser::Handle(std::string input)
     auto message = cm[6].str();
     auto project = cm[7].str();
 
-    _structuredResultOutput->Write(project, file, line, column, Severity::Error, code, message);
+    _structuredResultOutput->Write(project, file, line, column, Severity::Error, code, message, originalLine);
   }
 };
