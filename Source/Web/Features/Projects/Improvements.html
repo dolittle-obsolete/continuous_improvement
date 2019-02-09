@@ -10,7 +10,12 @@
                     <h1>Steps</h1>
                 </header>
 
-                <checklist-item repeat.for="step of steps" icon_name="${step | stepIcon}" text="${step | stepTitle }"></checklist-item>
+                <checklist-item 
+                    repeat.for="step of steps" 
+                    icon_name="${step | stepIcon}" 
+                    text="${step | stepTitle }"
+                    nav_url="Projects/Improvements/${project}/${selectedVersion}/${step.number}">
+                </checklist-item>
 
                 <footer>
                     <label>

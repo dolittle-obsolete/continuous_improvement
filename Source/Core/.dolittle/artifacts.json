@@ -75,6 +75,10 @@
       "d65470f9-ce77-4f9d-ba67-d6a6d035f08c": {
         "generation": 1,
         "type": "Read.Projects.Step, Read"
+      },
+      "715cc94c-313e-40a7-9b7b-05c336f81985": {
+        "generation": 1,
+        "type": "Read.Projects.StepResult, Read"
       }
     },
     "queries": {
@@ -89,6 +93,10 @@
       "e24db2a2-5165-462c-a8be-3d0fdebb8786": {
         "generation": 1,
         "type": "Read.Projects.StepsForImprovement, Read"
+      },
+      "9fd44554-45e1-4d27-81b6-e320471e3381": {
+        "generation": 1,
+        "type": "Read.Projects.StepResultsForStep, Read"
       }
     }
   }

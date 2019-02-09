@@ -4,16 +4,21 @@
  *--------------------------------------------------------------------------------------------*/
 import { ReadModel } from  '@dolittle/readmodels';
 
-export class Step extends ReadModel
+export class StepResult extends ReadModel
 {
     constructor() {
         super();
         this.artifact = {
-           id: 'd65470f9-ce77-4f9d-ba67-d6a6d035f08c',
+           id: '715cc94c-313e-40a7-9b7b-05c336f81985',
            generation: '1'
         };
-        this.number = 0;
-        this.type = '00000000-0000-0000-0000-000000000000';
-        this.status = {};
+        this.severity = {};
+        this.project = '';
+        this.file = '';
+        this.line = 0;
+        this.column = 0;
+        this.code = '';
+        this.message = '';
+        this.originalLine = 0;
     }
 }

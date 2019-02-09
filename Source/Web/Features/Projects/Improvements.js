@@ -20,7 +20,7 @@ export class Improvements {
     steps = [];
 
     #firstRun = true;
-    #project;
+    project;
 
     constructor(queryCoordinator) {
         this.#queryCoordinator = queryCoordinator;
@@ -29,7 +29,7 @@ export class Improvements {
     async activate(params, routeConfig, navigationInstruction) {
         let query = new ImprovementsForProject();
         query.project = params.id;
-        this.#project = params.id;
+        this.project = params.id;
 
         this.selectedVersion = navigationInstruction.plan.default.childNavigationInstruction.params.version;
         this.#firstRun = false;
@@ -41,7 +41,7 @@ export class Improvements {
 
     populateSteps() {
         let query = new StepsForImprovement();
-        query.project = this.#project;
+        query.project = this.project;
         query.version = this.selectedVersion;
 
         this.#queryCoordinator.execute(query).then(result => {
@@ -54,7 +54,7 @@ export class Improvements {
 
         config.title = 'Improvement details';
         config.map([{
-            route: ['', ':version'],
+            route: ['', ':version/:step'],
             name: 'Details',
             moduleId: PLATFORM.moduleName('Projects/ImprovementDetails')
         }]);
@@ -62,6 +62,6 @@ export class Improvements {
 
     async selectedVersionChanged(version) {
         if (this.#firstRun ) return;
-        this.#router.navigate(version);
+        this.#router.navigate(`${version}/1`);
     }
 }
