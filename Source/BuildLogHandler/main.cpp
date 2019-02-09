@@ -8,16 +8,32 @@
 #include <regex>
 #include <iostream>
 
+#include "Config.h"
+
 #include "CSharpParser.h"
 #include "LogWriter.h"
 
 using namespace std;
 
-int main()
+int main(int argv, char** args)
 {
+  if( argv < 3 ) 
+  {
+    printf("Must provide all expected arguments\n");
+    printf("\nUsage:\n");
+    printf("BuildLogHandler <stepnumber> <path-to-steps>\n");
+    return 1;
+  }
+
+  Config config;
+
+  config.StepNumber = atoi(args[1]);
+  config.Path = args[2];
+
+
   auto originalLine = 0;
-  auto logWriter = new LogWriter();
-  auto structuredResultOutput = new StructuredResultOutput();
+  auto logWriter = new LogWriter(config);
+  auto structuredResultOutput = new StructuredResultOutput(config);
   Parser* o = new CSharpParser(structuredResultOutput);
 
   char buffer[1024];

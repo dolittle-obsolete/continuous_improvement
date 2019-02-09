@@ -3,7 +3,7 @@
 #  Licensed under the MIT License. See LICENSE in the project root for license information.
 #---------------------------------------------------------------------------------------------
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+CXX_FLAGS := -std=c++17 -ggdb
 
 BIN		:= bin
 SRC		:= src
@@ -11,7 +11,7 @@ INCLUDE	:= include
 LIB		:= lib
 
 LIBRARIES	:=
-EXECUTABLE	:= main
+EXECUTABLE	:= BuildLogHandler
 
 
 all: $(BIN)/$(EXECUTABLE)

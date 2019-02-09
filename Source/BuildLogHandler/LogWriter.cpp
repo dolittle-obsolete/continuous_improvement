@@ -5,6 +5,11 @@
 #include <string>
 #include "LogWriter.h"
 
+LogWriter::LogWriter(Config config)
+{
+    _config = config;
+}
+
 void LogWriter::Write(std::string line)
 {
     printf("%s",line.c_str());

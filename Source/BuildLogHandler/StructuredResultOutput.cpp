@@ -5,7 +5,14 @@
 #include <string>
 #include "StructuredResultOutput.h"
 
-void StructuredResultOutput::Write(std::string project, std::string file, int line, int column, Severity severity, std::string code, std::string message, int originalLine)
+using namespace std;
+
+StructuredResultOutput::StructuredResultOutput(Config config)
+{
+    _config = config;
+}
+
+void StructuredResultOutput::Write(string project, string file, int line, int column, Severity severity, string code, string message, int originalLine)
 {
     printf("Project : %s\n",project.c_str());
     printf("File : %s\n",file.c_str());
