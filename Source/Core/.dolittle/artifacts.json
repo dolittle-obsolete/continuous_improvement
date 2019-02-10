@@ -71,6 +71,18 @@
       "bf2f7fcf-5286-4f90-b5ea-e7525dc626f5": {
         "generation": 1,
         "type": "Read.Projects.Project, Read"
+      },
+      "d65470f9-ce77-4f9d-ba67-d6a6d035f08c": {
+        "generation": 1,
+        "type": "Read.Projects.Step, Read"
+      },
+      "715cc94c-313e-40a7-9b7b-05c336f81985": {
+        "generation": 1,
+        "type": "Read.Projects.StepResult, Read"
+      },
+      "c7e24bd8-ef91-4bc1-a142-8129376eae07": {
+        "generation": 1,
+        "type": "Read.Projects.StepRawLog, Read"
       }
     },
     "queries": {
@@ -81,6 +93,18 @@
       "3184019c-54df-40f1-86c4-f8252b199cb5": {
         "generation": 1,
         "type": "Read.Projects.ImprovementsForProject, Read"
+      },
+      "e24db2a2-5165-462c-a8be-3d0fdebb8786": {
+        "generation": 1,
+        "type": "Read.Projects.StepsForImprovement, Read"
+      },
+      "9fd44554-45e1-4d27-81b6-e320471e3381": {
+        "generation": 1,
+        "type": "Read.Projects.StepResultsForStep, Read"
+      },
+      "6da257fb-a4cb-42fc-85a1-6d66be7e77d9": {
+        "generation": 1,
+        "type": "Read.Projects.RawLogForStep, Read"
       }
     }
   }

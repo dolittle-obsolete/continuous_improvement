@@ -1,47 +1,57 @@
 <template>
     <require from="./ImprovementDetails.scss"></require>
+    <require from="./StepResultSeverityIconValueConverter"></require>
+
     <section class="page-content improvements-details-page">
         <section class="details acrylic">
             <h1>Details</h1>
             <div class="view_toggle">
-                <a href=><img src="../../assets/icons/console.svg" alt=""></a>
-                <a href=><img src="../../assets/icons/book.svg" alt=""></a>
+                <a click.delegate="setFocusedView()"><img src="../../assets/icons/console.svg" alt=""></a>
+                <a click.delegate="setRawView()"><img src="../../assets/icons/book.svg" alt=""></a>
+                <a click.delegate="refresh()"><img src="../../assets/icons/refresh.svg" alt=""></a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Severity
-                        </th>
-                        <th>
-                            Source
-                        </th>
-                        <th>
-                            Line
-                        </th>
-                        <th>
-                            Message
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="error.png"></td>
-                        <td><a href="#">CommandCoordinator.cs</a></td>
-                        <td><a href="#">118</a></td>
-                        <td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019"
-                                target="_blank">CS0019</a>: <a href="#">Operator 'operator' cannot be applied to
-                                operands of type 'type' and 'type'</a></td>
-                    </tr>
-                    <tr>
-                        <td><img src="sign_warning.png"></td>
-                        <td><a href="#">Geodesics.cs</a></td>
-                        <td><a href="#">53</a></td>
-                        <td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1691"
-                                target="_blank">CS1691</a>: <a href="#">'number' is not a valid warning number</a></td>
-                    </tr>
-                </tbody>
-            </table>
+
+            <div if.bind="!rawView">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Severity
+                            </th>
+                            <th>
+                                Source
+                            </th>
+                            <th>
+                                Line
+                            </th>
+                            <th>
+                                Column
+                            </th>
+                            <th>
+                                Reference
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr repeat.for="result of results">
+                            <td><img src="${result.severity | stepResultSeverityIcon}"></td>
+                            <td><a href="#">${result.file}</a></td>
+                            <td><a href="#">${result.line}</a></td>
+                            <td><a href="#">${result.column}</a></td>
+                            <td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/${result.code}" target="_blank">${result.code}</a></td>
+                            <td><a href="#">${result.message}</a></td>
+                        </tr>
+                    </tbody>
+                </table>   
+            </div>
+            <div else>
+                <div style="width:1000px; height:400px; border: 1px solid white; background-color: black; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" innerhtml.bind="rawLog">
+                    
+                </div>
+            </div>
         </section>
     </section>
 </template>
