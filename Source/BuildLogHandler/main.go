@@ -85,9 +85,8 @@ func parseEnvironmentConfig() (rawFile, parsedFile *os.File, parser Parser.LogPa
 	if parserType, found := os.LookupEnv(parserEnvName); !found {
 		fmt.Printf("Must set environmental variable '%s'\n", parserEnvName)
 		os.Exit(0)
-	} else if parser, found = Parser.GetParserByType(parserType); !found {
-		fmt.Printf("Parser type '%s' not found\n", parserType)
-		os.Exit(2)
+	} else {
+		parser = Parser.GetParserByType(parserType)
 	}
 
 	return

@@ -4,11 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 package Parser
 
-func GetParserByType(parserType string) (LogParser, bool) {
+func GetParserByType(parserType string) LogParser {
 	switch parserType {
 	case "csharp":
-		return NewCSharpParser(), true
+		return NewCSharpParser()
 	default:
-		return nil, false
+		return NewNullParser()
 	}
 }
