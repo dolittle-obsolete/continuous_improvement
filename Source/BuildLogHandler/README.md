@@ -4,7 +4,11 @@ The purpose of this project is to provide a way to easily handle logs coming dur
 
 ### Getting started
 1. Install Go as described here https://golang.org/doc/install
-1. Run `go run . <step> <path-to-steps>` to run the program
+1. Run `go run . <actual-command> [<actual-command-args>...]` to run the program
+    - Make sure the following environmental variables are set:
+        1. `DOLITTLE_BUILD_LOG_RAW_PATH` the path to append the raw log
+        1. `DOLITTLE_BUILD_LOG_PARSED_PATH` the path to append the structured log
+        1. `DOLITTLE_BUILD_LOG_PARSER` the type of the parser to use, currently supported: `csharp`.
 
 An executable can be compiled by running `go build`
 
