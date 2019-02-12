@@ -1,15 +1,15 @@
 ﻿/*---------------------------------------------------------------------------------------------
- *  This file is an automatically generated Command Proxy
+ *  This file is an automatically generated Query Proxy
  *  
  *--------------------------------------------------------------------------------------------*/
-import { Command } from  '@dolittle/commands';
+import { Query } from  '@dolittle/queries';
 
-export class RegisterInstallation extends Command
+export class AllProjects extends Query
 {
     constructor() {
         super();
-        this.type = 'af13498e-d289-40a2-bd9e-eade5ddf1271';
+        this.nameOfQuery = 'AllProjects';
+        this.generatedFrom = 'Read.Improvements.AllProjects';
 
-        this.id = 0;
     }
 }

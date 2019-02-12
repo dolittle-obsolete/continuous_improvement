@@ -9,7 +9,7 @@ export class RepositoriesList extends ReadModel
     constructor() {
         super();
         this.artifact = {
-           id: 'b2b161aa-c4c0-4791-8bed-fa2de1ef6555',
+           id: 'd82571e7-f9b6-475c-a458-763f74e84ff6',
            generation: '1'
         };
         this.repositories = [];

@@ -1,0 +1,36 @@
+<template>
+    <require from="./Improvements.scss"></require>
+    <require from="./StepIconValueConverter"></require>
+    <require from="./StepTitleValueConverter"></require>
+    <div class="improvements-page">
+
+        <section class="steps">
+            <side-bar expanded="true" hide_trigger.one-time="true" is_subnavigation="true">
+                <header>
+                    <h1>Steps</h1>
+                </header>
+
+                <checklist-item 
+                    repeat.for="step of steps" 
+                    icon_name="${step | stepIcon}" 
+                    text="${step | stepTitle }"
+                    nav_url="Improvements/${project}/${selectedVersion}/${step.number}">
+                </checklist-item>
+
+                <footer>
+                    <label>
+                        Select Improvement:<br />
+                        <select value.bind="selectedVersion">
+                            <option repeat.for="improvement of improvements" model.bind="improvement.version">
+                                ${improvement.version}
+                            </option>
+                        </select>
+                    </label></footer>
+            </side-bar>
+        </section>
+        <section class="page-content improvements-page">
+            <router-view containerless></router-view>
+        </section>
+    </div>
+
+</template>

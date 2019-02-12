@@ -1,110 +1,120 @@
 {
-  "a6b102a5-9afa-49a6-bd65-30a0f49d9c45": {
+  "d9bb530c-e2a1-49a2-8adf-a05eda935a06": {
     "commands": {
-      "b5f1af0e-7a99-4727-9a51-393908b5a1c6": {
+      "af13498e-d289-40a2-bd9e-eade5ddf1271": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.RegisterInstallation, Domain"
       },
-      "3d0acaed-77ff-4714-b522-13107fc74101": {
-        "generation": 1,
-        "type": "Domain.SourceControl.GitHub.UpdateInstallationRepositories, Domain"
-      },
-      "137bdcbf-a3e6-45ee-a52a-76fdd8674a5c": {
+      "2d701bb4-d9f1-41a8-80ba-d7d7b624e505": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.TriggerUpdateOfRepositories, Domain"
+      },
+      "ff9af1ab-3573-44b9-8168-836f39cf7137": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.UpdateInstallationRepositories, Domain"
       }
     },
     "events": {
-      "8c865643-4fef-43bb-add1-17414bd08bbe": {
+      "494c851d-2c44-4db3-b86c-c7981212e563": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRegistered, Events"
       },
-      "244ac6f4-4a69-4f8b-9a74-cb5ab95819f4": {
-        "generation": 1,
-        "type": "Events.SourceControl.GitHub.InstallationRepositoriesUpdateReceived, Events"
-      },
-      "2a5959f5-6e42-4b70-9134-0ea0ae551e4e": {
+      "c901c9b2-fd0d-4c82-8209-9b45785d9230": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRepositoriesRefreshed, Events"
+      },
+      "44f9c8df-125b-4dd5-9a24-70f02d6b86b5": {
+        "generation": 1,
+        "type": "Events.SourceControl.GitHub.InstallationRepositoriesUpdateReceived, Events"
       }
     },
     "eventSources": {
-      "7ab3224e-315d-403c-852e-a596be24bafc": {
+      "3ab479bb-9d56-4076-89dc-210efec47550": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.Application, Domain"
       }
     },
     "readModels": {
-      "b2b161aa-c4c0-4791-8bed-fa2de1ef6555": {
-        "generation": 1,
-        "type": "Read.SourceControl.GitHub.RepositoriesList, Read"
-      },
-      "af660c47-0856-4909-9944-03798051ce9e": {
+      "224693bd-f748-4d42-88d1-9d5578e820c5": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.InstallationRepositories, Read"
       },
-      "82302672-cc9b-4e0d-b20f-2c6449f181bf": {
+      "e15fbcb8-716b-48e7-b99a-e91ea8501ec6": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.InstallationsList, Read"
+      },
+      "d82571e7-f9b6-475c-a458-763f74e84ff6": {
+        "generation": 1,
+        "type": "Read.SourceControl.GitHub.RepositoriesList, Read"
       }
     },
     "queries": {
-      "b91452fe-f166-4c41-b303-9da0a9fed36e": {
+      "98ce5093-f29f-468e-b392-ceba9c086501": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.AllAvailableRepositories, Read"
       },
-      "daafd308-0928-468a-a5e8-70b03ef80da9": {
+      "21b6110a-eec0-4323-b074-fe4d888cc319": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.AllInstallations, Read"
       }
     }
   },
-  "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
+  "e041e888-f527-42c5-bb55-c0f0aa55885b": {
     "commands": {},
-    "events": {},
-    "eventSources": {},
+    "events": {
+      "506ba160-5957-4ee7-8f66-78c953db7d0b": {
+        "generation": 1,
+        "type": "Policies.Improvements.FrameworkImprovementRequested, Policies"
+      }
+    },
+    "eventSources": {
+      "339fd169-3246-44cd-93a6-f0764a7ff3f6": {
+        "generation": 1,
+        "type": "Policies.Improvements.Improvement, Policies"
+      }
+    },
     "readModels": {
-      "b4cc9975-a9b1-4abe-a634-bfc5f6614bb8": {
+      "c36d3ffd-e085-4dde-87c8-73d788f2a586": {
         "generation": 1,
-        "type": "Read.Projects.Improvement, Read"
+        "type": "Read.Improvements.Improvement, Read"
       },
-      "bf2f7fcf-5286-4f90-b5ea-e7525dc626f5": {
+      "70be1da4-991f-45e9-841d-ec2d5cd844e6": {
         "generation": 1,
-        "type": "Read.Projects.Project, Read"
+        "type": "Read.Improvements.Project, Read"
       },
-      "d65470f9-ce77-4f9d-ba67-d6a6d035f08c": {
+      "6fd8cf5e-4aa9-48af-8618-ccc737483881": {
         "generation": 1,
-        "type": "Read.Projects.Step, Read"
+        "type": "Read.Improvements.Step, Read"
       },
-      "715cc94c-313e-40a7-9b7b-05c336f81985": {
+      "cf3144ed-7396-412a-b7c2-4acd02559a63": {
         "generation": 1,
-        "type": "Read.Projects.StepResult, Read"
+        "type": "Read.Improvements.StepRawLog, Read"
       },
-      "c7e24bd8-ef91-4bc1-a142-8129376eae07": {
+      "f76339d2-6407-41e4-b728-70e9ac7a6271": {
         "generation": 1,
-        "type": "Read.Projects.StepRawLog, Read"
+        "type": "Read.Improvements.StepResult, Read"
       }
     },
     "queries": {
-      "834bb6b7-8dd0-42c9-8dc4-adebed78ecd4": {
+      "4764ab8c-b6e6-4e05-adb8-79ecef1c1e8a": {
         "generation": 1,
-        "type": "Read.Projects.AllProjects, Read"
+        "type": "Read.Improvements.AllProjects, Read"
       },
-      "3184019c-54df-40f1-86c4-f8252b199cb5": {
+      "3b3979b2-94ce-4ae7-9ef6-6026a40a8c3c": {
         "generation": 1,
-        "type": "Read.Projects.ImprovementsForProject, Read"
+        "type": "Read.Improvements.ImprovementsForProject, Read"
       },
-      "e24db2a2-5165-462c-a8be-3d0fdebb8786": {
+      "74dc9050-3f02-4b7d-8a6e-d93606601720": {
         "generation": 1,
-        "type": "Read.Projects.StepsForImprovement, Read"
+        "type": "Read.Improvements.RawLogForStep, Read"
       },
-      "9fd44554-45e1-4d27-81b6-e320471e3381": {
+      "37fbe1fe-65d1-4c21-b4e3-571ce3860549": {
         "generation": 1,
-        "type": "Read.Projects.StepResultsForStep, Read"
+        "type": "Read.Improvements.StepResultsForStep, Read"
       },
-      "6da257fb-a4cb-42fc-85a1-6d66be7e77d9": {
+      "1d101be1-4cf3-43dc-80bc-954964fc0813": {
         "generation": 1,
-        "type": "Read.Projects.RawLogForStep, Read"
+        "type": "Read.Improvements.StepsForImprovement, Read"
       }
     }
   }

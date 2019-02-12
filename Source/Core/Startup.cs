@@ -10,9 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Orchestrations.Build;
 using Swashbuckle.AspNetCore.Swagger;
-using Orchestrations.Triggers;
 using Infrastructure.Routing;
 using Dolittle.Booting;
 using System.Net.Http;
@@ -97,14 +95,9 @@ namespace Core
 
             app.UseMvc();
 
-            //app.UseGitHubTrigger();
             app.UseGitHubWebhookHandler();
             app.UseGitHubUserAuthentication();
             app.UseGitHubInstallationHandler();
-
-            var routeBuilder = new RouteBuilder(app);
-            routeBuilder.MapPost<BuildJobDone>(app, $"buildJobDone");
-            app.UseRouter(routeBuilder.Build());
 
             app.UseDolittle();
 

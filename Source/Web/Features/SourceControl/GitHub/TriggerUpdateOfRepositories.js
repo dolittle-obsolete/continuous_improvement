@@ -8,7 +8,7 @@ export class TriggerUpdateOfRepositories extends Command
 {
     constructor() {
         super();
-        this.type = '137bdcbf-a3e6-45ee-a52a-76fdd8674a5c';
+        this.type = '2d701bb4-d9f1-41a8-80ba-d7d7b624e505';
 
         this.installationIds = [];
     }
