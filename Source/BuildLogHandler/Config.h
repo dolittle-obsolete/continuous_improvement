@@ -8,6 +8,7 @@ using namespace std;
 #pragma once
 struct Config
 {
+    string Type;
     int StepNumber;
-    string  Path;
+    string Path;
 };

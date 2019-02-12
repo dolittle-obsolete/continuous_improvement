@@ -17,19 +17,18 @@ using namespace std;
 
 int main(int argv, char** args)
 {
-  if( argv < 3 ) 
+  if( argv < 4 ) 
   {
     printf("Must provide all expected arguments\n");
     printf("\nUsage:\n");
-    printf("BuildLogHandler <stepnumber> <path-to-steps>\n");
+    printf("BuildLogHandler <step type> <step number> <path-to-steps>\n");
     return 1;
   }
 
   Config config;
-
-  config.StepNumber = atoi(args[1]);
-  config.Path = args[2];
-
+  config.Type = args[1];
+  config.StepNumber = atoi(args[2]);
+  config.Path = args[3];
 
   auto originalLine = 0;
   auto logWriter = new LogWriter(config);
