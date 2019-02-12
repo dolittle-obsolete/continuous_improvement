@@ -12,7 +12,7 @@ import (
 	"os/exec"
 	"syscall"
 
-	"github.com/dolittle-platform/continuous_improvement/Source/BuildLogHandlerGo/Parser"
+	"github.com/dolittle-platform/continuous_improvement/Source/BuildLogHandler/Parser"
 )
 
 func main() {
