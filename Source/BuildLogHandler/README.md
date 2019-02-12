@@ -10,7 +10,7 @@ The purpose of this project is to provide a way to easily handle logs coming dur
         1. `DOLITTLE_BUILD_LOG_PARSED_PATH` the path to append the structured log
         1. `DOLITTLE_BUILD_LOG_PARSER` the type of the parser to use, currently supported: `csharp`.
 
-An executable can be compiled by running `go build`
+An executable can be compiled by running `go build`. To build for another platform set the `GOOS` and `GOARCH` environmental variables, e.g. `GOOS=linux GOARCH=amd64 go build .`. Run `go tool dist list` to get a complete list of `GOOS/GOARCH` combinations.
 
 > The Go extension for VSCode is highly recommended!
 
