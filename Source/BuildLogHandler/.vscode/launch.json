@@ -5,13 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch main",
+            "name": "Launch with 'dotnet build ../Core'",
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}",
-            "env": {},
-            "args": ["10", "hello"]
+            "env": {
+                "DOLITTLE_BUILD_LOG_RAW_PATH": "raw.log",
+                "DOLITTLE_BUILD_LOG_PARSED_PATH": "json.log",
+                "DOLITTLE_BUILD_LOG_PARSER": "csharp"
+            },
+            "args": ["dotnet", "build", "../Core/"]
+        },
+        {
+            "name": "Launch with 'cat fundamentals-log.test'",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}",
+            "env": {
+                "DOLITTLE_BUILD_LOG_RAW_PATH": "raw.log",
+                "DOLITTLE_BUILD_LOG_PARSED_PATH": "json.log",
+                "DOLITTLE_BUILD_LOG_PARSER": "csharp"
+            },
+            "args": ["cat", "fundamentals-log.test"]
         }
     ]
 }

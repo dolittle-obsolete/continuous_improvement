@@ -1,0 +1,414 @@
+  Restoring packages for /source/Source/Applications/Applications.csproj...
+  Restoring packages for /source/Source/Assemblies/Assemblies.csproj...
+  Restoring packages for /source/Source/Booting/Booting.csproj...
+  Restoring packages for /source/Source/Artifacts/Artifacts.csproj...
+  Installing Microsoft.Extensions.Logging.Abstractions 2.2.0.
+  Installing System.Linq.Queryable 4.3.0.
+  Installing Microsoft.DotNet.PlatformAbstractions 2.0.4.
+  Installing System.Runtime.Loader 4.3.0.
+  Installing Microsoft.Extensions.DependencyModel 2.0.4.
+  Generating MSBuild file /source/Source/Applications/obj/Applications.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Applications/obj/Applications.csproj.nuget.g.targets.
+  Restore completed in 2.22 sec for /source/Source/Applications/Applications.csproj.
+  Restoring packages for /source/Source/Collections/Collections.csproj...
+  Generating MSBuild file /source/Source/Artifacts/obj/Artifacts.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Artifacts/obj/Artifacts.csproj.nuget.g.targets.
+  Restore completed in 2.35 sec for /source/Source/Artifacts/Artifacts.csproj.
+  Restoring packages for /source/Source/Concepts.Serialization.Json/Concepts.Serialization.Json.csproj...
+  Generating MSBuild file /source/Source/Collections/obj/Collections.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Collections/obj/Collections.csproj.nuget.g.targets.
+  Restore completed in 154.86 ms for /source/Source/Collections/Collections.csproj.
+  Restoring packages for /source/Source/Concepts.Serialization.Protobuf/Concepts.Serialization.Protobuf.csproj...
+  Generating MSBuild file /source/Source/Assemblies/obj/Assemblies.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Assemblies/obj/Assemblies.csproj.nuget.g.targets.
+  Restore completed in 2.42 sec for /source/Source/Assemblies/Assemblies.csproj.
+  Restoring packages for /source/Source/Concepts/Concepts.csproj...
+  Generating MSBuild file /source/Source/Concepts.Serialization.Json/obj/Concepts.Serialization.Json.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Concepts.Serialization.Json/obj/Concepts.Serialization.Json.csproj.nuget.g.targets.
+  Installing System.Numerics.Vectors 4.4.0.
+  Installing System.Buffers 4.4.0.
+  Restore completed in 68.21 ms for /source/Source/Concepts.Serialization.Json/Concepts.Serialization.Json.csproj.
+  Installing Microsoft.Extensions.Configuration.Abstractions 2.2.0.
+  Installing Microsoft.Extensions.Configuration 2.2.0.
+  Installing Microsoft.Extensions.Primitives 2.2.0.
+  Installing Microsoft.Extensions.Configuration.Binder 2.2.0.
+  Installing Microsoft.Extensions.Options 2.2.0.
+  Installing Microsoft.Extensions.DependencyInjection.Abstractions 2.2.0.
+  Installing Microsoft.Extensions.Logging 2.2.0.
+  Restoring packages for /source/Source/Configuration.Files/Configuration.Files.csproj...
+  Generating MSBuild file /source/Source/Concepts/obj/Concepts.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Concepts/obj/Concepts.csproj.nuget.g.targets.
+  Restore completed in 45.35 ms for /source/Source/Concepts/Concepts.csproj.
+  Restoring packages for /source/Source/Configuration/Configuration.csproj...
+  Generating MSBuild file /source/Source/Booting/obj/Booting.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Booting/obj/Booting.csproj.nuget.g.targets.
+  Restore completed in 2.57 sec for /source/Source/Booting/Booting.csproj.
+  Restoring packages for /source/Source/DependencyInversion.Booting/DependencyInversion.Booting.csproj...
+  Generating MSBuild file /source/Source/Configuration/obj/Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Configuration/obj/Configuration.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/Configuration.Files/obj/Configuration.Files.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Configuration.Files/obj/Configuration.Files.csproj.nuget.g.targets.
+  Restore completed in 110.99 ms for /source/Source/Configuration/Configuration.csproj.
+  Restoring packages for /source/Source/DependencyInversion.Conventions/DependencyInversion.Conventions.csproj...
+  Restore completed in 161.85 ms for /source/Source/Configuration.Files/Configuration.Files.csproj.
+  Restoring packages for /source/Source/DependencyInversion/DependencyInversion.csproj...
+  Installing Google.Protobuf 3.5.1.
+  Generating MSBuild file /source/Source/DependencyInversion/obj/DependencyInversion.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/DependencyInversion.Conventions/obj/DependencyInversion.Conventions.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/DependencyInversion.Conventions/obj/DependencyInversion.Conventions.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/DependencyInversion/obj/DependencyInversion.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/DependencyInversion.Booting/obj/DependencyInversion.Booting.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/DependencyInversion.Booting/obj/DependencyInversion.Booting.csproj.nuget.g.targets.
+  Restore completed in 152.32 ms for /source/Source/DependencyInversion/DependencyInversion.csproj.
+  Restore completed in 155.45 ms for /source/Source/DependencyInversion.Conventions/DependencyInversion.Conventions.csproj.
+  Restoring packages for /source/Source/Dynamic/Dynamic.csproj...
+  Restore completed in 207.57 ms for /source/Source/DependencyInversion.Booting/DependencyInversion.Booting.csproj.
+  Generating MSBuild file /source/Source/Concepts.Serialization.Protobuf/obj/Concepts.Serialization.Protobuf.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Concepts.Serialization.Protobuf/obj/Concepts.Serialization.Protobuf.csproj.nuget.g.targets.
+  Restoring packages for /source/Source/Execution/Execution.csproj...
+  Restore completed in 394.88 ms for /source/Source/Concepts.Serialization.Protobuf/Concepts.Serialization.Protobuf.csproj.
+  Restoring packages for /source/Source/Globalization/Globalization.csproj...
+  Generating MSBuild file /source/Source/Globalization/obj/Globalization.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Globalization/obj/Globalization.csproj.nuget.g.targets.
+  Restore completed in 8.73 ms for /source/Source/Globalization/Globalization.csproj.
+  Restoring packages for /source/Source/IO/IO.csproj...
+  Generating MSBuild file /source/Source/Dynamic/obj/Dynamic.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Dynamic/obj/Dynamic.csproj.nuget.g.targets.
+  Restore completed in 63.37 ms for /source/Source/Dynamic/Dynamic.csproj.
+  Restoring packages for /source/Source/Immutability/Immutability.csproj...
+  Generating MSBuild file /source/Source/Immutability/obj/Immutability.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Immutability/obj/Immutability.csproj.nuget.g.targets.
+  Restore completed in 4.91 ms for /source/Source/Immutability/Immutability.csproj.
+  Generating MSBuild file /source/Source/IO/obj/IO.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/IO/obj/IO.csproj.nuget.g.targets.
+  Restoring packages for /source/Source/Lifecycle/Lifecycle.csproj...
+  Generating MSBuild file /source/Source/Lifecycle/obj/Lifecycle.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Lifecycle/obj/Lifecycle.csproj.nuget.g.targets.
+  Restore completed in 3.45 ms for /source/Source/Lifecycle/Lifecycle.csproj.
+  Restore completed in 51.5 ms for /source/Source/IO/IO.csproj.
+  Restoring packages for /source/Source/Logging/Logging.csproj...
+  Restoring packages for /source/Source/Mapping/Mapping.csproj...
+  Generating MSBuild file /source/Source/Logging/obj/Logging.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Logging/obj/Logging.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/Execution/obj/Execution.csproj.nuget.g.props.
+  Restore completed in 39.69 ms for /source/Source/Logging/Logging.csproj.
+  Generating MSBuild file /source/Source/Execution/obj/Execution.csproj.nuget.g.targets.
+  Restoring packages for /source/Source/PropertyBags/PropertyBags.csproj...
+  Restore completed in 132.08 ms for /source/Source/Execution/Execution.csproj.
+  Restoring packages for /source/Source/Reflection/Reflection.csproj...
+  Generating MSBuild file /source/Source/Mapping/obj/Mapping.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Mapping/obj/Mapping.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/Reflection/obj/Reflection.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Reflection/obj/Reflection.csproj.nuget.g.targets.
+  Restore completed in 15.02 ms for /source/Source/Reflection/Reflection.csproj.
+  Restoring packages for /source/Source/ResourceTypes.Configuration/ResourceTypes.Configuration.csproj...
+  Restore completed in 69.06 ms for /source/Source/Mapping/Mapping.csproj.
+  Restoring packages for /source/Source/ResourceTypes/ResourceTypes.csproj...
+  Generating MSBuild file /source/Source/ResourceTypes/obj/ResourceTypes.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/ResourceTypes/obj/ResourceTypes.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/PropertyBags/obj/PropertyBags.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/PropertyBags/obj/PropertyBags.csproj.nuget.g.targets.
+  Restore completed in 45.64 ms for /source/Source/ResourceTypes/ResourceTypes.csproj.
+  Restoring packages for /source/Source/Rules/Rules.csproj...
+  Generating MSBuild file /source/Source/Rules/obj/Rules.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Rules/obj/Rules.csproj.nuget.g.targets.
+  Restore completed in 6.57 ms for /source/Source/Rules/Rules.csproj.
+  Restore completed in 83.68 ms for /source/Source/PropertyBags/PropertyBags.csproj.
+  Restoring packages for /source/Source/Scheduling/Scheduling.csproj...
+  Restoring packages for /source/Source/Security/Security.csproj...
+  Generating MSBuild file /source/Source/Scheduling/obj/Scheduling.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Scheduling/obj/Scheduling.csproj.nuget.g.targets.
+  Restore completed in 4.07 ms for /source/Source/Scheduling/Scheduling.csproj.
+  Restoring packages for /source/Source/Serialization.Json/Serialization.Json.csproj...
+  Restoring packages for /source/Source/Serialization.Protobuf/Serialization.Protobuf.csproj...
+  Generating MSBuild file /source/Source/ResourceTypes.Configuration/obj/ResourceTypes.Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/ResourceTypes.Configuration/obj/ResourceTypes.Configuration.csproj.nuget.g.targets.
+  Restore completed in 121.18 ms for /source/Source/ResourceTypes.Configuration/ResourceTypes.Configuration.csproj.
+  Generating MSBuild file /source/Source/Serialization.Json/obj/Serialization.Json.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Serialization.Json/obj/Serialization.Json.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/Security/obj/Security.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Security/obj/Security.csproj.nuget.g.targets.
+  Restore completed in 66.9 ms for /source/Source/Serialization.Json/Serialization.Json.csproj.
+  Restoring packages for /source/Source/Specifications/Specifications.csproj...
+  Restore completed in 90.67 ms for /source/Source/Security/Security.csproj.
+  Restoring packages for /source/Source/Strings/Strings.csproj...
+  Generating MSBuild file /source/Source/Strings/obj/Strings.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Strings/obj/Strings.csproj.nuget.g.targets.
+  Restore completed in 6.96 ms for /source/Source/Strings/Strings.csproj.
+  Restoring packages for /source/Source/Tenancy.Configuration/Tenancy.Configuration.csproj...
+  Generating MSBuild file /source/Source/Specifications/obj/Specifications.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Specifications/obj/Specifications.csproj.nuget.g.targets.
+  Restore completed in 50.92 ms for /source/Source/Specifications/Specifications.csproj.
+  Restoring packages for /source/Source/Tenancy/Tenancy.csproj...
+  Generating MSBuild file /source/Source/Serialization.Protobuf/obj/Serialization.Protobuf.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Serialization.Protobuf/obj/Serialization.Protobuf.csproj.nuget.g.targets.
+  Restore completed in 106.83 ms for /source/Source/Serialization.Protobuf/Serialization.Protobuf.csproj.
+  Restoring packages for /source/Source/Time/Time.csproj...
+  Generating MSBuild file /source/Source/Tenancy.Configuration/obj/Tenancy.Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Tenancy.Configuration/obj/Tenancy.Configuration.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Source/Tenancy/obj/Tenancy.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Tenancy/obj/Tenancy.csproj.nuget.g.targets.
+  Restore completed in 52.81 ms for /source/Source/Tenancy/Tenancy.csproj.
+  Restore completed in 90.1 ms for /source/Source/Tenancy.Configuration/Tenancy.Configuration.csproj.
+  Restoring packages for /source/Source/Types/Types.csproj...
+  Restoring packages for /source/Source/Versioning/Versioning.csproj...
+  Generating MSBuild file /source/Source/Time/obj/Time.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Time/obj/Time.csproj.nuget.g.targets.
+  Restore completed in 52.84 ms for /source/Source/Time/Time.csproj.
+  Restoring packages for /source/Specifications/Applications/Applications.csproj...
+  Restoring packages for /source/Specifications/Artifacts/Artifacts.csproj...
+  Generating MSBuild file /source/Source/Versioning/obj/Versioning.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Versioning/obj/Versioning.csproj.nuget.g.targets.
+  Restore completed in 42.76 ms for /source/Source/Versioning/Versioning.csproj.
+  Restoring packages for /source/Specifications/Assemblies/Assemblies.csproj...
+  Generating MSBuild file /source/Source/Types/obj/Types.csproj.nuget.g.props.
+  Generating MSBuild file /source/Source/Types/obj/Types.csproj.nuget.g.targets.
+  Restore completed in 69.98 ms for /source/Source/Types/Types.csproj.
+  Restoring packages for /source/Specifications/Booting/Booting.csproj...
+  Installing System.ComponentModel 4.0.1.
+  Installing System.Collections.NonGeneric 4.0.1.
+  Installing System.Collections.Specialized 4.0.1.
+  Installing System.ComponentModel.Primitives 4.1.0.
+  Installing System.Threading.ThreadPool 4.0.10.
+  Installing Microsoft.Win32.Registry 4.0.0.
+  Installing System.Collections.Immutable 1.2.0.
+  Installing System.ComponentModel.TypeConverter 4.1.0.
+  Installing System.Diagnostics.Process 4.1.0.
+  Installing System.Reflection.Metadata 1.3.0.
+  Installing System.Threading.Thread 4.0.0.
+  Installing System.ComponentModel.EventBasedAsync 4.0.11.
+  Installing System.Xml.XPath.XmlDocument 4.0.1.
+  Installing System.Runtime.Loader 4.0.0.
+  Installing Microsoft.DotNet.PlatformAbstractions 1.0.3.
+  Installing Microsoft.NETCore.DotNetAppHost 2.1.0.
+  Installing Moq 4.7.145.
+  Installing Machine.Specifications.Should 0.11.0.
+  Installing Machine.Specifications.Runner.VisualStudio 2.8.0.
+  Installing Machine.Specifications 0.12.0.
+  Installing Microsoft.TestPlatform.ObjectModel 15.9.0.
+  Installing Microsoft.Extensions.DependencyModel 1.0.3.
+  Installing Microsoft.NETCore.App 2.1.0.
+  Installing Microsoft.NET.Test.Sdk 15.9.0.
+  Installing Castle.Core 4.2.1.
+  Installing Mono.Cecil 0.10.0.
+  Installing Microsoft.NETCore.DotNetHostResolver 2.1.0.
+  Installing System.Diagnostics.TextWriterTraceListener 4.0.0.
+  Installing System.Diagnostics.TraceSource 4.0.0.
+  Installing System.Xml.XPath 4.0.1.
+  Installing System.Xml.XPath.XDocument 4.0.1.
+  Installing Microsoft.NETCore.Platforms 2.1.0.
+  Installing System.Diagnostics.TraceSource 4.3.0.
+  Installing Microsoft.NETCore.Targets 2.1.0.
+  Installing Microsoft.NETCore.DotNetHostPolicy 2.1.0.
+  Installing Microsoft.CodeCoverage 15.9.0.
+  Installing Microsoft.TestPlatform.TestHost 15.9.0.
+  Generating MSBuild file /source/Specifications/Assemblies/obj/Assemblies.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Applications/obj/Applications.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Applications/obj/Applications.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Assemblies/obj/Assemblies.csproj.nuget.g.targets.
+  Restore completed in 4.05 sec for /source/Specifications/Applications/Applications.csproj.
+  Restore completed in 4.01 sec for /source/Specifications/Assemblies/Assemblies.csproj.
+  Restoring packages for /source/Specifications/Collections/Collections.csproj...
+  Restoring packages for /source/Specifications/Concepts.Serialization.Json/Concepts.Serialization.Json.csproj...
+  Generating MSBuild file /source/Specifications/Artifacts/obj/Artifacts.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Artifacts/obj/Artifacts.csproj.nuget.g.targets.
+  Restore completed in 4.09 sec for /source/Specifications/Artifacts/Artifacts.csproj.
+  Restoring packages for /source/Specifications/Concepts.Serialization.Protobuf/Concepts.Serialization.Protobuf.csproj...
+  Generating MSBuild file /source/Specifications/Booting/obj/Booting.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Booting/obj/Booting.csproj.nuget.g.targets.
+  Restore completed in 4.1 sec for /source/Specifications/Booting/Booting.csproj.
+  Restoring packages for /source/Specifications/Concepts/Concepts.csproj...
+  Generating MSBuild file /source/Specifications/Collections/obj/Collections.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Collections/obj/Collections.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Concepts.Serialization.Json/obj/Concepts.Serialization.Json.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Concepts.Serialization.Json/obj/Concepts.Serialization.Json.csproj.nuget.g.targets.
+  Restore completed in 181.44 ms for /source/Specifications/Collections/Collections.csproj.
+  Restoring packages for /source/Specifications/Configuration/Configuration.csproj...
+  Restore completed in 195.96 ms for /source/Specifications/Concepts.Serialization.Json/Concepts.Serialization.Json.csproj.
+  Restoring packages for /source/Specifications/DependencyInversion.Booting/DependencyInversion.Booting.csproj...
+  Generating MSBuild file /source/Specifications/Concepts.Serialization.Protobuf/obj/Concepts.Serialization.Protobuf.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Concepts.Serialization.Protobuf/obj/Concepts.Serialization.Protobuf.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Concepts/obj/Concepts.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Concepts/obj/Concepts.csproj.nuget.g.targets.
+  Restore completed in 179.77 ms for /source/Specifications/Concepts.Serialization.Protobuf/Concepts.Serialization.Protobuf.csproj.
+  Restore completed in 129.45 ms for /source/Specifications/Concepts/Concepts.csproj.
+  Restoring packages for /source/Specifications/DependencyInversion.Conventions/DependencyInversion.Conventions.csproj...
+  Restoring packages for /source/Specifications/DependencyInversion/DependencyInversion.csproj...
+  Generating MSBuild file /source/Specifications/DependencyInversion/obj/DependencyInversion.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/DependencyInversion/obj/DependencyInversion.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Configuration/obj/Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Configuration/obj/Configuration.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/DependencyInversion.Conventions/obj/DependencyInversion.Conventions.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/DependencyInversion.Booting/obj/DependencyInversion.Booting.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/DependencyInversion.Booting/obj/DependencyInversion.Booting.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/DependencyInversion.Conventions/obj/DependencyInversion.Conventions.csproj.nuget.g.targets.
+  Restore completed in 104.64 ms for /source/Specifications/DependencyInversion/DependencyInversion.csproj.
+  Restore completed in 146.58 ms for /source/Specifications/Configuration/Configuration.csproj.
+  Restoring packages for /source/Specifications/Dynamic/Dynamic.csproj...
+  Restore completed in 152.35 ms for /source/Specifications/DependencyInversion.Booting/DependencyInversion.Booting.csproj.
+  Restore completed in 121.26 ms for /source/Specifications/DependencyInversion.Conventions/DependencyInversion.Conventions.csproj.
+  Restoring packages for /source/Specifications/Execution/Execution.csproj...
+  Restoring packages for /source/Specifications/Globalization/Globalization.csproj...
+  Restoring packages for /source/Specifications/Immutability/Immutability.csproj...
+  Generating MSBuild file /source/Specifications/Dynamic/obj/Dynamic.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Dynamic/obj/Dynamic.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Execution/obj/Execution.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Execution/obj/Execution.csproj.nuget.g.targets.
+  Restore completed in 192.2 ms for /source/Specifications/Dynamic/Dynamic.csproj.
+  Restoring packages for /source/Specifications/Logging/Logging.csproj...
+  Generating MSBuild file /source/Specifications/Globalization/obj/Globalization.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Globalization/obj/Globalization.csproj.nuget.g.targets.
+  Restore completed in 198.29 ms for /source/Specifications/Globalization/Globalization.csproj.
+  Restoring packages for /source/Specifications/Mapping/Mapping.csproj...
+  Restore completed in 199.3 ms for /source/Specifications/Execution/Execution.csproj.
+  Restoring packages for /source/Specifications/PropertyBags/PropertyBags.csproj...
+  Generating MSBuild file /source/Specifications/Immutability/obj/Immutability.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Immutability/obj/Immutability.csproj.nuget.g.targets.
+  Restore completed in 222.13 ms for /source/Specifications/Immutability/Immutability.csproj.
+  Restoring packages for /source/Specifications/Reflection/Reflection.csproj...
+  Generating MSBuild file /source/Specifications/Logging/obj/Logging.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Logging/obj/Logging.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Mapping/obj/Mapping.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Mapping/obj/Mapping.csproj.nuget.g.targets.
+  Restore completed in 164.33 ms for /source/Specifications/Logging/Logging.csproj.
+  Restoring packages for /source/Specifications/ResourceTypes.Configuration/ResourceTypes.Configuration.csproj...
+  Restore completed in 137.88 ms for /source/Specifications/Mapping/Mapping.csproj.
+  Restoring packages for /source/Specifications/ResourceTypes/ResourceTypes.csproj...
+  Generating MSBuild file /source/Specifications/PropertyBags/obj/PropertyBags.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/PropertyBags/obj/PropertyBags.csproj.nuget.g.targets.
+  Restore completed in 169.32 ms for /source/Specifications/PropertyBags/PropertyBags.csproj.
+  Restoring packages for /source/Specifications/Rules/Rules.csproj...
+  Generating MSBuild file /source/Specifications/Reflection/obj/Reflection.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Reflection/obj/Reflection.csproj.nuget.g.targets.
+  Restore completed in 190.26 ms for /source/Specifications/Reflection/Reflection.csproj.
+  Restoring packages for /source/Specifications/Security/Security.csproj...
+  Generating MSBuild file /source/Specifications/ResourceTypes/obj/ResourceTypes.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/ResourceTypes/obj/ResourceTypes.csproj.nuget.g.targets.
+  Restore completed in 155.41 ms for /source/Specifications/ResourceTypes/ResourceTypes.csproj.
+  Generating MSBuild file /source/Specifications/Rules/obj/Rules.csproj.nuget.g.props.
+  Restoring packages for /source/Specifications/Serialization.Json/Serialization.Json.csproj...
+  Generating MSBuild file /source/Specifications/Rules/obj/Rules.csproj.nuget.g.targets.
+  Restore completed in 121.07 ms for /source/Specifications/Rules/Rules.csproj.
+  Restoring packages for /source/Specifications/Serialization.Protobuf/Serialization.Protobuf.csproj...
+  Generating MSBuild file /source/Specifications/ResourceTypes.Configuration/obj/ResourceTypes.Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/ResourceTypes.Configuration/obj/ResourceTypes.Configuration.csproj.nuget.g.targets.
+  Restore completed in 217.02 ms for /source/Specifications/ResourceTypes.Configuration/ResourceTypes.Configuration.csproj.
+  Restoring packages for /source/Specifications/Specifications/Specifications.csproj...
+  Generating MSBuild file /source/Specifications/Security/obj/Security.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Security/obj/Security.csproj.nuget.g.targets.
+  Restore completed in 131.53 ms for /source/Specifications/Security/Security.csproj.
+  Restoring packages for /source/Specifications/Strings/Strings.csproj...
+  Generating MSBuild file /source/Specifications/Serialization.Json/obj/Serialization.Json.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Serialization.Json/obj/Serialization.Json.csproj.nuget.g.targets.
+  Restore completed in 126.76 ms for /source/Specifications/Serialization.Json/Serialization.Json.csproj.
+  Restoring packages for /source/Specifications/Tenancy.Configuration/Tenancy.Configuration.csproj...
+  Generating MSBuild file /source/Specifications/Serialization.Protobuf/obj/Serialization.Protobuf.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Serialization.Protobuf/obj/Serialization.Protobuf.csproj.nuget.g.targets.
+  Generating MSBuild file /source/Specifications/Specifications/obj/Specifications.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Specifications/obj/Specifications.csproj.nuget.g.targets.
+  Restore completed in 134.51 ms for /source/Specifications/Serialization.Protobuf/Serialization.Protobuf.csproj.
+  Restoring packages for /source/Specifications/Types/Types.csproj...
+  Restore completed in 108.16 ms for /source/Specifications/Specifications/Specifications.csproj.
+  Restoring packages for /source/Specifications/Versioning/Versioning.csproj...
+  Generating MSBuild file /source/Specifications/Strings/obj/Strings.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Strings/obj/Strings.csproj.nuget.g.targets.
+  Restore completed in 101.95 ms for /source/Specifications/Strings/Strings.csproj.
+  Generating MSBuild file /source/Specifications/Types/obj/Types.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Types/obj/Types.csproj.nuget.g.targets.
+  Restore completed in 142.01 ms for /source/Specifications/Types/Types.csproj.
+  Generating MSBuild file /source/Specifications/Tenancy.Configuration/obj/Tenancy.Configuration.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Tenancy.Configuration/obj/Tenancy.Configuration.csproj.nuget.g.targets.
+  Restore completed in 199.17 ms for /source/Specifications/Tenancy.Configuration/Tenancy.Configuration.csproj.
+  Installing Microsoft.NETCore.DotNetAppHost 2.0.0.
+  Installing Microsoft.NETCore.DotNetHostResolver 2.0.0.
+  Installing NETStandard.Library 2.0.0.
+  Installing Microsoft.NETCore.App 2.0.0.
+  Installing Microsoft.NETCore.DotNetHostPolicy 2.0.0.
+/source/Specifications/Versioning/Versioning.csproj : warning NU1701: Package 'Machine.Specifications.Runner.VisualStudio 2.8.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project. [/source/DotNET.Fundamentals.sln]
+  Generating MSBuild file /source/Specifications/Versioning/obj/Versioning.csproj.nuget.g.props.
+  Generating MSBuild file /source/Specifications/Versioning/obj/Versioning.csproj.nuget.g.targets.
+  Restore completed in 1.75 sec for /source/Specifications/Versioning/Versioning.csproj.
+Microsoft (R) Build Engine version 15.9.8-preview+g0a5001fc4d for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+/usr/share/dotnet/sdk/2.2.100-preview3-009430/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.RuntimeIdentifierInference.targets(143,5): message NETSDK1057: You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview [/source/Source/Specifications/Specifications.csproj]
+/usr/share/dotnet/sdk/2.2.100-preview3-009430/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.RuntimeIdentifierInference.targets(143,5): message NETSDK1057: You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview [/source/Specifications/Specifications/Specifications.csproj]
+/usr/share/dotnet/sdk/2.2.100-preview3-009430/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.RuntimeIdentifierInference.targets(143,5): message NETSDK1057: You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview [/source/Source/Assemblies/Assemblies.csproj]
+/usr/share/dotnet/sdk/2.2.100-preview3-009430/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.RuntimeIdentifierInference.targets(143,5): message NETSDK1057: You are using a preview version of .NET Core. See: https://aka.ms/dotnet-core-preview [/source/Specifications/Assemblies/Assemblies.csproj]
+  Specifications -> /source/Source/Specifications/bin/Release/netstandard1.4/Dolittle.Specifications.dll
+  Lifecycle -> /source/Source/Lifecycle/bin/Release/netstandard2.0/Dolittle.Lifecycle.dll
+  Collections -> /source/Source/Collections/bin/Release/netstandard1.4/Dolittle.Collections.dll
+  Immutability -> /source/Source/Immutability/bin/Release/netstandard2.0/Dolittle.Immutability.dll
+  IO -> /source/Source/IO/bin/Release/netstandard1.4/Dolittle.IO.dll
+  Reflection -> /source/Source/Reflection/bin/Release/netstandard2.0/Dolittle.Reflection.dll
+  Globalization -> /source/Source/Globalization/bin/Release/netstandard2.0/Dolittle.Globalization.dll
+  Strings -> /source/Source/Strings/bin/Release/netstandard2.0/Dolittle.Strings.dll
+  Scheduling -> /source/Source/Scheduling/bin/Release/netstandard2.0/Dolittle.Scheduling.dll
+  Logging -> /source/Source/Logging/bin/Release/netstandard2.0/Dolittle.Logging.dll
+  Reflection -> /source/Specifications/Reflection/bin/Release/netcoreapp2.1/Dolittle.Reflection.Specs.dll
+  Collections -> /source/Specifications/Collections/bin/Release/netcoreapp2.1/Dolittle.Collections.Specs.dll
+  Concepts -> /source/Source/Concepts/bin/Release/netstandard2.0/Dolittle.Concepts.dll
+  Rules -> /source/Source/Rules/bin/Release/netstandard2.0/Dolittle.Rules.dll
+  Dynamic -> /source/Source/Dynamic/bin/Release/netstandard2.0/Dolittle.Dynamic.dll
+  Tenancy -> /source/Source/Tenancy/bin/Release/netstandard2.0/Dolittle.Tenancy.dll
+  Specifications -> /source/Specifications/Specifications/bin/Release/netcoreapp2.1/Dolittle.Specifications.Specs.dll
+  Concepts -> /source/Specifications/Concepts/bin/Release/netcoreapp2.1/Dolittle.Concepts.Specs.dll
+  Time -> /source/Source/Time/bin/Release/netstandard1.4/Dolittle.Time.dll
+  Globalization -> /source/Specifications/Globalization/bin/Release/netcoreapp2.1/Dolittle.Globalization.Specs.dll
+  Assemblies -> /source/Source/Assemblies/bin/Release/netstandard2.0/Dolittle.Assemblies.dll
+  ResourceTypes -> /source/Source/ResourceTypes/bin/Release/netstandard2.0/Dolittle.ResourceTypes.dll
+/source/Specifications/Versioning/Versioning.csproj : warning NU1701: Package 'Machine.Specifications.Runner.VisualStudio 2.8.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+  Versioning -> /source/Source/Versioning/bin/Release/netstandard2.0/Dolittle.Versioning.dll
+  Dynamic -> /source/Specifications/Dynamic/bin/Release/netcoreapp2.1/Dolittle.Dynamic.Specs.dll
+  ResourceTypes -> /source/Specifications/ResourceTypes/bin/Release/netcoreapp2.1/Dolittle.ResourceTypes.Specs.dll
+  Logging -> /source/Specifications/Logging/bin/Release/netcoreapp2.1/Dolittle.Logginc.Specs.dll
+  Immutability -> /source/Specifications/Immutability/bin/Release/netcoreapp2.1/Dolittle.Immutability.Specs.dll
+  DependencyInversion -> /source/Source/DependencyInversion/bin/Release/netstandard2.0/Dolittle.DependencyInversion.dll
+  Assemblies -> /source/Specifications/Assemblies/bin/Release/netcoreapp2.1/Dolittle.Assemblies.Specs.dll
+  Rules -> /source/Specifications/Rules/bin/Release/netcoreapp2.1/Dolittle.Rules.Specs.dll
+  DependencyInversion -> /source/Specifications/DependencyInversion/bin/Release/netcoreapp2.1/Dolittle.DependencyInversion.Specs.dll
+  Versioning -> /source/Specifications/Versioning/bin/Release/netcoreapp2.0/Versioning.dll
+  Strings -> /source/Specifications/Strings/bin/Release/netcoreapp2.1/Dolittle.Strings.Specs.dll
+  Types -> /source/Source/Types/bin/Release/netstandard2.0/Dolittle.Types.dll
+  Types -> /source/Specifications/Types/bin/Release/netcoreapp2.1/Dolittle.Types.Specs.dll
+  Mapping -> /source/Source/Mapping/bin/Release/netstandard2.0/Dolittle.Mapping.dll
+  Artifacts -> /source/Source/Artifacts/bin/Release/netstandard2.0/Dolittle.Artifacts.dll
+  Security -> /source/Source/Security/bin/Release/netstandard2.0/Dolittle.Security.dll
+  DependencyInversion.Conventions -> /source/Source/DependencyInversion.Conventions/bin/Release/netstandard2.0/Dolittle.DependencyInversion.Conventions.dll
+  Mapping -> /source/Specifications/Mapping/bin/Release/netcoreapp2.1/Dolittle.Mapping.Specs.dll
+  Applications -> /source/Source/Applications/bin/Release/netstandard2.0/Dolittle.Applications.dll
+  Execution -> /source/Source/Execution/bin/Release/netstandard2.0/Dolittle.Execution.dll
+  PropertyBags -> /source/Source/PropertyBags/bin/Release/netstandard2.0/Dolittle.PropertyBags.dll
+  Serialization.Json -> /source/Source/Serialization.Json/bin/Release/netstandard2.0/Dolittle.Serialization.Json.dll
+  Concepts.Serialization.Json -> /source/Source/Concepts.Serialization.Json/bin/Release/netstandard2.0/Dolittle.Concepts.Serialization.Json.dll
+  PropertyBags -> /source/Specifications/PropertyBags/bin/Release/netcoreapp2.1/Dolittle.PropertyBags.Specs.dll
+  Tenancy.Configuration -> /source/Source/Tenancy.Configuration/bin/Release/netstandard2.0/Dolittle.Tenancy.Configuration.dll
+  Serialization.Json -> /source/Specifications/Serialization.Json/bin/Release/netcoreapp2.1/Dolittle.Serialization.Json.Specs.dll
+  DependencyInversion.Conventions -> /source/Specifications/DependencyInversion.Conventions/bin/Release/netcoreapp2.1/Dolittle.DependencyInversion.Conventions.Specs.dll
+  Booting -> /source/Source/Booting/bin/Release/netstandard2.0/Dolittle.Booting.dll
+  Applications -> /source/Specifications/Applications/bin/Release/netcoreapp2.1/Dolittle.Application.Specs.dll
+  Artifacts -> /source/Specifications/Artifacts/bin/Release/netcoreapp2.1/Dolittle.Artifacts.Specs.dll
+  Serialization.Protobuf -> /source/Source/Serialization.Protobuf/bin/Release/netstandard2.0/Dolittle.Serialization.Protobuf.dll
+  Security -> /source/Specifications/Security/bin/Release/netcoreapp2.1/Dolittle.Security.Specs.dll
+  Execution -> /source/Specifications/Execution/bin/Release/netcoreapp2.1/Dolittle.Execution.Specs.dll
+  Concepts.Serialization.Protobuf -> /source/Source/Concepts.Serialization.Protobuf/bin/Release/netstandard2.0/Dolittle.Concepts.Serialization.Protobuf.dll
+  Serialization.Protobuf -> /source/Specifications/Serialization.Protobuf/bin/Release/netcoreapp2.1/Dolittle.Serialization.Protobuf.Specs.dll
+  Configuration -> /source/Source/Configuration/bin/Release/netstandard2.0/Dolittle.Configuration.dll
+  DependencyInversion.Booting -> /source/Source/DependencyInversion.Booting/bin/Release/netstandard2.0/Dolittle.DependencyInversion.Booting.dll
+  Booting -> /source/Specifications/Booting/bin/Release/netcoreapp2.1/Dolittle.Booting.Specs.dll
+  Concepts.Serialization.Protobuf -> /source/Specifications/Concepts.Serialization.Protobuf/bin/Release/netcoreapp2.1/Dolittle.Concepts.Serialization.Protobuf.Specs.dll
+  Tenancy.Configuration -> /source/Specifications/Tenancy.Configuration/bin/Release/netcoreapp2.1/Dolittle.Tenancy.Configuration.Specs.dll
+  Configuration -> /source/Specifications/Configuration/bin/Release/netcoreapp2.1/Dolittle.Configuration.Specs.dll
+  DependencyInversion.Booting -> /source/Specifications/DependencyInversion.Booting/bin/Release/netcoreapp2.1/Dolittle.DependencyInversion.Booting.Specs.dll
+  Configuration.Files -> /source/Source/Configuration.Files/bin/Release/netstandard2.0/Dolittle.Configuration.Files.dll
+  ResourceTypes.Configuration -> /source/Source/ResourceTypes.Configuration/bin/Release/netstandard2.0/Dolittle.ResourceTypes.Configuration.dll
+  ResourceTypes.Configuration -> /source/Specifications/ResourceTypes.Configuration/bin/Release/netcoreapp2.1/Dolittle.ResourceTypes.Configuration.Specs.dll
+  Concepts.Serialization.Json -> /source/Specifications/Concepts.Serialization.Json/bin/Release/netcoreapp2.1/Dolittle.Concepts.Serialization.Json.Specs.dll
+
+Build succeeded.
+
+/source/Specifications/Versioning/Versioning.csproj : warning NU1701: Package 'Machine.Specifications.Runner.VisualStudio 2.8.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.
+    1 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:14.78
