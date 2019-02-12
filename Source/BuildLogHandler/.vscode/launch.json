@@ -1,26 +1,34 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Debug (gdb)",
-            "type": "cppdbg",
+            "name": "Launch with 'dotnet build ../Core'",
+            "type": "go",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/main",
-            "preLaunchTask": "Build C++ project",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
+            "mode": "auto",
+            "program": "${workspaceFolder}",
+            "env": {
+                "DOLITTLE_BUILD_LOG_RAW_PATH": "raw.log",
+                "DOLITTLE_BUILD_LOG_PARSED_PATH": "json.log",
+                "DOLITTLE_BUILD_LOG_PARSER": "csharp"
+            },
+            "args": ["dotnet", "build", "../Core/"]
+        },
+        {
+            "name": "Launch with 'cat fundamentals-log.test'",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}",
+            "env": {
+                "DOLITTLE_BUILD_LOG_RAW_PATH": "raw.log",
+                "DOLITTLE_BUILD_LOG_PARSED_PATH": "json.log",
+                "DOLITTLE_BUILD_LOG_PARSER": "csharp"
+            },
+            "args": ["cat", "fundamentals-log.test"]
         }
     ]
 }
