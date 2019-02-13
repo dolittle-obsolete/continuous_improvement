@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 
+using Concepts.Configuration;
+
 namespace Read.Configuration
 {
     /// <summary>
@@ -11,6 +13,11 @@ namespace Read.Configuration
     /// </summary>
     public class Deployment
     {
+        /// <summary>
+        /// Gets or sets the unique identifier
+        /// </summary>        
+        public DeploymentId Id { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the <see cref="Deployment"/>
         /// </summary>

@@ -14,7 +14,7 @@ namespace Read.Improvables
         public bool Package { get; set; }
         public bool Publish { get; set; }
         public string BasePath { get; set; }
-        public IEnumerable<Deployment> Deployment { get; set; }
+        public IEnumerable<Deployment> Deployments { get; set; }
         public IEnumerable<NotificationChannel> NotificationChannels { get; set; }
     }
 }

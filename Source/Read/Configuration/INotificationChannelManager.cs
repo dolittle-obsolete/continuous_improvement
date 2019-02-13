@@ -7,10 +7,10 @@ using Concepts.Configuration;
 
 namespace Read.Configuration
 {
-    public interface IDeploymentManager
+    public interface INotificationChannelManager
     {
-        IEnumerable<Deployment> GetAll();
-        Deployment GetById(DeploymentId deployment);
+        IEnumerable<NotificationChannel> GetAll();
+        NotificationChannel GetById(NotificationChannelId notificationChannel);
     }
 
 }
