@@ -1,0 +1,1 @@
+module github.com/dolittle-platform/continuous_improvement/Source/BuildLogHandler
