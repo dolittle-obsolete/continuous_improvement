@@ -21,6 +21,7 @@
     <PackageReference Include="Dolittle.AspNetCore.Execution" Version="2.*" />
     <PackageReference Include="Dolittle.AspNetCore.Tenancy" Version="2.*" />
     <PackageReference Include="Dolittle.SDK.Commands.Coordination" Version="2.*" />
+    <PackageReference Include="KubernetesClient" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
