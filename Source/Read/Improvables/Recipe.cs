@@ -3,15 +3,15 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-namespace Read.Configuration
+namespace Read.Improvables.Configuration
 {
     /// <summary>
     /// Represents a build
     /// </summary>
-    public class Build 
+    public class Recipe 
     {
          /// <summary>
-        /// Gets or sets the type of project
+        /// Gets or sets the type of recipe
         /// </summary>
        public string Type { get; set; } = string.Empty;
 

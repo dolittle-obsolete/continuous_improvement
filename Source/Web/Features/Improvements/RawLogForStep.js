@@ -11,7 +11,7 @@ export class RawLogForStep extends Query
         this.nameOfQuery = 'RawLogForStep';
         this.generatedFrom = 'Read.Improvements.RawLogForStep';
 
-        this.project = '00000000-0000-0000-0000-000000000000';
+        this.improvable = '00000000-0000-0000-0000-000000000000';
         this.version = '';
         this.number = 0;
     }

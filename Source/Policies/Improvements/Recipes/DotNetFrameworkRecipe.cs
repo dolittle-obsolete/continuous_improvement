@@ -13,9 +13,13 @@ namespace Policies.Improvements.Recipes
     public class DotNetFrameworkRecipe : IRecipe
     {
         /// <inheritdoc/>
-        public IEnumerable<IStep> Steps => new IStep[] {
-            new GitSourceControl(),
-            new DotNetBuild()
-        };
+        public IEnumerable<IStep> GetStepsFor(ImprovementContext context)
+        {
+            return new IStep[]
+            {
+                new GitSourceControl(),
+                    new DotNetBuild()
+            };
+        }
     }
 }

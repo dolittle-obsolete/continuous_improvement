@@ -2,17 +2,17 @@
     <require from="./List.scss"></require>
     <section class="page-content project-list">
         <ul>
-            <li class="acrylic" repeat.for="project of projects">
-                <a href="" route-href="route.bind: 'Improvements'; params.bind: {id: project.id}">
+            <li class="acrylic" repeat.for="improvable of improvables">
+                <a href="" route-href="route.bind: 'Improvements'; params.bind: {id: improvable.id}">
                     <figure>
                         <img src="../../assets/icons/Build.svg" alt="" />
                     </figure>
                     <h3>
-                        ${project.name}
+                        ${improvable.name}
                     </h3>
                 </a>
                 <section class="environment-versions">
-                    <div>${project.version}</div>
+                    <div>${improvable.version}</div>
                 </section>
             </li>
         </ul>

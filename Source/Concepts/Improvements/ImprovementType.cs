@@ -2,23 +2,22 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-using Concepts;
 
-namespace Read.Configuration
+namespace Concepts.Improvements
 {
     /// <summary>
-    /// Represents a project to cascade for build
+    /// Represents the different improvement types supported
     /// </summary>
-    public class ProjectCascade
+    public enum ImprovementType
     {
         /// <summary>
-        /// Gets or sets the <see cref="ProjectId"/>
+        /// Improvement for a bounded context
         /// </summary>
-        public ProjectId Id { get; set; }
+        BoundedContext=1,
 
         /// <summary>
-        /// Gets or sets the <see cref="ProjectName"/>
+        /// Improvement for a framework
         /// </summary>
-        public ProjectName Name { get; set; }
+        Framework
     }
 }

@@ -1,4 +1,25 @@
 {
+  "6c110b3c-d85b-48b7-bf5d-9572e93c7888": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "70be1da4-991f-45e9-841d-ec2d5cd844e6": {
+        "generation": 1,
+        "type": "Read.Improvables.Improvable, Read"
+      },
+      "51fca8e6-bce8-46c2-a711-7d3d431249f4": {
+        "generation": 1,
+        "type": "Read.Improvables.ImprovableConfiguration, Read"
+      }
+    },
+    "queries": {
+      "4764ab8c-b6e6-4e05-adb8-79ecef1c1e8a": {
+        "generation": 1,
+        "type": "Read.Improvables.AllImprovables, Read"
+      }
+    }
+  },
   "d9bb530c-e2a1-49a2-8adf-a05eda935a06": {
     "commands": {
       "af13498e-d289-40a2-bd9e-eade5ddf1271": {
@@ -78,10 +99,6 @@
         "generation": 1,
         "type": "Read.Improvements.Improvement, Read"
       },
-      "70be1da4-991f-45e9-841d-ec2d5cd844e6": {
-        "generation": 1,
-        "type": "Read.Improvements.Project, Read"
-      },
       "6fd8cf5e-4aa9-48af-8618-ccc737483881": {
         "generation": 1,
         "type": "Read.Improvements.Step, Read"
@@ -96,13 +113,9 @@
       }
     },
     "queries": {
-      "4764ab8c-b6e6-4e05-adb8-79ecef1c1e8a": {
-        "generation": 1,
-        "type": "Read.Improvements.AllProjects, Read"
-      },
       "3b3979b2-94ce-4ae7-9ef6-6026a40a8c3c": {
         "generation": 1,
-        "type": "Read.Improvements.ImprovementsForProject, Read"
+        "type": "Read.Improvements.ImprovementsForImprovable, Read"
       },
       "74dc9050-3f02-4b7d-8a6e-d93606601720": {
         "generation": 1,

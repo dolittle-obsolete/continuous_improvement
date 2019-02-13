@@ -5,20 +5,20 @@
 using System;
 using Dolittle.Concepts;
 
-namespace Concepts
+namespace Concepts.Improvements
 {
     /// <summary>
-    /// Represents the concept of a unique identifier for a project
+    /// Represents the unique identifier for an improvable in the system
     /// </summary>
-    public class ProjectId : ConceptAs<Guid>
+    public class ImprovementId : ConceptAs<Guid>
     {
         /// <summary>
-        /// Implicitly convert from <see cref="Guid"/> to <see cref="ProjectId"/>
+        /// Implicitly convert from <see cref="Guid"/> to <see cref="ImprovementId"/>
         /// </summary>
-        /// <param name="id"><see cref="Guid"/> to convert from</param>
-        public static implicit operator ProjectId(Guid id)
+        /// <param name="value"><see cref="Guid"/> to convert from</param>
+        public static implicit operator ImprovementId(Guid value)
         {
-            return new ProjectId { Value = id };
+            return new ImprovementId { Value = value };
         }
     }
 }

@@ -6,20 +6,21 @@ using System;
 using System.IO;
 using System.Linq;
 using Concepts;
+using Concepts.Improvables;
+using Concepts.Improvements;
 using Dolittle.Queries;
 
 namespace Read.Improvements
 {
-
     /// <summary>
     /// 
     /// </summary>
-    public class ImprovementsForProject : IQueryFor<Improvement>
+    public class ImprovementsForImprovable : IQueryFor<Improvement>
     {
         /// <summary>
         /// 
         /// </summary>
-        public ProjectId Project { get; set; }
+        public ImprovableId Improvable { get; set; }
 
         /// <summary>
         /// 
@@ -30,7 +31,7 @@ namespace Read.Improvements
             {
                 var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
                 var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-                var projectPath = Path.Combine(tenantPath, Project.Value.ToString());
+                var projectPath = Path.Combine(tenantPath, Improvable.Value.ToString());
                 var builds = Directory.GetDirectories(projectPath);
                 return builds.Select(_ => 
                 {
@@ -38,7 +39,6 @@ namespace Read.Improvements
                     return new Improvement { Version = segments[segments.Length-1] };
                 }).AsQueryable();
             }
-        }
-        
+        }      
     }
 }

@@ -6,6 +6,8 @@ using Dolittle.Concepts;
 
 namespace Concepts.Improvements
 {
+
+
     /// <summary>
     /// Represents the concept for a numbered step - the actual number
     /// </summary>

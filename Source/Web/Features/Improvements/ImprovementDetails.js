@@ -18,7 +18,7 @@ export class ImprovementDetails {
     #stepResultsForStepPopulated = false;
     #rawLogForStepPopulated = false;
 
-    #project;
+    #improvable;
     #stepNumber;
     #version;
 
@@ -27,7 +27,7 @@ export class ImprovementDetails {
     }
 
     async activate(params) {
-        this.#project = params.id;
+        this.#improvable = params.improvable;
         this.#stepNumber = params.step;
         this.#version = params.version;
 
@@ -36,7 +36,7 @@ export class ImprovementDetails {
 
     async populateStepResults() {
         let query = new StepResultsForStep();
-        query.project = this.#project;
+        query.improvable = this.#improvable;
         query.version = this.#version;
         query.number = this.#stepNumber;
 
@@ -48,7 +48,7 @@ export class ImprovementDetails {
 
     async populateRawLog() {
         let query = new RawLogForStep();
-        query.project = this.#project;
+        query.improvable = this.#improvable;
         query.version = this.#version;
         query.number = this.#stepNumber;
 

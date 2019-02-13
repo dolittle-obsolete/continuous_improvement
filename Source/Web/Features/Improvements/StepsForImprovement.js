@@ -11,7 +11,7 @@ export class StepsForImprovement extends Query
         this.nameOfQuery = 'StepsForImprovement';
         this.generatedFrom = 'Read.Improvements.StepsForImprovement';
 
-        this.project = '00000000-0000-0000-0000-000000000000';
+        this.improvable = '00000000-0000-0000-0000-000000000000';
         this.version = '';
     }
 }

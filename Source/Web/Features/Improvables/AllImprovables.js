@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 import { Query } from  '@dolittle/queries';
 
-export class AllProjects extends Query
+export class AllImprovables extends Query
 {
     constructor() {
         super();
-        this.nameOfQuery = 'AllProjects';
-        this.generatedFrom = 'Read.Improvements.AllProjects';
+        this.nameOfQuery = 'AllImprovables';
+        this.generatedFrom = 'Read.Improvables.AllImprovables';
 
     }
 }

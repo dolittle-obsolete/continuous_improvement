@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { observable, containerless } from 'aurelia-framework';
 import { QueryCoordinator } from '@dolittle/queries';
-import { ImprovementsForProject } from './ImprovementsForProject';
+import { ImprovementsForImprovable } from './ImprovementsForImprovable';
 import { StepsForImprovement } from './StepsForImprovement';
 import { inject } from 'aurelia-dependency-injection';
 
@@ -20,16 +20,16 @@ export class Improvements {
     steps = [];
 
     #firstRun = true;
-    project;
+    improvable;
 
     constructor(queryCoordinator) {
         this.#queryCoordinator = queryCoordinator;
     }
 
     async activate(params, routeConfig, navigationInstruction) {
-        let query = new ImprovementsForProject();
-        query.project = params.id;
-        this.project = params.id;
+        let query = new ImprovementsForImprovable();
+        query.improvable = params.improvable;
+        this.improvable = params.improvable;
 
         this.selectedVersion = navigationInstruction.plan.default.childNavigationInstruction.params.version;
         this.#firstRun = false;
@@ -41,7 +41,7 @@ export class Improvements {
 
     populateSteps() {
         let query = new StepsForImprovement();
-        query.project = this.project;
+        query.improvable = this.improvable;
         query.version = this.selectedVersion;
 
         this.#queryCoordinator.execute(query).then(result => {

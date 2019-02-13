@@ -4,13 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { Query } from  '@dolittle/queries';
 
-export class ImprovementsForProject extends Query
+export class ImprovementsForImprovable extends Query
 {
     constructor() {
         super();
-        this.nameOfQuery = 'ImprovementsForProject';
-        this.generatedFrom = 'Read.Improvements.ImprovementsForProject';
+        this.nameOfQuery = 'ImprovementsForImprovable';
+        this.generatedFrom = 'Read.Improvements.ImprovementsForImprovable';
 
-        this.project = '00000000-0000-0000-0000-000000000000';
+        this.improvable = '00000000-0000-0000-0000-000000000000';
     }
 }

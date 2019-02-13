@@ -1,18 +1,18 @@
 import { QueryCoordinator } from '@dolittle/queries';
-import { AllProjects } from './AllProjects';
+import { AllImprovables } from './AllImprovables';
 import { inject } from 'aurelia-dependency-injection';
 
 @inject(QueryCoordinator)
 export class List {
-    projects=[];
+    improvables=[];
 
     constructor(queryCoordinator) {
         let self = this;
         this._queryCoordinator = queryCoordinator;
 
-        var query = new AllProjects();
+        var query = new AllImprovables();
         this._queryCoordinator.execute(query).then(result => {
-            self.projects = result.items;
+            self.improvables = result.items;
         });
     }
 }

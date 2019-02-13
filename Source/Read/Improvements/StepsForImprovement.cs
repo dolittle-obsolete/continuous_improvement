@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts;
+using Concepts.Improvables;
+using Concepts.Improvements;
 using Dolittle.Collections;
 using Dolittle.Queries;
 using Dolittle.Serialization.Json;
@@ -32,7 +34,7 @@ namespace Read.Improvements
         /// <summary>
         /// 
         /// </summary>
-        public ProjectId Project { get; set; }
+        public ImprovableId Improvable { get; set; }
 
         /// <summary>
         /// 
@@ -48,7 +50,7 @@ namespace Read.Improvements
             {
                 var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
                 var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-                var projectPath = Path.Combine(tenantPath, Project.Value.ToString());
+                var projectPath = Path.Combine(tenantPath, Improvable.Value.ToString());
                 var versionPath = Path.Combine(projectPath,Version);
                 var stepsFile = Path.Combine(versionPath,"steps.json");
                 var stepsAsJson = File.ReadAllText(stepsFile);

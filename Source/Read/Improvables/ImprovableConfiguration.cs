@@ -2,19 +2,19 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
+using Concepts.Improvables;
+using Dolittle.ReadModels;
 
-namespace Policies.Improvements
+namespace Read.Improvables
 {
-    /// <summary>
-    /// Defines a recipe for an improvement
-    /// </summary>
-    public interface IRecipe
+    public class ImprovableConfiguration : IReadModel
     {
         /// <summary>
-        /// Gets the steps for the <see cref="IRecipe"/>
+        /// Gets or sets the <see cref="ImprovementConfigurationId"/> of the <see cref="Project"/>
         /// </summary>
-        IEnumerable<IStep>  GetStepsFor(ImprovementContext context);
+        public ImprovableId Id { get; set; }
+        
+        public string Name { get; set; }
+
     }
 }

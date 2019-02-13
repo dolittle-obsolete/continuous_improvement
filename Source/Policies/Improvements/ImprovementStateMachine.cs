@@ -6,8 +6,10 @@ using Concepts;
 using Dolittle.Domain;
 using Dolittle.Events;
 using Dolittle.Events.Processing;
+using Dolittle.Lifecycle;
 using Dolittle.Runtime.Commands.Coordination;
 using Dolittle.Runtime.Events;
+using Policies.Improvements.Recipes;
 
 namespace Policies.Improvements
 {
@@ -30,38 +32,47 @@ namespace Policies.Improvements
         /// 
         /// </summary>
         /// <param name="version"></param>
-        public FrameworkImprovementRequested(VersionString version) {}
+        public FrameworkImprovementRequested(string version) {}
 
         /// <inheritdoc/>
         public string Version {  get; }
     }
 
+
+
     /// <summary>
     /// 
     /// </summary>
+    [Singleton]
     public class ImprovementStateMachine : ICanProcessEvents
     {
-        private readonly ICommandContextManager _commandContextManager;
-        private readonly IAggregateRootRepositoryFor<Improvement> _repository;
+        readonly ICommandContextManager _commandContextManager;
+        readonly IAggregateRootRepositoryFor<Improvement> _repository;
+        readonly IImprovementPodFactory _improvementPodFactory;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="commandContextManager"></param>
         /// <param name="repository"></param>
+        /// <param name="improvementPodFactory"></param>
         public ImprovementStateMachine(
             ICommandContextManager commandContextManager,
-            IAggregateRootRepositoryFor<Improvement> repository)
+            IAggregateRootRepositoryFor<Improvement> repository,
+            IImprovementPodFactory improvementPodFactory)
         {
             _commandContextManager = commandContextManager;
             _repository = repository;
+            _improvementPodFactory = improvementPodFactory;
         }
 
         /// <summary>
         /// Processes
         /// </summary>
-        public void Process(FrameworkImprovementRequested @event)
+        public void Process(FrameworkImprovementRequested @event, EventSourceId eventSourceId)
         {
+            var recipe = new DotNetFrameworkRecipe();
+            
 
         }
     }

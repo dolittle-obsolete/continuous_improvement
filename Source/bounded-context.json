@@ -15,5 +15,11 @@
   "core": {
     "language": "csharp"
   },
-  "interaction": []
+  "interaction": [
+    {
+      "web": {
+        "type": "aurelia"
+      }
+    }
+  ]
 }

@@ -8,7 +8,8 @@
     <DolittleGenerateProxies>True</DolittleGenerateProxies>   
     <DolittleProxiesBasePath>../Web/Features</DolittleProxiesBasePath>
     <DolittleUseModules>False</DolittleUseModules>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors> <!-- FIXME: REMOVE -->
+    <DocumentationFile></DocumentationFile>
+    <NoWarn>NU1701</NoWarn> <!-- Once BouncyCastle has .NET Core support, we can take this out -->
   </PropertyGroup>
 
   <ItemGroup>

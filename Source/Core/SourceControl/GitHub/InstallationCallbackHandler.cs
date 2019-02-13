@@ -32,7 +32,7 @@ namespace Core.SourceControl.GitHub
                     RedirectToInstallationFrontendPage(response, "InstallationError");
                 }
 
-            } catch (Exception ex) {
+            } catch (Exception) {
                 // TODO: LOG
                 RedirectToInstallationFrontendPage(response, "InstallationError");
             }

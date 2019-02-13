@@ -1,5 +1,5 @@
 <template>
-    <require from="./Improvements.scss"></require>
+    <require from="./Index.scss"></require>
     <require from="./StepIconValueConverter"></require>
     <require from="./StepTitleValueConverter"></require>
     <div class="improvements-page">
@@ -14,7 +14,7 @@
                     repeat.for="step of steps" 
                     icon_name="${step | stepIcon}" 
                     text="${step | stepTitle }"
-                    nav_url="Improvements/${project}/${selectedVersion}/${step.number}">
+                    nav_url="Improvements/${improvable}/${selectedVersion}/${step.number}">
                 </checklist-item>
 
                 <footer>
