@@ -1,0 +1,54 @@
+{
+    "id":"f1d0d79d-d47e-4b56-9663-d8c11fe3a9f4",
+    "name": ".NET Framework",
+    "sourceControl": {
+        "repository": "https://github.com/dolittle/DotNET.Fundamentals.git"
+    },
+    "recipes": [
+        {
+            "type": "BoundedContext",
+            "package": true,
+            "publish": false,
+            "basePath": "",
+            "folderWithProjectToPublish": "",
+            "deployments": [
+                "1a79464f-c68c-49ad-9822-677ffa958a28",
+                "9fc8255a-4fd2-4564-895e-7930e2f65498"
+            ],
+            "notificationChannels": [
+                "c222c7e5-0e3c-4c6a-bb47-954847a4b04a"
+            ]
+        },
+
+        {
+            "type": "DotNetFramework",
+            "package": true,
+            "publish": false,
+            "basePath": "",
+            "folderWithProjectToPublish": "",
+            "deployments": [
+                "9fc8255a-4fd2-4564-895e-7930e2f65498"
+            ],
+            "notificationChannels": [
+                "7188ab71-a002-4cd1-8565-ce75c7bd992e"
+            ]
+        },
+        {
+            "type": "JavaScriptFramework",
+            "package": true,
+            "publish": false,
+            "basePath": "",
+            "folderWithProjectToPublish": "",
+            "deployments": [
+                "9fc8255a-4fd2-4564-895e-7930e2f65498"
+            ],
+            "notificationChannels": [
+                "c222c7e5-0e3c-4c6a-bb47-954847a4b04a",
+                "7188ab71-a002-4cd1-8565-ce75c7bd992e"
+            ]
+        }
+    ],
+    "cascades": [
+        "6218442e-8aed-40e4-a56f-ad23ffeb2d5e"
+    ]
+}

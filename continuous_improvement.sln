@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specifications", "Specifica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Specifications\Infrastructure\Infrastructure.csproj", "{5339B940-D250-4458-A5FF-42BBE80681A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{73EA0DCE-E218-417C-A640-A88C83D7C176}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Policies", "Source\Policies\Policies.csproj", "{A93ECF21-9D85-41B3-AC9C-259B8F47929F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,8 +106,21 @@ Global
 		{5339B940-D250-4458-A5FF-42BBE80681A7}.Release|x64.Build.0 = Release|Any CPU
 		{5339B940-D250-4458-A5FF-42BBE80681A7}.Release|x86.ActiveCfg = Release|Any CPU
 		{5339B940-D250-4458-A5FF-42BBE80681A7}.Release|x86.Build.0 = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|x64.Build.0 = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Debug|x86.Build.0 = Debug|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|x64.Build.0 = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|x86.ActiveCfg = Release|Any CPU
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5339B940-D250-4458-A5FF-42BBE80681A7} = {31341325-5534-48A4-80AA-A2F6F5E95BE9}
+		{A93ECF21-9D85-41B3-AC9C-259B8F47929F} = {73EA0DCE-E218-417C-A640-A88C83D7C176}
 	EndGlobalSection
 EndGlobal

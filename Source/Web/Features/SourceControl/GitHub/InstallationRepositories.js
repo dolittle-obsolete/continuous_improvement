@@ -9,7 +9,7 @@ export class InstallationRepositories extends ReadModel
     constructor() {
         super();
         this.artifact = {
-           id: 'af660c47-0856-4909-9944-03798051ce9e',
+           id: '224693bd-f748-4d42-88d1-9d5578e820c5',
            generation: '1'
         };
         this.id = 0;

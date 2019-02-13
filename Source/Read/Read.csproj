@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors> <!-- FIXME: REMOVE -->
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

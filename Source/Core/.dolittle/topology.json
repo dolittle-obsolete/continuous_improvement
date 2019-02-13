@@ -1,18 +1,22 @@
 {
   "modules": {},
   "features": {
-    "284b051e-b45d-40c2-9106-ed3b9d89eb84": {
-      "name": "Projects",
-      "subFeatures": {}
-    },
-    "b5f1d19f-1ce0-40ed-88a4-cbe7c8d684ba": {
+    "2000c12d-022b-4f61-b838-e7a2a38baae2": {
       "name": "SourceControl",
       "subFeatures": {
-        "a6b102a5-9afa-49a6-bd65-30a0f49d9c45": {
+        "d9bb530c-e2a1-49a2-8adf-a05eda935a06": {
           "name": "GitHub",
           "subFeatures": {}
         }
       }
+    },
+    "e041e888-f527-42c5-bb55-c0f0aa55885b": {
+      "name": "Improvements",
+      "subFeatures": {}
+    },
+    "6c110b3c-d85b-48b7-bf5d-9572e93c7888": {
+      "name": "Improvables",
+      "subFeatures": {}
     }
   }
 }

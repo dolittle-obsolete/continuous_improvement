@@ -8,7 +8,7 @@ export class RegisterInstallation extends Command
 {
     constructor() {
         super();
-        this.type = 'b5f1af0e-7a99-4727-9a51-393908b5a1c6';
+        this.type = 'af13498e-d289-40a2-bd9e-eade5ddf1271';
 
         this.id = 0;
     }

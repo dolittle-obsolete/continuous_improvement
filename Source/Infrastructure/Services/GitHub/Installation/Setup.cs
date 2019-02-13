@@ -50,6 +50,8 @@ namespace Infrastructure.Services.Github.Installation
                     _callbackHandler.Update(installationId, response);
                     break;
             }
+
+            await Task.CompletedTask;
         }
     }
 }

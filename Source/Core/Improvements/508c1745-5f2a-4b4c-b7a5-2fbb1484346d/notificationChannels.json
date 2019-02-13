@@ -1,0 +1,19 @@
+[
+    {
+        "id": "c222c7e5-0e3c-4c6a-bb47-954847a4b04a",
+        "name": "Dolittle Teams Development Channel",
+        "type": "Teams",
+        "configuration": {
+            "url": ""
+        }
+    },
+    {
+        "id": "7188ab71-a002-4cd1-8565-ce75c7bd992e",
+        "name": "Dolittle JavaScript Framework of the week",
+        "type": "Teams",
+        "configuration": {
+            "url": ""
+        }
+    }
+
+]

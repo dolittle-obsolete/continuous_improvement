@@ -8,7 +8,8 @@
     <DolittleGenerateProxies>True</DolittleGenerateProxies>   
     <DolittleProxiesBasePath>../Web/Features</DolittleProxiesBasePath>
     <DolittleUseModules>False</DolittleUseModules>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors> <!-- FIXME: REMOVE -->
+    <DocumentationFile></DocumentationFile>
+    <NoWarn>NU1701</NoWarn> <!-- Once BouncyCastle has .NET Core support, we can take this out -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,8 +17,8 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Events\Events.csproj" />
     <ProjectReference Include="..\Read\Read.csproj" />
+    <ProjectReference Include="..\Policies\Policies.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Orchestrations\Orchestrations.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,8 @@
 
     <PackageReference Include="Octokit" Version="0.32.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.0.0" />
+
+    <PackageReference Include="KubernetesClient" Version="1.2.0" />
 
   </ItemGroup>
 

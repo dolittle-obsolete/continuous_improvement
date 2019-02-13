@@ -33,6 +33,7 @@ namespace Infrastructure.Services.Github
             {
                 var reader = new PemReader(stream);
                 var keyPair = (AsymmetricCipherKeyPair)reader.ReadObject();
+
                 var rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)keyPair.Private);
                 var key = new RsaSecurityKey(rsaParams);
                 ApplicationCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256);
