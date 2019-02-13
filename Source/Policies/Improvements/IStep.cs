@@ -30,6 +30,14 @@ namespace Policies.Improvements
         IEnumerable<V1Container> GetContainersFor(StepNumber number, ImprovementContext context);
 
         /// <summary>
+        /// Get the name of the log parser to use for the step
+        /// </summary>
+        /// <param name="number"><see cref="StepNumber">Number</see> for the step</param>
+        /// <param name="context"><see cref="ImprovementContext">Context</see> for the improvement</param>
+        /// <returns><see cref="LogParserName">Log parser</see> to use</returns>
+        LogParserName GetLogParserNameFor(StepNumber number, ImprovementContext context);
+
+        /// <summary>
         /// This method gets called when the step has succeeded - its responsibility then is to provide the
         /// necessary events to apply to the <see cref="EventSource"/>
         /// </summary>
