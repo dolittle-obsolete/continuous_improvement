@@ -33,18 +33,16 @@ namespace Policies.Improvements
         /// This method gets called when the step has succeeded - its responsibility then is to provide the
         /// necessary events to apply to the <see cref="EventSource"/>
         /// </summary>
-        /// <param name="number"><see cref="StepNumber">Number</see> for the step</param>
         /// <param name="context"><see cref="ImprovementContext">Context</see> for the improvement</param>
         /// <returns><see cref="IEvent">Events</see> to apply</returns>
-        IEnumerable<IEvent> Succeeded(StepNumber number, ImprovementContext context);
+        IEnumerable<IEvent> GetSucceededEventsFor(ImprovementContext context);
 
         /// <summary>
         /// This method gets called when the step has failed - its responsibility then is to provide the
         /// necessary events to apply to the <see cref="EventSource"/>
         /// </summary>
-        /// <param name="number"><see cref="StepNumber">Number</see> for the step</param>
         /// <param name="context"><see cref="ImprovementContext">Context</see> for the improvement</param>
         /// <returns><see cref="IEvent">Events</see> to apply</returns>
-        IEnumerable<IEvent> Failed(StepNumber number, ImprovementContext context);
+        IEnumerable<IEvent> GetFailedEventsFor(ImprovementContext context);
     }
 }

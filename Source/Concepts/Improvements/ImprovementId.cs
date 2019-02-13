@@ -4,13 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using Dolittle.Concepts;
+using Dolittle.Runtime.Events;
 
 namespace Concepts.Improvements
 {
     /// <summary>
     /// Represents the unique identifier for an improvable in the system
     /// </summary>
-    public class ImprovementId : ConceptAs<Guid>
+    public class ImprovementId : EventSourceId
     {
         /// <summary>
         /// Implicitly convert from <see cref="Guid"/> to <see cref="ImprovementId"/>

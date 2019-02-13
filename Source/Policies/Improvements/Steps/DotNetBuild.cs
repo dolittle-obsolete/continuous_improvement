@@ -25,13 +25,13 @@ namespace Policies.Improvements.Steps
         }
 
         /// <inheritdoc/>
-        public IEnumerable<IEvent> Failed(StepNumber number, ImprovementContext context)
+        public IEnumerable<IEvent> GetFailedEventsFor(ImprovementContext context)
         {
             throw new System.NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public IEnumerable<IEvent> Succeeded(StepNumber number, ImprovementContext context)
+        public IEnumerable<IEvent> GetSucceededEventsFor(ImprovementContext context)
         {
             throw new System.NotImplementedException();
         }
