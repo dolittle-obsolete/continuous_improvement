@@ -21,8 +21,53 @@ namespace Policies.Improvements.Steps
         /// <inheritdoc/>
         public IEnumerable<V1Container> GetContainersFor(StepNumber number, ImprovementContext context)
         {
-            throw new System.NotImplementedException();
+            var containers = new List<V1Container>();
+
+            if (!context.PullRequest)
+            {
+                containers.Add(new V1Container {
+                    Name = "git-update-repository",
+                    Image = "dolittlebuild/sourcecontrol-git-update:1.0.0",
+                    Command = new [] { "/bin/sh", "/usr/bin/update_repository.sh", "/source/", "" }, // FIXME: Get the RepositoryURL
+                    VolumeMounts = new [] {
+                        new V1VolumeMount {
+                            Name = "azure",
+                            SubPath = context.GetImprovableSubPath("source"),
+                            MountPath = "/source/",
+                        },
+                    },
+                });
+            }
+
+            containers.Add(new V1Container {
+                Name = "copy-source-from-repository",
+                Image = "alpine:3.9",
+                Command = new [] { "/bin/cp", "-R", "/repository/.", "/source/" },
+                VolumeMounts = new [] {
+                    new V1VolumeMount {
+                        Name = "azure",
+                        SubPath = context.GetImprovableSubPath("source"),
+                        MountPath = "/repository/",
+                    },
+                    new V1VolumeMount {
+                        Name = "workdir",
+                        SubPath = "source",
+                        MountPath = "/source/",
+                    },
+                },
+            });
+
+            if (context.PullRequest)
+            {
+                // FIXME: We need to checkout the merged sha as well!
+                throw new System.NotImplementedException();
+            }
+
+            return containers;
         }
+
+        /// <inheritdoc/>
+        public LogParserName GetLogParserNameFor(StepNumber number, ImprovementContext context) => "git";
 
         /// <inheritdoc/>
         public IEnumerable<IEvent> GetFailedEventsFor(ImprovementContext context)
