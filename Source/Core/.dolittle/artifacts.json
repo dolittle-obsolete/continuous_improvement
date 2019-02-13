@@ -85,13 +85,13 @@
     "events": {
       "506ba160-5957-4ee7-8f66-78c953db7d0b": {
         "generation": 1,
-        "type": "Policies.Improvements.FrameworkImprovementRequested, Policies"
+        "type": "Events.Improvements.FrameworkImprovementRequested, Events"
       }
     },
     "eventSources": {
       "339fd169-3246-44cd-93a6-f0764a7ff3f6": {
         "generation": 1,
-        "type": "Policies.Improvements.Improvement, Policies"
+        "type": "Domain.Improvements.Improvement, Domain"
       }
     },
     "readModels": {

@@ -7,6 +7,7 @@ using Concepts;
 using Concepts.Improvements;
 using Dolittle.Tenancy;
 using Read.Improvables;
+using Read.Improvements;
 
 namespace Policies.Improvements
 {
@@ -18,29 +19,23 @@ namespace Policies.Improvements
         /// <summary>
         /// Initializes a new instance of <see cref="ImprovementContext"/>
         /// </summary>
-        /// <param name="improvement">The <see cref="ImprovementId">improvement</see></param>
+        /// <param name="improvement">The <see cref="Improvement">improvement</see></param>
         /// <param name="tenant">The <see cref="Tenant">tenant</see></param>
-        /// <param name="version">The <see cref="VersionString">version</see></param>
-        /// <param name="pullRequest"></param>
-        /// <param name="improvableConfiguration">The <see cref="ImprovableConfiguration">configuration</see> of the improvable</param>
+        /// <param name="improvableConfiguration">The <see cref="ImprovableConfiguration">Improvable</see></param>
         public ImprovementContext(
-            ImprovementId improvement,
             TenantId tenant,
-            VersionString version,
-            bool pullRequest,
-            ImprovableConfiguration configuration)
+            Improvement improvement,
+            ImprovableConfiguration improvable)
         {
             Improvement = improvement;
             Tenant = tenant;
-            Version = version;
-            PullRequest = pullRequest;
-            Configuration = configuration;
+            Improvable = improvable;
         }
 
         /// <summary>
         /// Gets the <see cref="Improvement"/> this context is for
         /// </summary>
-        public ImprovementId Improvement { get; }
+        public Improvement Improvement { get; }
 
         /// <summary>
         /// Gets the <see cref="Tenant">tenant</see> in which the improvement is for
@@ -60,6 +55,6 @@ namespace Policies.Improvements
         /// <summary>
         /// Gets the <see cref="ImprovableConfiguration">configuraion</see> for the improvable
         /// </summary>
-        public ImprovableConfiguration Configuration { get; }
+        public ImprovableConfiguration Improvable { get; }
     }
 }

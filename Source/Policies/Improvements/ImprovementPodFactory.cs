@@ -19,12 +19,13 @@ namespace Policies.Improvements
         {
             var podTemplate = new V1PodTemplateSpec();
             podTemplate.Metadata = new V1ObjectMeta {
-                Name = $"{context.Configuration.Name} - {context.Version}",
+                Name = $"{context.Improvable.Name} - {context.Version}",
                 NamespaceProperty = "dolittle-build",
                 Labels = {
-                    {"Name", context.Configuration.Name},
+                    {"Name", context.Improvable.Name},
                     {"Tenant", context.Tenant.ToString()},
-                    {"Identifier", context.Improvement.ToString()},
+                    {"Improvement", context.Improvement.Id.ToString()},
+                    {"Improvable", context.Improvement.Improvable.ToString()},
                     {"Version", context.Version}
                 }
             };
