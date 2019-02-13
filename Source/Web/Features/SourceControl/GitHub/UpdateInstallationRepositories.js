@@ -8,7 +8,7 @@ export class UpdateInstallationRepositories extends Command
 {
     constructor() {
         super();
-        this.type = 'ff9af1ab-3573-44b9-8168-836f39cf7137';
+        this.type = '22749d02-8e79-4443-82c5-504f8970cc9c';
 
         this.id = 0;
         this.repositoriesAdded = [];

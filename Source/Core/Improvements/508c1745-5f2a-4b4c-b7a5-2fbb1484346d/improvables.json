@@ -2,11 +2,25 @@
     {
         "id": "f1d0d79d-d47e-4b56-9663-d8c11fe3a9f4",
         "name": ".NET Fundamentals",
-        "version": "2.0.0-alpha2.281"
+        "version": "2.1.1",
+        "status": "Success"
+    },
+    {
+        "id": "f1d0d79d-d47e-4b56-9663-d8c11fe3a9f4",
+        "name": "Runtime",
+        "version": "2.1.32",
+        "status": "Failed"
+    },
+    {
+        "id": "f1d0d79d-d47e-4b56-9663-d8c11fe3a9f4",
+        "name": ".NET SDK",
+        "version": "2.1.16",
+        "status": "InProgress"
     },
     {
         "id": "85993113-7d63-4128-9ccb-7e93968e26b5",
         "name": "Continuous Improvement",
-        "version": "1.0.0-11"
+        "version": "1.0.0-11",
+        "status": "Failed"
     }
 ]

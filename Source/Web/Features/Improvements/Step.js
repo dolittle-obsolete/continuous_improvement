@@ -9,7 +9,7 @@ export class Step extends ReadModel
     constructor() {
         super();
         this.artifact = {
-           id: '6fd8cf5e-4aa9-48af-8618-ccc737483881',
+           id: '2faffeb8-feba-4bbd-a8f5-dff9fac25e71',
            generation: '1'
         };
         this.number = 0;

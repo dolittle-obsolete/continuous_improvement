@@ -4,20 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 using System.Collections.Generic;
 using Concepts.Improvables;
-using Dolittle.ReadModels;
 
 namespace Read.Improvables
 {
-    public class Improvable : IReadModel
+
+    public interface IImprovableManager 
     {
-        public ImprovableId Id {  get; set; }
-
-        public string Name {  get; set; }
-
-        public SourceControl SourceControl {  get; set; }
-        public IEnumerable<Recipe> Recipes {  get; set; }
-        public IEnumerable<ImprovableId> Cascades {  get; set; }
-
-        public ImprovableStatus Status {  get; set; }
+        IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId);
+        Improvable GetById(ImprovableId improvableId);
+        ExpandedImprovable GetExpandedById(ImprovableId improvableId);
+        void Save(Improvable improvable);
     }
 }

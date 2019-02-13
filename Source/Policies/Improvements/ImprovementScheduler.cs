@@ -23,9 +23,10 @@ namespace Policies.Improvements
             _improvementPodFactory = improvementPodFactory;
         }
 
-        public void Process(FrameworkImprovementRequested @event, EventSourceId eventSourceId)
+        public void Process(ImprovementRequested @event, EventSourceId eventSourceId)
         {
-            var recipe = new DotNetFrameworkRecipe();
+            var recipe = new DotNetFramework();
+            @event.Improvable
             
             var context = new ImprovementContext(
                 _executionContextManager.Current.Tenant,

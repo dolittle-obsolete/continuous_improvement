@@ -14,6 +14,7 @@ using Dolittle.Events;
 using Dolittle.Execution;
 using Dolittle.Runtime.Commands;
 using Dolittle.Runtime.Commands.Coordination;
+using Dolittle.Tenancy;
 using Domain.Improvements;
 
 namespace Policies.Improvements
@@ -28,6 +29,8 @@ namespace Policies.Improvements
         readonly ICommandContextManager _commandContextManager;
         readonly IAggregateRootRepositoryFor<Improvement> _repository;
         readonly IExecutionContextManager _executionContextManager;
+        readonly IImprovementContextFactory _improvementContextFactory;
+        readonly IRecipeLocator _recipeLocator;
 
         /// <summary>
         /// 
@@ -38,23 +41,35 @@ namespace Policies.Improvements
         public ImprovementStepResultHandler(
             IExecutionContextManager executionContextManager,
             ICommandContextManager commandContextManager,
-            IAggregateRootRepositoryFor<Improvement> repository)
+            IAggregateRootRepositoryFor<Improvement> repository,
+            IImprovementContextFactory improvementContextFactory,
+            IRecipeLocator recipeLocator)
         {
             _commandContextManager = commandContextManager;
             _repository = repository;
             _executionContextManager = executionContextManager;
+            _improvementContextFactory = improvementContextFactory;
+            _recipeLocator = recipeLocator;
         }
 
         public void HandleSuccessfulStep(
+            TenantId tenantId,
+            RecipeType recipeName,
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
             VersionString version)
         {
-
+            _executionContextManager.CurrentFor(tenantId);
+            var context = _improvementContextFactory.GetFor(improvable, version);
+            _recipeLocator.GetByName(recipeName);
+            
+            
         }
         
         public void HandleFailedStep(
+            TenantId tenantId,
+            RecipeType recipeName,
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,

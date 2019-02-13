@@ -5,12 +5,13 @@
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
+using Dolittle.Tenancy;
 
 namespace Policies.Improvements
 {
     public interface IImprovementStepResultHandler
     {
-        void HandleSuccessfulStep(StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
-        void HandleFailedStep(StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
+        void HandleSuccessfulStep(TenantId tenant, RecipeType recipeName, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
+        void HandleFailedStep(TenantId tenant, RecipeType recipeName, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
     }
 }

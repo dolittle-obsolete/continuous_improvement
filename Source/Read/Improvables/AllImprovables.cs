@@ -13,10 +13,11 @@ using Dolittle.Serialization.Json;
 
 namespace Read.Improvables
 {
+
     /// <summary>
     /// Represents all the <see cref="Project">projects</see>
     /// </summary>
-    public class AllImprovables : IQueryFor<Improvable>
+    public class AllImprovables : IQueryFor<ImprovableForListing>
     {
         /// <summary>
         /// Initializes a new instance of <see cref="AllImprovables"/>
@@ -29,17 +30,17 @@ namespace Read.Improvables
             if (File.Exists(projectFile))
             {
                 var json = File.ReadAllText(projectFile);
-                Query = serializer.FromJson<IEnumerable<Improvable>>(json).AsQueryable();
+                Query = serializer.FromJson<IEnumerable<ImprovableForListing>>(json).AsQueryable();
             }
             else
             {
-                Query = new Improvable[0].AsQueryable();
+                Query = new ImprovableForListing[0].AsQueryable();
             }
         }
 
         /// <summary>
         /// The query that will execute
         /// </summary>
-        public IQueryable<Improvable> Query { get; }
+        public IQueryable<ImprovableForListing> Query { get; }
     }
 }
