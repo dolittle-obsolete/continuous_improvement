@@ -12,11 +12,11 @@ namespace Policies.Improvements
     public interface IImprovementPodFactory
     {
         /// <summary>
-        /// Build a <see cref="V1PodTemplateSpec"/> from <see cref="IRecipe"/> based on <see cref="ImprovementContext"/>
+        /// Build a <see cref="V1Pod"/> from <see cref="IRecipe"/> based on <see cref="ImprovementContext"/>
         /// </summary>
         /// <param name="context"><see cref="ImprovementContext"/> to build for</param>
         /// <param name="recipe"><see cref="IRecipe"/> to build from</param>
-        /// <returns><see cref="V1PodTemplateSpec"/> ready to run</returns>
-        V1PodTemplateSpec   BuildFrom(ImprovementContext context, IRecipe recipe);
+        /// <returns><see cref="V1Pod"/> ready to run</returns>
+        V1Pod BuildFrom(ImprovementContext context, IRecipe recipe);
     }
 }

@@ -13,7 +13,7 @@ namespace Policies.Improvements
     public interface IRecipe
     {
         /// <summary>
-        /// Gets the steps for the <see cref="IRecipe"/>
+        /// Gets the <see cref="IStep">steps</see> for the <see cref="IRecipe"/>
         /// </summary>
         IEnumerable<IStep>  GetStepsFor(ImprovementContext context);
     }
