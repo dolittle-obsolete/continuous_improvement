@@ -8,18 +8,19 @@ using Dolittle.Concepts;
 namespace Concepts.Improvables
 {
 
+
     /// <summary>
     /// Represents the unique identifier for an improvable in the system
     /// </summary>
-    public class ImprovableId : ConceptAs<Guid>
+    public class RecipeType : ConceptAs<string>
     {
         /// <summary>
-        /// Implicitly convert from <see cref="Guid"/> to <see cref="ImprovableId"/>
+        /// Implicitly convert from <see cref="string"/> to <see cref="RecipeType"/>
         /// </summary>
-        /// <param name="value"><see cref="Guid"/> to convert from</param>
-        public static implicit operator ImprovableId(Guid value)
+        /// <param name="value"><see cref="string"/> to convert from</param>
+        public static implicit operator RecipeType(string value)
         {
-            return new ImprovableId { Value = value };
+            return new RecipeType { Value = value };
         }
     }
 }

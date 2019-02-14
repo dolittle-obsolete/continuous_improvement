@@ -5,21 +5,20 @@
 using System;
 using Dolittle.Concepts;
 
-namespace Concepts.Improvables
+namespace Concepts.Configuration
 {
-
     /// <summary>
-    /// Represents the unique identifier for an improvable in the system
+    /// Represents the unique identifier for a notification channel in the system
     /// </summary>
-    public class ImprovableId : ConceptAs<Guid>
+    public class NotificationChannelId : ConceptAs<Guid>
     {
         /// <summary>
-        /// Implicitly convert from <see cref="Guid"/> to <see cref="ImprovableId"/>
+        /// Implicitly convert from <see cref="Guid"/> to <see cref="NotificationChannelId"/>
         /// </summary>
         /// <param name="value"><see cref="Guid"/> to convert from</param>
-        public static implicit operator ImprovableId(Guid value)
+        public static implicit operator NotificationChannelId(Guid value)
         {
-            return new ImprovableId { Value = value };
+            return new NotificationChannelId { Value = value };
         }
     }
 }

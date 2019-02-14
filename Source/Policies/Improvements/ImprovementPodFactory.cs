@@ -11,11 +11,14 @@ using k8s.Models;
 
 namespace Policies.Improvements
 {
+
     /// <summary>
     /// Represents an implementation of <see cref="IImprovementPodFactory"/>
     /// </summary>
     public class ImprovementPodFactory : IImprovementPodFactory
     {
+
+
         /// <inheritdoc/>
         public V1Pod BuildFrom(ImprovementContext context, IRecipe recipe)
         {
@@ -24,11 +27,12 @@ namespace Policies.Improvements
                     Name = context.Improvement.Id.ToString(),
                     NamespaceProperty = "dolittle-builds",
                     Labels = {
-                        {"Name", context.Improvable.Name},
-                        {"Version", context.Version},
-                        {"Tenant", context.Tenant.ToString()},
-                        {"Improvement", context.Improvement.Id.ToString()},
-                        {"Improvable", context.Improvement.Improvable.ToString()},
+                        {PodLabels.Name, context.Improvable.Name},
+                        {PodLabels.RecipeType, recipe.GetType().Name},
+                        {PodLabels.Version, context.Version},
+                        {PodLabels.Tenant, context.Tenant.ToString()},
+                        {PodLabels.Improvement, context.Improvement.Id.ToString()},
+                        {PodLabels.Improvable, context.Improvement.Improvable.ToString()},
                     },
                 },
 

@@ -3,19 +3,16 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 using System.Collections.Generic;
-using Concepts.Configuration;
 using Concepts.Improvables;
 
 namespace Read.Improvables
 {
 
-    public class Recipe
+    public interface IImprovableManager 
     {
-        public RecipeType Type { get; set; }
-        public bool Package { get; set; }
-        public bool Publish { get; set; }
-        public string BasePath { get; set; }
-        public IEnumerable<DeploymentId> Deployments { get; set; }
-        public IEnumerable<NotificationChannelId> NotificationChannels { get; set; }
+        IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId);
+        Improvable GetById(ImprovableId improvableId);
+        ExpandedImprovable GetExpandedById(ImprovableId improvableId);
+        void Save(Improvable improvable);
     }
 }

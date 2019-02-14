@@ -3,6 +3,8 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+using Concepts.Configuration;
+
 namespace Read.Configuration
 {
     /// <summary>
@@ -10,6 +12,11 @@ namespace Read.Configuration
     /// </summary>
     public class NotificationChannel
     {
+        /// <summary>
+        /// Gets or sets the unique identifier for the <see cref="NotificationChannel"/>
+        /// </summary>
+        public NotificationChannelId Id { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the <see cref="NotificationChannel"/>
         /// </summary>

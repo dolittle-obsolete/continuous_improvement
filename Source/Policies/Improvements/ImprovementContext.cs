@@ -22,11 +22,11 @@ namespace Policies.Improvements
         /// </summary>
         /// <param name="improvement">The <see cref="Improvement">improvement</see></param>
         /// <param name="tenant">The <see cref="Tenant">tenant</see></param>
-        /// <param name="improvableConfiguration">The <see cref="ImprovableConfiguration">Improvable</see></param>
+        /// <param name="improvableConfiguration">The <see cref="Read.Improvables.Improvable">Improvable</see></param>
         public ImprovementContext(
             TenantId tenant,
             Improvement improvement,
-            ImprovableConfiguration improvable)
+            Improvable improvable)
         {
             Improvement = improvement;
             Tenant = tenant;
@@ -54,9 +54,9 @@ namespace Policies.Improvements
         public bool PullRequest { get; }
 
         /// <summary>
-        /// Gets the <see cref="ImprovableConfiguration">configuraion</see> for the improvable
+        /// Gets the <see cref="Read.Improvables.Improvable">configuraion</see> for the improvable
         /// </summary>
-        public ImprovableConfiguration Improvable { get; }
+        public Improvable Improvable { get; }
 
         /// <summary>
         /// Gets the path to the files for the <see cref="Improvable"/>

@@ -10,7 +10,7 @@ namespace Policies.Improvements.Recipes
     /// <summary>
     /// Represents the recipe for .NET Framework based frameworks
     /// </summary>
-    public class DotNetFrameworkRecipe : IRecipe
+    public class DotNetFramework : IRecipe
     {
         /// <inheritdoc/>
         public IEnumerable<IStep> GetStepsFor(ImprovementContext context)

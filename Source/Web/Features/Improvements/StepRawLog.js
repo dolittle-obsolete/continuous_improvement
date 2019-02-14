@@ -9,7 +9,7 @@ export class StepRawLog extends ReadModel
     constructor() {
         super();
         this.artifact = {
-           id: 'cf3144ed-7396-412a-b7c2-4acd02559a63',
+           id: 'f14cbc87-96b2-4dd0-ada6-86126b40eba8',
            generation: '1'
         };
         this.content = '';

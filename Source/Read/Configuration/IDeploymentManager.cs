@@ -4,18 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 using System.Collections.Generic;
 using Concepts.Configuration;
-using Concepts.Improvables;
 
-namespace Read.Improvables
+namespace Read.Configuration
 {
-
-    public class Recipe
+    public interface IDeploymentManager
     {
-        public RecipeType Type { get; set; }
-        public bool Package { get; set; }
-        public bool Publish { get; set; }
-        public string BasePath { get; set; }
-        public IEnumerable<DeploymentId> Deployments { get; set; }
-        public IEnumerable<NotificationChannelId> NotificationChannels { get; set; }
+        IEnumerable<Deployment> GetAll();
+        Deployment GetById(DeploymentId deployment);
     }
+
 }

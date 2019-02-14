@@ -12,7 +12,7 @@ namespace Read.Improvements
     /// <summary>
     /// Represents an improvement
     /// </summary>
-    public class Improvement : IReadModel
+    public class Improvement : IReadModel;
     {
         public ImprovementId Id { get; set; }
 

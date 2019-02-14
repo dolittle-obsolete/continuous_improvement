@@ -1,80 +1,59 @@
 {
-  "6c110b3c-d85b-48b7-bf5d-9572e93c7888": {
-    "commands": {},
-    "events": {},
-    "eventSources": {},
-    "readModels": {
-      "70be1da4-991f-45e9-841d-ec2d5cd844e6": {
-        "generation": 1,
-        "type": "Read.Improvables.Improvable, Read"
-      },
-      "51fca8e6-bce8-46c2-a711-7d3d431249f4": {
-        "generation": 1,
-        "type": "Read.Improvables.ImprovableConfiguration, Read"
-      }
-    },
-    "queries": {
-      "4764ab8c-b6e6-4e05-adb8-79ecef1c1e8a": {
-        "generation": 1,
-        "type": "Read.Improvables.AllImprovables, Read"
-      }
-    }
-  },
   "d9bb530c-e2a1-49a2-8adf-a05eda935a06": {
     "commands": {
-      "af13498e-d289-40a2-bd9e-eade5ddf1271": {
+      "e0ef42ef-e693-4650-8c14-df3edcc9bc00": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.RegisterInstallation, Domain"
       },
-      "2d701bb4-d9f1-41a8-80ba-d7d7b624e505": {
+      "84e64191-c3a7-4af8-9760-52ea6b8b19c8": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.TriggerUpdateOfRepositories, Domain"
       },
-      "ff9af1ab-3573-44b9-8168-836f39cf7137": {
+      "22749d02-8e79-4443-82c5-504f8970cc9c": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.UpdateInstallationRepositories, Domain"
       }
     },
     "events": {
-      "494c851d-2c44-4db3-b86c-c7981212e563": {
+      "f0bdf440-270c-48ab-962b-ce0d9778c56a": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRegistered, Events"
       },
-      "c901c9b2-fd0d-4c82-8209-9b45785d9230": {
+      "80c73b3f-99de-4e07-8006-6c9cc32a900f": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRepositoriesRefreshed, Events"
       },
-      "44f9c8df-125b-4dd5-9a24-70f02d6b86b5": {
+      "2c787673-b3dc-43bb-bf6b-84979b17058b": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRepositoriesUpdateReceived, Events"
       }
     },
     "eventSources": {
-      "3ab479bb-9d56-4076-89dc-210efec47550": {
+      "a7f87199-98a1-4d74-9809-328279f8e30b": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.Application, Domain"
       }
     },
     "readModels": {
-      "224693bd-f748-4d42-88d1-9d5578e820c5": {
+      "5769ee8e-0909-4d5f-8e48-6d320fe944df": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.InstallationRepositories, Read"
       },
-      "e15fbcb8-716b-48e7-b99a-e91ea8501ec6": {
+      "1f375d86-2333-408c-81d9-bfadbbd95b3f": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.InstallationsList, Read"
       },
-      "d82571e7-f9b6-475c-a458-763f74e84ff6": {
+      "21e411c4-4a92-4645-874b-c716d0c1f987": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.RepositoriesList, Read"
       }
     },
     "queries": {
-      "98ce5093-f29f-468e-b392-ceba9c086501": {
+      "2ebe8925-5d88-4eaa-8030-7a42646dc963": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.AllAvailableRepositories, Read"
       },
-      "21b6110a-eec0-4323-b074-fe4d888cc319": {
+      "50c67996-0d0c-4ff1-bead-2af0817a0b9b": {
         "generation": 1,
         "type": "Read.SourceControl.GitHub.AllInstallations, Read"
       }
@@ -83,51 +62,72 @@
   "e041e888-f527-42c5-bb55-c0f0aa55885b": {
     "commands": {},
     "events": {
-      "506ba160-5957-4ee7-8f66-78c953db7d0b": {
+      "c45a36d5-dcfa-45a2-bd64-448a95b61dc8": {
         "generation": 1,
-        "type": "Events.Improvements.FrameworkImprovementRequested, Events"
+        "type": "Events.Improvements.ImprovementRequested, Events"
       }
     },
     "eventSources": {
-      "339fd169-3246-44cd-93a6-f0764a7ff3f6": {
+      "73f73108-2413-41a5-b7d5-78df27c8a043": {
         "generation": 1,
         "type": "Domain.Improvements.Improvement, Domain"
       }
     },
     "readModels": {
-      "c36d3ffd-e085-4dde-87c8-73d788f2a586": {
+      "7936fa2b-4af0-486e-a6e3-9ac5b3ca7c15": {
         "generation": 1,
         "type": "Read.Improvements.Improvement, Read"
       },
-      "6fd8cf5e-4aa9-48af-8618-ccc737483881": {
+      "2faffeb8-feba-4bbd-a8f5-dff9fac25e71": {
         "generation": 1,
         "type": "Read.Improvements.Step, Read"
       },
-      "cf3144ed-7396-412a-b7c2-4acd02559a63": {
+      "f14cbc87-96b2-4dd0-ada6-86126b40eba8": {
         "generation": 1,
         "type": "Read.Improvements.StepRawLog, Read"
       },
-      "f76339d2-6407-41e4-b728-70e9ac7a6271": {
+      "37219384-44d8-46b7-aa9f-d91c5c0586f9": {
         "generation": 1,
         "type": "Read.Improvements.StepResult, Read"
       }
     },
     "queries": {
-      "3b3979b2-94ce-4ae7-9ef6-6026a40a8c3c": {
+      "f3010284-56be-4c6c-9e99-9bedb04a1f98": {
         "generation": 1,
         "type": "Read.Improvements.ImprovementsForImprovable, Read"
       },
-      "74dc9050-3f02-4b7d-8a6e-d93606601720": {
+      "fb33f414-631c-4331-b26a-f7eb92138f86": {
         "generation": 1,
         "type": "Read.Improvements.RawLogForStep, Read"
       },
-      "37fbe1fe-65d1-4c21-b4e3-571ce3860549": {
+      "0cb2a3b3-5c57-48e4-95af-dbd5bf675c20": {
         "generation": 1,
         "type": "Read.Improvements.StepResultsForStep, Read"
       },
-      "1d101be1-4cf3-43dc-80bc-954964fc0813": {
+      "6e19167f-22ad-468c-98b6-86d7a94c36b3": {
         "generation": 1,
         "type": "Read.Improvements.StepsForImprovement, Read"
+      }
+    }
+  },
+  "6c110b3c-d85b-48b7-bf5d-9572e93c7888": {
+    "commands": {},
+    "events": {},
+    "eventSources": {},
+    "readModels": {
+      "62eefdf0-1776-4621-98ab-d12e420f7b39": {
+        "generation": 1,
+        "type": "Read.Improvables.Improvable, Read"
+      },
+      "36f9331b-e28c-43b1-b654-cdaeb32016de": {
+        "generation": 1,
+        "type": "Read.Improvables.ImprovableForListing, Read"
+      }
+    },
+    "queries": {
+      "43f09745-2c53-47d1-be94-dac69d71b8f1": {
+        "generation": 1,
+        "type": "Read.Improvables.AllImprovables, Read"
       }
     }
   }
