@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
@@ -53,26 +54,33 @@ namespace Policies.Improvements
         }
 
         public void HandleSuccessfulStep(
-            RecipeType recipeName,
+            RecipeType recipeType,
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
             VersionString version)
         {
             var context = _improvementContextFactory.GetFor(improvable, version);
-            _recipeLocator.GetByName(recipeName);
-            
-            
+            var recipe = _recipeLocator.GetByName(recipeType);
+            var steps = recipe.GetStepsFor(context).ToArray();
+            var step = steps[stepNumber];
+            var events = step.GetSucceededEventsFor(context);
+            ApplyEventsFor(context, events);
         }
         
         public void HandleFailedStep(
-            RecipeType recipeName,
+            RecipeType recipeType,
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
             VersionString version)
         {
-
+            var context = _improvementContextFactory.GetFor(improvable, version);
+            var recipe = _recipeLocator.GetByName(recipeType);
+            var steps = recipe.GetStepsFor(context).ToArray();
+            var step = steps[stepNumber];
+            var events = step.GetFailedEventsFor(context);
+            ApplyEventsFor(context, events);
         }
 
 
