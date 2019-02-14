@@ -23,18 +23,21 @@ namespace Policies.Improvements
         readonly ILogger _logger;
         readonly IExecutionContextManager _executionContextManager;
         readonly FactoryFor<IImprovementStepResultHandler> _stepResultHandlerFactory;
+        private readonly IImprovementResultHandler _improvementResultHandler;
 
         public KubernetesBuildPodWatcher(
             ILogger logger,
             IExecutionContextManager executionContextManager,
             FactoryFor<IKubernetes> clientFactory,
-            FactoryFor<IImprovementStepResultHandler> stepResultHandlerFactory
+            FactoryFor<IImprovementStepResultHandler> stepResultHandlerFactory,
+            IImprovementResultHandler improvementResultHandler //TODO: doesn't belong here, need to find the correct abstraction
         )
         {
             _clientFactory = clientFactory;
             _logger = logger;
             _executionContextManager = executionContextManager;
             _stepResultHandlerFactory = stepResultHandlerFactory;
+            _improvementResultHandler = improvementResultHandler;
         }
 
 
@@ -126,6 +129,7 @@ namespace Policies.Improvements
                 }
             });
 
+            bool hasFailedSteps = false;
             buildSteps.ForEach(kv => {
                 var stepNumber = kv.Key;
                 var subStepStatuses = kv.Value;
@@ -133,13 +137,22 @@ namespace Policies.Improvements
                 // TODO: These will be called multiple times for each step (at least for successful ones), make sure the state is kept somewhere else!
                 if (subStepStatuses.Any(_ => _ == StepStatus.Failed))
                 {
-                    stepResultHandler.HandleFailedStep(recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleFailedStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
+                    hasFailedSteps = true;
                 }
                 else if (subStepStatuses.All(_ => _ == StepStatus.Succeeded))
                 {
-                    stepResultHandler.HandleSuccessfulStep(recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleSuccessfulStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
             });
+            if(hasFailedSteps)
+            {
+                _improvementResultHandler.HandleFailure(improvementId);
+            }
+            else
+            {
+                _improvementResultHandler.HandleSuccess(improvementId);
+            }
         }
 
         bool CheckWarnAndDeleteIfPodIsMissingLabels(V1Pod pod)
