@@ -31,7 +31,6 @@ namespace Policies.Improvements
         public void Process(ImprovementRequested @event, EventSourceId eventSourceId)
         {
             var recipe = new DotNetFramework();
-            @event.Improvable
             
             var context = new ImprovementContext(
                 _executionContextManager.Current.Tenant,

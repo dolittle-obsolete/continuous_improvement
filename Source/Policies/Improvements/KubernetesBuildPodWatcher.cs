@@ -90,10 +90,11 @@ namespace Policies.Improvements
 
             // TODO: Should we set the execution context here?
 
-            TenantId tenantId = new Guid(pod.Metadata.Labels["Tenant"]);
-            ImprovementId improvementId = new Guid(pod.Metadata.Labels["Improvement"]);
-            ImprovableId improvableId = new Guid(pod.Metadata.Labels["Improvable"]);
-            VersionString versionString = pod.Metadata.Labels["Version"];
+            TenantId tenantId = new Guid(pod.Metadata.Labels[PodLabels.Tenant]);
+            RecipeType recipeType = pod.Metadata.Labels[PodLabels.RecipeType];
+            ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
+            ImprovableId improvableId = new Guid(pod.Metadata.Labels[PodLabels.Improvable]);
+            VersionString versionString = pod.Metadata.Labels[PodLabels.Version];
 
             var buildSteps = new Dictionary<StepNumber, List<StepStatus>>();
 
@@ -131,11 +132,11 @@ namespace Policies.Improvements
                 // TODO: These will be called multiple times for each step (at least for successful ones), make sure the state is kept somewhere else!
                 if (subStepStatuses.Any(_ => _ == StepStatus.Failed))
                 {
-                    _stepResultHandler.HandleFailedStep(stepNumber, improvementId, improvableId, versionString);
+                    _stepResultHandler.HandleFailedStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
                 else if (subStepStatuses.All(_ => _ == StepStatus.Succeeded))
                 {
-                    _stepResultHandler.HandleSuccessfulStep(stepNumber, improvementId, improvableId, versionString);
+                    _stepResultHandler.HandleSuccessfulStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
             });
         }
