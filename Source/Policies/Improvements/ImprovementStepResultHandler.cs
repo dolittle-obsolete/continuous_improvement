@@ -26,9 +26,9 @@ namespace Policies.Improvements
     {
         static ArtifactId _nullCommandArtifactId = (ArtifactId)Guid.Parse("c7d1f5cc-40bb-4cd4-b589-9cb11a43c962");
 
+        readonly IExecutionContextManager _executionContextManager;
         readonly ICommandContextManager _commandContextManager;
         readonly IAggregateRootRepositoryFor<Improvement> _repository;
-        readonly IExecutionContextManager _executionContextManager;
         readonly IImprovementContextFactory _improvementContextFactory;
         readonly IRecipeLocator _recipeLocator;
 
@@ -45,22 +45,20 @@ namespace Policies.Improvements
             IImprovementContextFactory improvementContextFactory,
             IRecipeLocator recipeLocator)
         {
+            _executionContextManager = executionContextManager;
             _commandContextManager = commandContextManager;
             _repository = repository;
-            _executionContextManager = executionContextManager;
             _improvementContextFactory = improvementContextFactory;
             _recipeLocator = recipeLocator;
         }
 
         public void HandleSuccessfulStep(
-            TenantId tenantId,
             RecipeType recipeName,
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
             VersionString version)
         {
-            _executionContextManager.CurrentFor(tenantId);
             var context = _improvementContextFactory.GetFor(improvable, version);
             _recipeLocator.GetByName(recipeName);
             
@@ -68,7 +66,6 @@ namespace Policies.Improvements
         }
         
         public void HandleFailedStep(
-            TenantId tenantId,
             RecipeType recipeName,
             StepNumber stepNumber,
             ImprovementId improvement,
