@@ -137,12 +137,12 @@ namespace Policies.Improvements
                 // TODO: These will be called multiple times for each step (at least for successful ones), make sure the state is kept somewhere else!
                 if (subStepStatuses.Any(_ => _ == StepStatus.Failed))
                 {
-                    stepResultHandler.HandleFailedStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleFailedStep(recipeType, stepNumber, improvementId, improvableId, versionString);
                     hasFailedSteps = true;
                 }
                 else if (subStepStatuses.All(_ => _ == StepStatus.Succeeded))
                 {
-                    stepResultHandler.HandleSuccessfulStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleSuccessfulStep(recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
             });
             if(hasFailedSteps)
