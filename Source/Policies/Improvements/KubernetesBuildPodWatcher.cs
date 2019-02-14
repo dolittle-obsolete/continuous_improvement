@@ -9,6 +9,7 @@ using Concepts.Improvements;
 using Dolittle.Booting;
 using Dolittle.Collections;
 using Dolittle.DependencyInversion;
+using Dolittle.Execution;
 using Dolittle.Logging;
 using Dolittle.Tenancy;
 using k8s;
@@ -16,29 +17,28 @@ using k8s.Models;
 
 namespace Policies.Improvements
 {
-    public class KubernetesBuildPodWatcher : ICanPerformBootProcedure
+    public class KubernetesBuildPodWatcher
     {
         readonly FactoryFor<IKubernetes> _clientFactory;
         readonly ILogger _logger;
-        readonly IImprovementStepResultHandler _stepResultHandler;
+        readonly IExecutionContextManager _executionContextManager;
+        readonly FactoryFor<IImprovementStepResultHandler> _stepResultHandlerFactory;
 
         public KubernetesBuildPodWatcher(
-            FactoryFor<IKubernetes> clientFactory,
             ILogger logger,
-            IImprovementStepResultHandler stepResultHandler
+            IExecutionContextManager executionContextManager,
+            FactoryFor<IKubernetes> clientFactory,
+            FactoryFor<IImprovementStepResultHandler> stepResultHandlerFactory
         )
         {
             _clientFactory = clientFactory;
             _logger = logger;
-            _stepResultHandler = stepResultHandler;
+            _executionContextManager = executionContextManager;
+            _stepResultHandlerFactory = stepResultHandlerFactory;
         }
 
 
-        /// <inheritdoc/>
-        public bool CanPerform() => true;
-
-        /// <inheritdoc/>
-        public void Perform()
+        public void StartWatcher()
         {
             // FIXME: This should run all the time, so have a look at what happens on exceptions and when it is closed. The client should possibly be disposed.
             Task.Run(async () => {
@@ -88,13 +88,14 @@ namespace Policies.Improvements
         {
             if (CheckWarnAndDeleteIfPodIsMissingLabels(pod)) return;
 
-            // TODO: Should we set the execution context here?
-
             TenantId tenantId = new Guid(pod.Metadata.Labels[PodLabels.Tenant]);
             RecipeType recipeType = pod.Metadata.Labels[PodLabels.RecipeType];
             ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
             ImprovableId improvableId = new Guid(pod.Metadata.Labels[PodLabels.Improvable]);
             VersionString versionString = pod.Metadata.Labels[PodLabels.Version];
+
+            _executionContextManager.CurrentFor(tenantId);
+            var stepResultHandler = _stepResultHandlerFactory();
 
             var buildSteps = new Dictionary<StepNumber, List<StepStatus>>();
 
@@ -132,22 +133,29 @@ namespace Policies.Improvements
                 // TODO: These will be called multiple times for each step (at least for successful ones), make sure the state is kept somewhere else!
                 if (subStepStatuses.Any(_ => _ == StepStatus.Failed))
                 {
-                    _stepResultHandler.HandleFailedStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleFailedStep(recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
                 else if (subStepStatuses.All(_ => _ == StepStatus.Succeeded))
                 {
-                    _stepResultHandler.HandleSuccessfulStep(tenantId, recipeType, stepNumber, improvementId, improvableId, versionString);
+                    stepResultHandler.HandleSuccessfulStep(recipeType, stepNumber, improvementId, improvableId, versionString);
                 }
             });
         }
 
         bool CheckWarnAndDeleteIfPodIsMissingLabels(V1Pod pod)
         {
+            TenantId tenantId = new Guid(pod.Metadata.Labels[PodLabels.Tenant]);
+            RecipeType recipeType = pod.Metadata.Labels[PodLabels.RecipeType];
+            ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
+            ImprovableId improvableId = new Guid(pod.Metadata.Labels[PodLabels.Improvable]);
+            VersionString versionString = pod.Metadata.Labels[PodLabels.Version];
+
             var missing = false;
-            missing |= CheckAndWarnIfPodIsMissingLabel(pod, "Tenant");
-            missing |= CheckAndWarnIfPodIsMissingLabel(pod, "Improvement");
-            missing |= CheckAndWarnIfPodIsMissingLabel(pod, "Improvable");
-            missing |= CheckAndWarnIfPodIsMissingLabel(pod, "Version");
+            missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.Tenant);
+            missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.RecipeType);
+            missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.Improvement);
+            missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.Improvable);
+            missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.Version);
             
             if (missing) DeletePod(pod);
             return missing;

@@ -19,6 +19,7 @@ using Core.SourceControl.GitHub;
 using Infrastructure.Services.Github.Webhooks;
 using Infrastructure.Services.Github.UserAuthentication;
 using Infrastructure.Services.Github.Installation;
+using Policies.Improvements;
 
 namespace Core
 {
@@ -100,6 +101,9 @@ namespace Core
             app.UseGitHubInstallationHandler();
 
             app.UseDolittle();
+
+            var watcher = app.ApplicationServices.GetService<KubernetesBuildPodWatcher>();
+            watcher.StartWatcher();
 
             app.RunAsSinglePageApplication();
         }
