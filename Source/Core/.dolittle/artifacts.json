@@ -65,6 +65,14 @@
       "c45a36d5-dcfa-45a2-bd64-448a95b61dc8": {
         "generation": 1,
         "type": "Events.Improvements.ImprovementRequested, Events"
+      },
+      "74094502-3aad-4acf-893b-33d231349341": {
+        "generation": 1,
+        "type": "Events.Improvements.StepFailed, Events"
+      },
+      "e080f263-daf3-4cb2-9d69-6f46ac71f6df": {
+        "generation": 1,
+        "type": "Events.Improvements.StepSucceeded, Events"
       }
     },
     "eventSources": {
