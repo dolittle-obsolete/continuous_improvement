@@ -9,6 +9,7 @@ using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
 using Dolittle.Collections;
+using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 using Dolittle.Serialization.Json;
 
@@ -20,14 +21,16 @@ namespace Read.Improvements
     public class StepResultsForStep : IQueryFor<StepResult>
     {
         readonly ISerializer _serializer;
+        private readonly ITenantAwareFileSystem _fileSystem;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serializer"></param>
-        public StepResultsForStep(ISerializer serializer)
+        public StepResultsForStep(ITenantAwareFileSystem fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
+            _fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -50,23 +53,17 @@ namespace Read.Improvements
         {
             get
             {
-                var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-                var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-                var projectPath = Path.Combine(tenantPath, Improvable.Value.ToString());
-                var versionPath = Path.Combine(projectPath, Version);
+                var versionPath = Path.Combine(Improvable.Value.ToString(), Version);
 
                 var stepsPath = Path.Combine(versionPath, "steps");
 
-                if (Directory.Exists(stepsPath))
+                var stepFilePath = Path.Combine(stepsPath, $"{Number}.json");
+                if (_fileSystem.Exists(stepFilePath))
                 {
-                    var stepFilePath = Path.Combine(stepsPath, $"{Number}.json");
-                    if (File.Exists(stepFilePath))
-                    {
-                        var content = File.ReadAllText(stepFilePath);
-                        var lines = content.Split('\n');
-                        var results = lines.Select(line => _serializer.FromJson<StepResult>(line)).ToArray();
-                        return results.AsQueryable();
-                    }
+                    var content = _fileSystem.ReadAllText(stepFilePath);
+                    var lines = content.Split('\n');
+                    var results = lines.Select(line => _serializer.FromJson<StepResult>(line)).ToArray();
+                    return results.AsQueryable();
                 }
 
                 return new StepResult[0].AsQueryable();

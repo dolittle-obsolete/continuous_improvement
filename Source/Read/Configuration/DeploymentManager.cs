@@ -7,27 +7,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Configuration;
+using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
 namespace Read.Configuration
 {
     public class DeploymentManager : IDeploymentManager
     {
-        string _tenantPath;
+        const string _deploymentsFile = "deployments.json";
         private readonly ISerializer _serializer;
+        private readonly ITenantAwareFileSystem _fileSystem;
 
-        public DeploymentManager(ISerializer serializer)
+        public DeploymentManager(ITenantAwareFileSystem fileSystem, ISerializer serializer)
         {
-            var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-            _tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
             _serializer = serializer;
+            _fileSystem = fileSystem;
         }
 
         public IEnumerable<Deployment> GetAll()
         {
-            var deploymentsPath = Path.Combine(_tenantPath,"deployments.json");
-            if( !File.Exists(deploymentsPath)) return new Deployment[0];
-            var json = File.ReadAllText(deploymentsPath);
+            if( !_fileSystem.Exists(_deploymentsFile)) return new Deployment[0];
+            var json = _fileSystem.ReadAllText(_deploymentsFile);
             var deployments = _serializer.FromJson<IEnumerable<Deployment>>(json);
             return deployments;
         }

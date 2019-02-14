@@ -7,27 +7,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Configuration;
+using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
 namespace Read.Configuration
 {
     public class NotificationChannelManager : INotificationChannelManager
     {
-        string _tenantPath;
+        const string _notificationChannelsFils = "notificationChannels.json";
+        
         private readonly ISerializer _serializer;
+        private readonly ITenantAwareFileSystem _fileSystem;
 
-        public NotificationChannelManager(ISerializer serializer)
+        public NotificationChannelManager(ITenantAwareFileSystem fileSystem, ISerializer serializer)
         {
-            var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-            _tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
             _serializer = serializer;
+            _fileSystem = fileSystem;
         }
 
         public IEnumerable<NotificationChannel> GetAll()
         {
-            var deploymentsPath = Path.Combine(_tenantPath,"notificationChannels.json");
-            if( !File.Exists(deploymentsPath)) return new NotificationChannel[0];
-            var json = File.ReadAllText(deploymentsPath);
+            if( !_fileSystem.Exists(_notificationChannelsFils)) return new NotificationChannel[0];
+            var json = _fileSystem.ReadAllText(_notificationChannelsFils);
             var notificationChannels = _serializer.FromJson<IEnumerable<NotificationChannel>>(json);
             return notificationChannels;
         }

@@ -7,31 +7,32 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Improvables;
+using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
 namespace Read.Improvables
 {
     public class ImprovableManager : IImprovableManager
     {
+        const string _improvablesFile = "improvables.json";
+        const string _improvableFile = "improvable.json";
 
-        string _tenantPath;
         private readonly ISerializer _serializer;
         private readonly IRecipeManager _recipeManager;
+        private readonly ITenantAwareFileSystem _fileSystem;
 
-        public ImprovableManager(ISerializer serializer, IRecipeManager recipeManager)
+        public ImprovableManager(ITenantAwareFileSystem fileSystem, ISerializer serializer, IRecipeManager recipeManager)
         {
-            var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-            _tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
             _serializer = serializer;
             _recipeManager = recipeManager;
+            _fileSystem = fileSystem;
         }
         
         public IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId)
         {
-            var improvablesFile = Path.Combine(_tenantPath, "improvables.json");
-            if (File.Exists(improvablesFile))
+            if (_fileSystem.Exists(_improvablesFile))
             {
-                var json = File.ReadAllText(improvablesFile);
+                var json = _fileSystem.ReadAllText(_improvablesFile);
                 return _serializer.FromJson<IEnumerable<ImprovableForListing>>(json);
             }
             else
@@ -42,8 +43,8 @@ namespace Read.Improvables
 
         public Improvable GetById(ImprovableId improvableId)
         {
-            var improvableFile = Path.Combine(_tenantPath, improvableId.ToString(), "improvable.json");
-            var json = File.ReadAllText(improvableFile);
+            var improvableFile = Path.Combine(improvableId.ToString(), _improvableFile);
+            var json = _fileSystem.ReadAllText(improvableFile);
             var improvable = _serializer.FromJson<Improvable>(json);
             return improvable;
         }
@@ -65,9 +66,9 @@ namespace Read.Improvables
 
         public void Save(Improvable improvable)
         {
-            var improvableFile = Path.Combine(_tenantPath, improvable.Id.ToString(), "improvable.json");
+            var improvableFile = Path.Combine(improvable.Id.ToString(), _improvableFile);
             var json = _serializer.ToJson(improvable);
-            File.WriteAllText(improvableFile, json);
+            _fileSystem.WriteAllText(improvableFile, json);
         }
     }
 }
