@@ -13,20 +13,29 @@ namespace Policies.Improvements.Steps
     /// <summary>
     /// Represents the step type for dealing with Git source control
     /// </summary>
-    public class DotNetBuild : IStep
+    public class NuGetRelease : IStep
     {
         /// <inheritdoc/>
-        public StepType Type => new Guid("602f452f-d7de-4f77-a16b-ee88c85a2921");
+        public StepType Type => new Guid("129101ae-058e-4a01-8ba4-6726bbc9b2f9");
 
         /// <inheritdoc/>
         public IEnumerable<V1Container> GetContainersFor(StepNumber number, ImprovementContext context)
         {
             return new [] {
                 new V1Container {
-                    Name = "dotnet-restore",
+                    Name = "dotnet-package",
                     Image = "microsoft/dotnet:2.2-sdk-bionic",
-                    Command = new [] { "/usr/bin/dotnet", "restore", "--force", "--packages=/nuget/" },
                     WorkingDir = "/source/",
+                    Command = new [] {
+                        "/usr/bin/dotnet", "pack",
+                        "--no-build",
+                        "--packages=/nuget/",
+                        "--configuration=Release",
+                        "--output=/output/",
+                        "--include-symbols",
+                        "--include-source",
+                        $"-p:PackageVersion={context.Version}"
+                    },
                     VolumeMounts = new [] {
                         new V1VolumeMount {
                             Name = "workdir",
@@ -36,25 +45,52 @@ namespace Policies.Improvements.Steps
                         new V1VolumeMount {
                             Name = "workdir",
                             SubPath = "nuget",
+                            MountPath = "/nuget/",
+                        },
+                        new V1VolumeMount {
+                            Name = "workdir",
+                            SubPath = "output",
+                            MountPath = "/output/",
+                        },
+                    },
+                },
+                new V1Container {
+                    Name = "move-symbols-nupkg",
+                    Image = "alpine:3.9",
+                    WorkingDir = "/output/",
+                    Command = new [] { "/bin/sh", "-c", "for NUPKG in *.symbols.nupkg; do cp $NUPKG /publish/${NUPKG/.symbols/} ; mv $NUPKG /nuget/${NUPKG/.symbols/} ; done"},
+                    VolumeMounts = new [] {
+                        new V1VolumeMount {
+                            Name = "workdir",
+                            SubPath = "output",
+                            MountPath = "/output/",
+                        },
+                        new V1VolumeMount {
+                            Name = "workdir",
+                            SubPath = "publish",
+                            MountPath = "/publish/",
+                        },
+                        new V1VolumeMount {
+                            Name = "azure",
+                            SubPath = context.GetImprovableSubPath("nuget"),
                             MountPath = "/nuget/",
                         },
                     },
                 },
                 new V1Container {
-                    Name = "dotnet-build",
+                    Name = "nuget-push",
                     Image = "microsoft/dotnet:2.2-sdk-bionic",
-                    Command = new [] { "/usr/bin/dotnet", "build", "--no-restore", "--packages=/nuget/", "--configuration=Release" },
-                    WorkingDir = "/source/",
+                    WorkingDir = "/publish/",
+                    Command = new [] {
+                        "/usr/bin/dotnet", "nuget", "push", "./",
+                        "--source=https://www.myget.org/F/dolittle/api/v2/package",
+                        "--api-key=SECRET_HERE",
+                    },
                     VolumeMounts = new [] {
                         new V1VolumeMount {
                             Name = "workdir",
-                            SubPath = "source",
-                            MountPath = "/source/",
-                        },
-                        new V1VolumeMount {
-                            Name = "workdir",
-                            SubPath = "nuget",
-                            MountPath = "/nuget/",
+                            SubPath = "publish",
+                            MountPath = "/publish/",
                         },
                     },
                 },

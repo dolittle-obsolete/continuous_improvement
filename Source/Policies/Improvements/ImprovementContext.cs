@@ -3,6 +3,7 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 using System;
+using System.IO;
 using Concepts;
 using Concepts.Improvements;
 using Dolittle.Tenancy;
@@ -56,5 +57,25 @@ namespace Policies.Improvements
         /// Gets the <see cref="ImprovableConfiguration">configuraion</see> for the improvable
         /// </summary>
         public ImprovableConfiguration Improvable { get; }
+
+        /// <summary>
+        /// Gets the path to the files for the <see cref="Improvable"/>
+        /// </summary>
+        public string ImprovablePath => Path.Combine("/improvables/",Tenant.ToString(),Improvable.Id.ToString());
+
+        /// <summary>
+        /// Gets a sub-path to the files for the <see cref="Improvable"/>
+        /// </summary>
+        public string GetImprovableSubPath(string subPath) => Path.Combine(ImprovablePath, subPath);
+
+        /// <summary>
+        /// Gets the path to the files for the <see cref="Improvement"/>
+        /// </summary>
+        public string ImprovementPath => GetImprovableSubPath(Version);
+
+        /// <summary>
+        /// Gets a sub-path to the files for the <see cref="Improvement"/>
+        /// </summary>
+        public string GetImprovementSubPath(string subPath) => Path.Combine(ImprovementPath, subPath);
     }
 }

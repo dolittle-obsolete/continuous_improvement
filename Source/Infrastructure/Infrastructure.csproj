@@ -5,7 +5,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DocumentationFile></DocumentationFile>
-    <NoWarn>NU1701</NoWarn> <!-- Once BouncyCastle has .NET Core support, we can take this out -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,11 +15,12 @@
     <PackageReference Include="Dolittle.Serialization.Json" Version="2.*" />
     <PackageReference Include="Dolittle.Concepts.Serialization.Json" Version="2.*" />
     <PackageReference Include="Octokit" Version="0.32.0" />
-    <PackageReference Include="BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.3.0" />
     <PackageReference Include="Dolittle.AspNetCore.Execution" Version="2.*" />
     <PackageReference Include="Dolittle.AspNetCore.Tenancy" Version="2.*" />
     <PackageReference Include="Dolittle.SDK.Commands.Coordination" Version="2.*" />
+    <PackageReference Include="KubernetesClient" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
