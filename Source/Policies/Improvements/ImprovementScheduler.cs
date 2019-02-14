@@ -9,6 +9,8 @@ using Dolittle.Runtime.Events;
 using Events.Improvements;
 using k8s;
 using Policies.Improvements.Recipes;
+using Read.Improvables;
+using Read.Improvements;
 
 namespace Policies.Improvements
 {
@@ -17,25 +19,37 @@ namespace Policies.Improvements
         readonly IExecutionContextManager _executionContextManager;
         readonly IImprovementPodFactory _improvementPodFactory;
         readonly FactoryFor<IKubernetes> _kubernetesClientFactory;
+        readonly IImprovableManager _improvableManager;
 
         public ImprovementScheduler(
             IExecutionContextManager executionContextManager,
             IImprovementPodFactory improvementPodFactory,
+            IImprovableManager improvableManager,
             FactoryFor<IKubernetes> kubernetesClientFactory)
         {
             _executionContextManager = executionContextManager;
             _improvementPodFactory = improvementPodFactory;
             _kubernetesClientFactory = kubernetesClientFactory;
+            _improvableManager = improvableManager;
         }
 
         public void Process(ImprovementRequested @event, EventSourceId eventSourceId)
         {
             var recipe = new DotNetFramework();
+            var improvement = new Improvement
+            {
+                Id = eventSourceId.Value,
+                Improvable = @event.Improvable,
+                PullRequest = @event.PullRequest,
+                Version = @event.Version
+            };
+
+            var improvable = _improvableManager.GetById(@event.Improvable);
             
             var context = new ImprovementContext(
                 _executionContextManager.Current.Tenant,
-                null,
-                null);
+                improvement,
+                improvable);
 
             var pod = _improvementPodFactory.BuildFrom(context, recipe);
 
@@ -44,6 +58,5 @@ namespace Policies.Improvements
                 client.CreateNamespacedPod(pod, pod.Metadata.NamespaceProperty);
             }
         }
-
     }
 }

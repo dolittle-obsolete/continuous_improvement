@@ -9,14 +9,17 @@ namespace Events.Improvements
 {
     public class ImprovementRequested : IEvent
     {
-        public ImprovementRequested(Guid improvable, string version) 
+        public ImprovementRequested(Guid improvable, string version, bool pullRequest) 
         {
             Improvable = improvable;
             Version = version;
+            PullRequest = pullRequest;
         }
 
         public Guid Improvable { get; }
 
         public string Version {  get; }
+
+        public bool PullRequest { get; }
     }
 }
