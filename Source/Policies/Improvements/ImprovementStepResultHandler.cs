@@ -78,18 +78,6 @@ namespace Policies.Improvements
 
         }
 
-/*
-        public void HandleSuccessfulStep(ImprovableId improvable, VersionString version, StepNumber stepNumber)
-        {
-            var events = step.GetSucceededEventsFor(context);
-            ApplyEventsFor(context, events);
-        }
-
-        public void HandleFailedStep(ImprovableId improvable, VersionString version, StepNumber stepNumber)
-        {
-            var events = step.GetFailedEventsFor(context);
-            ApplyEventsFor(context, events);
-        }*/
 
         void ApplyEventsFor(ImprovementContext context, IEnumerable<IEvent> events)
         {
