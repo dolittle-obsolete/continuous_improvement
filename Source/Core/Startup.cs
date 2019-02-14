@@ -101,23 +101,6 @@ namespace Core
 
             app.UseDolittle();
 
-            /*
-            app.Run(async context => {
-                Console.WriteLine($"Proxying request!");
-                var proxyClient = new HttpClient();
-
-                var proxyUri = new UriBuilder(context.Request.Scheme, "localhost", 8080, context.Request.Path, context.Request.QueryString.ToUriComponent()).Uri;
-                var proxyResult = await proxyClient.GetAsync(proxyUri);
-
-                context.Response.StatusCode = (int)proxyResult.StatusCode;
-
-                using (var proxyStream = await proxyResult.Content.ReadAsStreamAsync())
-                {
-                    await proxyStream.CopyToAsync(context.Response.Body);
-                }
-            });
-            */
-
             app.RunAsSinglePageApplication();
         }
     }
