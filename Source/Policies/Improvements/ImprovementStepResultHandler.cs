@@ -17,6 +17,7 @@ using Dolittle.Runtime.Commands;
 using Dolittle.Runtime.Commands.Coordination;
 using Dolittle.Tenancy;
 using Domain.Improvements;
+using Events.Improvements;
 
 namespace Policies.Improvements
 {
@@ -65,6 +66,7 @@ namespace Policies.Improvements
             var steps = recipe.GetStepsFor(context).ToArray();
             var step = steps[stepNumber];
             var events = step.GetSucceededEventsFor(context);
+            events = events.Concat(new[] {new StepSucceeded(stepNumber)});
             ApplyEventsFor(context, events);
         }
         
@@ -80,6 +82,7 @@ namespace Policies.Improvements
             var steps = recipe.GetStepsFor(context).ToArray();
             var step = steps[stepNumber];
             var events = step.GetFailedEventsFor(context);
+            events = events.Concat(new[] {new StepFailed(stepNumber)});
             ApplyEventsFor(context, events);
         }
 
