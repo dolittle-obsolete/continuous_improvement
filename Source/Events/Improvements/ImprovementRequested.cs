@@ -7,6 +7,7 @@ using Dolittle.Events;
 
 namespace Events.Improvements
 {
+
     public class ImprovementRequested : IEvent
     {
         public ImprovementRequested(Guid improvable, string version, bool pullRequest) 
