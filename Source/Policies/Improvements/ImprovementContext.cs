@@ -46,7 +46,7 @@ namespace Policies.Improvements
         /// <summary>
         /// Gets the <see cref="VersionString">version</see> for the improvement
         /// </summary>
-        public VersionString Version { get; }
+        public VersionString Version => Improvement?.Version ?? VersionString.Empty;
 
         /// <summary>
         /// Gets whether or not it was a pull request that caused the improvement to happen

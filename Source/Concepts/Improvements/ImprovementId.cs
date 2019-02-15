@@ -11,7 +11,7 @@ namespace Concepts.Improvements
     /// <summary>
     /// Represents the unique identifier for an improvable in the system
     /// </summary>
-    public class ImprovementId : EventSourceId
+    public class ImprovementId : ConceptAs<Guid>
     {
         /// <summary>
         /// Implicitly convert from <see cref="Guid"/> to <see cref="ImprovementId"/>
@@ -20,6 +20,15 @@ namespace Concepts.Improvements
         public static implicit operator ImprovementId(Guid value)
         {
             return new ImprovementId { Value = value };
+        }
+
+        /// <summary>
+        /// Implicitly convert from <see cref="ImprovementId"/> to <see cref="EventSourceId"/>
+        /// </summary>
+        /// <param name="id"><see cref="EventSourceId"/> to convert from</param>
+        public static implicit operator EventSourceId(ImprovementId id)
+        {
+            return new EventSourceId { Value = id.Value };
         }
     }
 }
