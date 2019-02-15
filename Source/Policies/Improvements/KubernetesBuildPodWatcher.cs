@@ -23,18 +23,23 @@ namespace Policies.Improvements
         readonly ILogger _logger;
         readonly IExecutionContextManager _executionContextManager;
         readonly FactoryFor<IImprovementStepResultHandler> _stepResultHandlerFactory;
+        private FactoryFor<IImprovementResultHandler> _improvementResultHandlerFactory;
+
+        // FIXME: This class needs some cleanup...
 
         public KubernetesBuildPodWatcher(
             ILogger logger,
             IExecutionContextManager executionContextManager,
             FactoryFor<IKubernetes> clientFactory,
-            FactoryFor<IImprovementStepResultHandler> stepResultHandlerFactory
+            FactoryFor<IImprovementStepResultHandler> stepResultHandlerFactory,
+            FactoryFor<IImprovementResultHandler> improvementResultHandlerFactory
         )
         {
             _clientFactory = clientFactory;
             _logger = logger;
             _executionContextManager = executionContextManager;
             _stepResultHandlerFactory = stepResultHandlerFactory;
+            _improvementResultHandlerFactory = improvementResultHandlerFactory;
         }
 
 
@@ -60,12 +65,12 @@ namespace Policies.Improvements
                         else if (pod.Status.Phase == "Failed")
                         {
                             _logger.Warning($"Build-pod '{pod.Metadata}' failed.");
-                            ReportBuildStatus(pod);
+                            ReportStepStatuses(pod);
                             DeletePod(pod);
                         }
                         else
                         {
-                            ReportBuildStatus(pod);
+                            ReportStepStatuses(pod);
                         }
                     },
 
@@ -84,7 +89,19 @@ namespace Policies.Improvements
         
         static readonly Regex _stepNameRegex = new Regex(@"^step-(\d+)-(\d+)-?(.*)$", RegexOptions.Compiled);
 
-        void ReportBuildStatus(V1Pod pod)
+        void ReportBuildResult(V1Pod pod, bool success)
+        {
+            TenantId tenantId = new Guid(pod.Metadata.Labels[PodLabels.Tenant]);
+            ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
+
+            _executionContextManager.CurrentFor(tenantId);
+            var resultHandler = _improvementResultHandlerFactory();
+
+            if (success) resultHandler.HandleSuccess(improvementId);
+            else resultHandler.HandleFailure(improvementId);
+        }
+
+        void ReportStepStatuses(V1Pod pod)
         {
             if (CheckWarnAndDeleteIfPodIsMissingLabels(pod)) return;
 
@@ -125,7 +142,6 @@ namespace Policies.Improvements
 
                 }
             });
-
             buildSteps.ForEach(kv => {
                 var stepNumber = kv.Key;
                 var subStepStatuses = kv.Value;

@@ -8,19 +8,13 @@ using Dolittle.Events;
 namespace Events.Improvements
 {
 
-    public class ImprovementRequested : IEvent
+    public class ImprovementCompleted : IEvent 
     {
-        public ImprovementRequested(Guid improvable, string version, bool pullRequest) 
+        public ImprovementCompleted(Guid forImprovable)
         {
-            Improvable = improvable;
-            Version = version;
-            PullRequest = pullRequest;
+            ForImprovable = forImprovable;
         }
-
-        public Guid Improvable { get; }
-
-        public string Version {  get; }
-
-        public bool PullRequest { get; }
+        /// Not technically needed but should make things easier for now
+        public Guid ForImprovable { get; }
     }
 }
