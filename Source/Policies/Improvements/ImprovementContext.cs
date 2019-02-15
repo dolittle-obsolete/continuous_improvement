@@ -46,12 +46,12 @@ namespace Policies.Improvements
         /// <summary>
         /// Gets the <see cref="VersionString">version</see> for the improvement
         /// </summary>
-        public VersionString Version => Improvement?.Version ?? VersionString.Empty;
+        public VersionString Version => Improvement.Version;
 
         /// <summary>
         /// Gets whether or not it was a pull request that caused the improvement to happen
         /// </summary>
-        public bool PullRequest { get; }
+        public bool PullRequest => Improvement.PullRequest;
 
         /// <summary>
         /// Gets the <see cref="Read.Improvables.Improvable">configuraion</see> for the improvable
@@ -61,7 +61,7 @@ namespace Policies.Improvements
         /// <summary>
         /// Gets the path to the files for the <see cref="Improvable"/>
         /// </summary>
-        public string ImprovablePath => Path.Combine("/improvables/",Tenant.ToString(),Improvable.Id.ToString());
+        public string ImprovablePath => Path.Combine("improvables/",Tenant.ToString(),Improvable.Id.ToString());
 
         /// <summary>
         /// Gets a sub-path to the files for the <see cref="Improvable"/>
