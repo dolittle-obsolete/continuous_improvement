@@ -27,7 +27,6 @@ namespace Policies.Improvements
                     Name = context.Improvement.Id.ToString(),
                     NamespaceProperty = "dolittle-builds",
                     Labels = new Dictionary<string,string> {
-                        {PodLabels.Name, context.Improvable.Name},
                         {PodLabels.RecipeType, recipe.GetType().Name},
                         {PodLabels.Version, context.Version},
                         {PodLabels.Tenant, context.Tenant.ToString()},

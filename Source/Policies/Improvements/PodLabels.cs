@@ -11,11 +11,6 @@ namespace Policies.Improvements
     public class PodLabels
     {
         /// <summary>
-        /// Name of improvable
-        /// </summary>
-        public const string Name = "Name";
-
-        /// <summary>
         /// Type of recipe a step belongs to
         /// </summary>
         public const string RecipeType = "RecipeType";
