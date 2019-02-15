@@ -60,11 +60,24 @@
     }
   },
   "e041e888-f527-42c5-bb55-c0f0aa55885b": {
-    "commands": {},
+    "commands": {
+      "abbdb153-6500-4e93-9396-d43d0f767f0a": {
+        "generation": 1,
+        "type": "Domain.Improvements.InitiateImprovement, Domain"
+      }
+    },
     "events": {
       "c45a36d5-dcfa-45a2-bd64-448a95b61dc8": {
         "generation": 1,
-        "type": "Events.Improvements.ImprovementRequested, Events"
+        "type": "Events.Improvements.ImprovementInitiated, Events"
+      },
+      "657fc2ea-7e9a-4150-86f4-75f9bbe24579": {
+        "generation": 1,
+        "type": "Events.Improvements.ImprovementCompleted, Events"
+      },
+      "ccba2019-bbf0-4ba2-9238-d33e8f4218e7": {
+        "generation": 1,
+        "type": "Events.Improvements.ImprovementFailed, Events"
       }
     },
     "eventSources": {

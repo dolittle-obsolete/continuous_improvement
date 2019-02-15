@@ -33,18 +33,18 @@ namespace Policies.Improvements
             _improvableManager = improvableManager;
         }
 
-        public void Process(ImprovementRequested @event, EventSourceId eventSourceId)
+        public void Process(ImprovementInitiated @event, EventSourceId eventSourceId)
         {
             var recipe = new DotNetFramework();
             var improvement = new Improvement
             {
                 Id = eventSourceId.Value,
-                Improvable = @event.Improvable,
+                Improvable = @event.ForImprovable,
                 PullRequest = @event.PullRequest,
                 Version = @event.Version
             };
 
-            var improvable = _improvableManager.GetById(@event.Improvable);
+            var improvable = _improvableManager.GetById(@event.ForImprovable);
             
             var context = new ImprovementContext(
                 _executionContextManager.Current.Tenant,
