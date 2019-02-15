@@ -10,6 +10,7 @@ using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
 using Dolittle.Collections;
+using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 using Dolittle.Serialization.Json;
 
@@ -20,14 +21,16 @@ namespace Read.Improvements
     /// </summary>
     public class StepsForImprovement : IQueryFor<Step>
     {
+        readonly ITenantAwareFileSystem _tenantAwareFileSystem;
         readonly ISerializer _serializer;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serializer"><see cref="ISerializer">Json Serializer</see></param>
-        public StepsForImprovement(ISerializer serializer)
+        public StepsForImprovement(ITenantAwareFileSystem tenantAwareFilsSystem, ISerializer serializer)
         {
+            _tenantAwareFileSystem = tenantAwareFilsSystem;
             _serializer = serializer;
         }
 
@@ -48,12 +51,9 @@ namespace Read.Improvements
         {
             get 
             {
-                var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-                var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-                var projectPath = Path.Combine(tenantPath, Improvable.Value.ToString());
-                var versionPath = Path.Combine(projectPath,Version);
+                var versionPath = Path.Combine(Improvable.Value.ToString(),Version);
                 var stepsFile = Path.Combine(versionPath,"steps.json");
-                var stepsAsJson = File.ReadAllText(stepsFile);
+                var stepsAsJson = _tenantAwareFileSystem.ReadAllText(stepsFile);
                 var steps = _serializer.FromJson<IEnumerable<Step>>(stepsAsJson).ToArray();
 
                 return steps.AsQueryable();

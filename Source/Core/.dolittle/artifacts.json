@@ -71,6 +71,14 @@
         "generation": 1,
         "type": "Events.Improvements.ImprovementInitiated, Events"
       },
+      "74094502-3aad-4acf-893b-33d231349341": {
+        "generation": 1,
+        "type": "Events.Improvements.StepFailed, Events"
+      },
+      "e080f263-daf3-4cb2-9d69-6f46ac71f6df": {
+        "generation": 1,
+        "type": "Events.Improvements.StepSucceeded, Events"
+      },
       "657fc2ea-7e9a-4150-86f4-75f9bbe24579": {
         "generation": 1,
         "type": "Events.Improvements.ImprovementCompleted, Events"

@@ -33,6 +33,7 @@ namespace Policies.Improvements
             _improvableManager = improvableManager;
         }
 
+        [EventProcessor("dda99c89-5659-441b-8026-e013d95aa732")]
         public void Process(ImprovementInitiated @event, EventSourceId eventSourceId)
         {
             var recipe = new DotNetFramework();

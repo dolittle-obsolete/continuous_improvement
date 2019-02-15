@@ -34,7 +34,13 @@ export class Improvements {
         this.selectedVersion = navigationInstruction.plan.default.childNavigationInstruction.params.version;
         this.#firstRun = false;
         let result = await this.#queryCoordinator.execute(query);
+        
+
         this.improvements = result.items;
+
+        if( !this.selectedVersion ) {
+            this.selecedVersion = result.items[0].version;
+        }
 
         this.populateSteps();
     }
@@ -62,6 +68,7 @@ export class Improvements {
 
     async selectedVersionChanged(version) {
         if (this.#firstRun ) return;
+        this.populateSteps();
         this.#router.navigate(`${version}/1`);
     }
 }

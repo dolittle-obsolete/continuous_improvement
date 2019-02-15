@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Dolittle.Collections;
+using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 using Dolittle.ReadModels;
 using Dolittle.Serialization.Json;
@@ -19,17 +20,18 @@ namespace Read.Improvables
     /// </summary>
     public class AllImprovables : IQueryFor<ImprovableForListing>
     {
+        const string _improvablesFile = "improvables.json";
+        readonly ITenantAwareFileSystem _fileSystem;
+
         /// <summary>
         /// Initializes a new instance of <see cref="AllImprovables"/>
         /// </summary>
-        public AllImprovables(ISerializer serializer)
+        public AllImprovables(ITenantAwareFileSystem fileSystem, ISerializer serializer)
         {
-            var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-            var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-            var projectFile = Path.Combine(tenantPath, "improvables.json");
-            if (File.Exists(projectFile))
+            _fileSystem = fileSystem;
+            if (_fileSystem.Exists(_improvablesFile))
             {
-                var json = File.ReadAllText(projectFile);
+                var json = _fileSystem.ReadAllText(_improvablesFile);
                 Query = serializer.FromJson<IEnumerable<ImprovableForListing>>(json).AsQueryable();
             }
             else

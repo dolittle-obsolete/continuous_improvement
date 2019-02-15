@@ -8,6 +8,7 @@ using System.Linq;
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
+using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 
 namespace Read.Improvements
@@ -17,6 +18,13 @@ namespace Read.Improvements
     /// </summary>
     public class ImprovementsForImprovable : IQueryFor<Improvement>
     {
+        private readonly ITenantAwareFileSystem _fileSystem;
+
+        public ImprovementsForImprovable(ITenantAwareFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -29,11 +37,8 @@ namespace Read.Improvements
         { 
             get
             {
-                var basePath = Environment.GetEnvironmentVariable("BASE_PATH") ?? string.Empty;
-                var tenantPath = Path.Combine(basePath, "508c1745-5f2a-4b4c-b7a5-2fbb1484346d");
-                var projectPath = Path.Combine(tenantPath, Improvable.Value.ToString());
-                var builds = Directory.GetDirectories(projectPath);
-                return builds.Select(_ => 
+                var improvements = _fileSystem.GetDirectoriesIn(Improvable.Value.ToString());
+                return improvements.Select(_ => 
                 {
                     var segments = _.Split(Path.DirectorySeparatorChar);
                     return new Improvement { Version = segments[segments.Length-1] };

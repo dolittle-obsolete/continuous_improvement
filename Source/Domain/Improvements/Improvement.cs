@@ -18,7 +18,7 @@ namespace Domain.Improvements
         ImprovableId _for;
 
         /// <inheritdoc/>
-        Improvement(EventSourceId id) : base(id) { }
+        public Improvement(EventSourceId id) : base(id) { }
 
         public void Initiate(ImprovableId improvable,VersionString version, bool isFromPullRequest)
         {
