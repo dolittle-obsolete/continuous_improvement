@@ -18,7 +18,9 @@ namespace Policies.Improvements.Recipes
             return new IStep[]
             {
                 new GitSourceControl(),
-                    new DotNetBuild()
+                new DotNetBuild(),
+                new DotNetTest(),
+                new NuGetRelease(),
             };
         }
     }

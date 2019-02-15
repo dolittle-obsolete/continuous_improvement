@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Concepts.Improvements;
 using Dolittle.Events;
 using k8s.Models;
@@ -28,7 +29,7 @@ namespace Policies.Improvements.Steps
                 containers.Add(new V1Container {
                     Name = "git-update-repository",
                     Image = "dolittlebuild/sourcecontrol-git-update:1.0.0",
-                    Command = new [] { "/bin/sh", "/usr/bin/update_repository.sh", "/source/", "" }, // FIXME: Get the RepositoryURL
+                    Command = new [] { "/bin/sh", "/usr/bin/update_repository.sh", "/source/", context.Improvable.SourceControl.Repository },
                     VolumeMounts = new [] {
                         new V1VolumeMount {
                             Name = "azure",
@@ -72,13 +73,15 @@ namespace Policies.Improvements.Steps
         /// <inheritdoc/>
         public IEnumerable<IEvent> GetFailedEventsFor(ImprovementContext context)
         {
-            throw new System.NotImplementedException();
+            // TODO: Add events
+            return Enumerable.Empty<IEvent>();
         }
 
         /// <inheritdoc/>
         public IEnumerable<IEvent> GetSucceededEventsFor(ImprovementContext context)
         {
-            throw new System.NotImplementedException();
+            // TODO: Add events
+            return Enumerable.Empty<IEvent>();
         }
     }
 }
