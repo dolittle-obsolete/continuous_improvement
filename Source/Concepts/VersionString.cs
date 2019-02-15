@@ -11,6 +11,8 @@ namespace Concepts
     /// </summary>
     public class VersionString : ConceptAs<string>
     {
+        public static readonly VersionString Empty = "0.0.0";
+
         /// <summary>
         /// Implicitly convert from a <see cref="string"/> to <see cref="VersionString"/>
         /// </summary>
