@@ -103,6 +103,7 @@ namespace Policies.Improvements
 
         void ReportStepStatuses(V1Pod pod)
         {
+            if (pod.Status.InitContainerStatuses == null) return;
             if (CheckWarnAndDeleteIfPodIsMissingLabels(pod)) return;
 
             TenantId tenantId = new Guid(pod.Metadata.Labels[PodLabels.Tenant]);

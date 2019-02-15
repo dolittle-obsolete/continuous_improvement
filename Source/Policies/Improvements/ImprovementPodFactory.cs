@@ -42,7 +42,7 @@ namespace Policies.Improvements
                         new V1Container {
                             Name = "done",
                             Image = "alpine:3.9",
-                            Command = new [] { "/bin/true "},
+                            Command = new [] { "/bin/true"},
                         },
                     },
 
@@ -104,7 +104,7 @@ namespace Policies.Improvements
                     subStep.Env.Add(new V1EnvVar { Name = "DOLITTLE_BUILD_LOG_PARSER", Value = step.GetLogParserNameFor(stepNumber, context) });
 
                     if (subStep.VolumeMounts == null) subStep.VolumeMounts = new List<V1VolumeMount>();
-                    subStep.VolumeMounts.Concat( new [] {
+                    subStep.VolumeMounts = subStep.VolumeMounts.Concat( new [] {
                         new V1VolumeMount {
                             Name = "azure",
                             SubPath = context.GetImprovementSubPath("steps"),
@@ -115,7 +115,7 @@ namespace Policies.Improvements
                             SubPath = "binaries",
                             MountPath = "/dolittle/",
                         },
-                    });
+                    }).ToList();
 
                     subStepNumber++;
                 });
