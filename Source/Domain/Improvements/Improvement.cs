@@ -20,7 +20,7 @@ namespace Domain.Improvements
         /// <inheritdoc/>
         public Improvement(EventSourceId id) : base(id) { }
 
-        public void Initiate(ImprovableId improvable,VersionString version, bool isFromPullRequest)
+        public void Initiate(ImprovableId improvable,Version version, bool isFromPullRequest)
         {
             Apply(new ImprovementInitiated(improvable,version,isFromPullRequest));
         }

@@ -9,6 +9,6 @@ namespace Policies.Improvements
 {
     public interface IImprovementContextFactory
     {
-        ImprovementContext GetFor(ImprovableId improvable, VersionString version);
+        ImprovementContext GetFor(ImprovableId improvable, Version version);
     }
 }

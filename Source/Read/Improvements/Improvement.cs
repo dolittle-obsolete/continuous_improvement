@@ -26,8 +26,8 @@ namespace Read.Improvements
 
 
         /// <summary>
-        /// Gets or sets the <see cref="VersionString">version</see>
+        /// Gets or sets the <see cref="Version">version</see>
         /// </summary>
-        public VersionString Version { get; set; }
+        public Version Version { get; set; }
     }
 }

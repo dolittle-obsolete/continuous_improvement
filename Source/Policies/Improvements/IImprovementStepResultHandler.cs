@@ -11,7 +11,7 @@ namespace Policies.Improvements
 {
     public interface IImprovementStepResultHandler
     {
-        void HandleSuccessfulStep(RecipeType recipeType, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
-        void HandleFailedStep(RecipeType recipeType, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, VersionString version);
+        void HandleSuccessfulStep(RecipeType recipeType, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, Version version);
+        void HandleFailedStep(RecipeType recipeType, StepNumber stepNumber, ImprovementId improvement, ImprovableId improvable, Version version);
     }
 }

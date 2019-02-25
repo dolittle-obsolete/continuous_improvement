@@ -8,7 +8,7 @@ using Dolittle.Execution;
 
 namespace Policies.Improvements
 {
-
+    
     public class ImprovementContextFactory : IImprovementContextFactory
     {
         readonly IExecutionContextManager _executionContextManager;
@@ -20,7 +20,7 @@ namespace Policies.Improvements
 
         public ImprovementContext GetFor(
             ImprovableId improvable,
-            VersionString version)
+            Version version)
         {
             var tenant = _executionContextManager.Current.Tenant;
 
