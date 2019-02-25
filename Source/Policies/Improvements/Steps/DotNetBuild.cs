@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Concepts.Improvements;
 using Dolittle.Events;
 using k8s.Models;
@@ -67,13 +68,15 @@ namespace Policies.Improvements.Steps
         /// <inheritdoc/>
         public IEnumerable<IEvent> GetFailedEventsFor(ImprovementContext context)
         {
-            throw new System.NotImplementedException();
+            // TODO: Add events
+            return Enumerable.Empty<IEvent>();
         }
 
         /// <inheritdoc/>
         public IEnumerable<IEvent> GetSucceededEventsFor(ImprovementContext context)
         {
-            throw new System.NotImplementedException();
+            // TODO: Add events
+            return Enumerable.Empty<IEvent>();
         }
     }
 }

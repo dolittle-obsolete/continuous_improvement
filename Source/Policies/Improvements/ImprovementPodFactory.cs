@@ -26,8 +26,7 @@ namespace Policies.Improvements
                 Metadata = new V1ObjectMeta {
                     Name = context.Improvement.Id.ToString(),
                     NamespaceProperty = "dolittle-builds",
-                    Labels = {
-                        {PodLabels.Name, context.Improvable.Name},
+                    Labels = new Dictionary<string,string> {
                         {PodLabels.RecipeType, recipe.GetType().Name},
                         {PodLabels.Version, context.Version},
                         {PodLabels.Tenant, context.Tenant.ToString()},
@@ -43,7 +42,7 @@ namespace Policies.Improvements
                         new V1Container {
                             Name = "done",
                             Image = "alpine:3.9",
-                            Command = new [] { "/bin/true "},
+                            Command = new [] { "/bin/true"},
                         },
                     },
 
@@ -64,7 +63,7 @@ namespace Policies.Improvements
                 },
             };
 
-            var containers = pod.Spec.Containers = new List<V1Container>();
+            var containers = pod.Spec.InitContainers = new List<V1Container>();
 
             // Copy the loghandler binary to the workdir before anything else
             containers.Add(new V1Container {
@@ -97,7 +96,7 @@ namespace Policies.Improvements
 
                     // Use the log handler to run the actual command
                     ThrowIfNoCommandIsSetForStepContainer(subStep);
-                    subStep.Command.Insert(0, "/dolittle/loghandler");
+                    subStep.Command = subStep.Command.Prepend("/dolittle/loghandler").ToList();
 
                     if (subStep.Env == null) subStep.Env = new List<V1EnvVar>();
                     subStep.Env.Add(new V1EnvVar { Name = "DOLITTLE_BUILD_LOG_RAW_PATH", Value = $"/steps/{stepNumber}.log" });
@@ -105,16 +104,18 @@ namespace Policies.Improvements
                     subStep.Env.Add(new V1EnvVar { Name = "DOLITTLE_BUILD_LOG_PARSER", Value = step.GetLogParserNameFor(stepNumber, context) });
 
                     if (subStep.VolumeMounts == null) subStep.VolumeMounts = new List<V1VolumeMount>();
-                    subStep.VolumeMounts.Add(new V1VolumeMount {
-                        Name = "azure",
-                        SubPath = context.GetImprovementSubPath("steps"),
-                        MountPath = "/steps/",
-                    });
-                    subStep.VolumeMounts.Add(new V1VolumeMount {
-                        Name = "workdir",
-                        SubPath = "binaries",
-                        MountPath = "/dolittle/",
-                    });
+                    subStep.VolumeMounts = subStep.VolumeMounts.Concat( new [] {
+                        new V1VolumeMount {
+                            Name = "azure",
+                            SubPath = context.GetImprovementSubPath("steps"),
+                            MountPath = "/steps/",
+                        },
+                        new V1VolumeMount {
+                            Name = "workdir",
+                            SubPath = "binaries",
+                            MountPath = "/dolittle/",
+                        },
+                    }).ToList();
 
                     subStepNumber++;
                 });
