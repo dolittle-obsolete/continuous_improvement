@@ -18,7 +18,7 @@ namespace Concepts.Improvables
         {
             RuleFor(_ => _)
                 .NotEmpty()
-                .WithMessage("The Id cannot be empty")
+                .WithMessage("The Status cannot be empty")
                 .IsInEnum().WithMessage(_ => $"'_' is not a valid value for Improvable Status");
         }
     }

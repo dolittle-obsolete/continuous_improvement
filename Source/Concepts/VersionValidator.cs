@@ -34,19 +34,10 @@ namespace Concepts
         /// <typeparam name="T">Type of the Command</typeparam>
         /// <param name="ruleBuilder">instance of the IRuleBuilder</param>
         /// <returns></returns>
-        public static IRuleBuilderOptions<T, Version> MustBeAValidVersion<T>(this IRuleBuilder<T, Version> ruleBuilder) {
-			ruleBuilder.NotNull().WithMessage("A Version is required");
+        public static IRuleBuilderOptions<T, Version> MustBeAValidVersion<T>(this IRuleBuilder<T, Version> ruleBuilder, bool isOptional = false) {
+            if(!isOptional)
+			    ruleBuilder.NotNull().WithMessage("A Version is required");
             return ruleBuilder.SetValidator(new VersionValidator());
-		}
-
-        /// <summary>
-        /// Adds a VersionValidator and a Null Check to a Version
-        /// </summary>
-        /// <typeparam name="T">Type of the Command</typeparam>
-        /// <param name="ruleBuilder">instance of the IRuleBuilder</param>
-        /// <returns></returns>
-        public static IRuleBuilderOptions<T, Version> MustBeAValidVersionIfProvided<T>(this IRuleBuilder<T, Version> ruleBuilder) {
-            return ruleBuilder.SetValidator(new VersionValidator());
-		}        
+		}       
     }
 }
