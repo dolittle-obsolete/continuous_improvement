@@ -7,8 +7,6 @@ using Dolittle.Concepts;
 
 namespace Concepts.Improvables
 {
-
-
     /// <summary>
     /// Represents the unique identifier for an improvable in the system
     /// </summary>
