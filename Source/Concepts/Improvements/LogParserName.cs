@@ -11,13 +11,14 @@ namespace Concepts.Improvements
     /// </summary>
     public class LogParserName : ConceptAs<string>
     {
+        public LogParserName Empty { get; } = string.Empty;
+
+        public LogParserName(string value) => Value = value;
+
         /// <summary>
         /// Implicitly convert from <see cref="string"/> to a <see cref="LogParserName"/>
         /// </summary>
         /// <param name="value"><see cref="string"/> to convert from</param>
-        public static implicit operator LogParserName(string value)
-        {
-            return new LogParserName {Value = value};
-        }
+        public static implicit operator LogParserName(string value) => new LogParserName(value);
     }
 }
