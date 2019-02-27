@@ -15,6 +15,8 @@ export class Improvement extends ReadModel
         this.id = '00000000-0000-0000-0000-000000000000';
         this.improvable = '00000000-0000-0000-0000-000000000000';
         this.pullRequest = false;
+        this.completed = new Date();
+        this.failed = new Date();
         this.version = '';
     }
 }
