@@ -6,21 +6,28 @@ using Dolittle.Concepts;
 
 namespace Concepts.Improvements
 {
-
-
     /// <summary>
     /// Represents the concept for a numbered step - the actual number
     /// </summary>
     public class StepNumber : ConceptAs<int>
     {
+        /// <summary>
+        /// Represent an Empty / Null / Not Set StepNumber
+        /// </summary>
+        /// <value></value>
+        public StepNumber Empty { get; } = int.MinValue;
+
+        /// <summary>
+        /// Instantiates an instance of an <see cref="StepNumber" /> with the specified value
+        /// </summary>
+        /// <param name="value"></param>
+        public StepNumber(int value) => Value = value;
+
 
         /// <summary>
         /// Implicitly convert from <see cref="int"/> to <see cref="StepNumber"/>
         /// </summary>
         /// <param name="value">Integer to convert from</param>
-        public static implicit operator StepNumber(int value)
-        {
-            return new StepNumber {Value = value};
-        }
+        public static implicit operator StepNumber(int value) => new StepNumber(value);
     }
 }

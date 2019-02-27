@@ -110,7 +110,7 @@ namespace Policies.Improvements
             RecipeType recipeType = pod.Metadata.Labels[PodLabels.RecipeType];
             ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
             ImprovableId improvableId = new Guid(pod.Metadata.Labels[PodLabels.Improvable]);
-            VersionString versionString = pod.Metadata.Labels[PodLabels.Version];
+            Concepts.Version versionString = pod.Metadata.Labels[PodLabels.Version];
 
             _executionContextManager.CurrentFor(tenantId);
             var stepResultHandler = _stepResultHandlerFactory();
@@ -165,7 +165,7 @@ namespace Policies.Improvements
             RecipeType recipeType = pod.Metadata.Labels[PodLabels.RecipeType];
             ImprovementId improvementId = new Guid(pod.Metadata.Labels[PodLabels.Improvement]);
             ImprovableId improvableId = new Guid(pod.Metadata.Labels[PodLabels.Improvable]);
-            VersionString versionString = pod.Metadata.Labels[PodLabels.Version];
+            Concepts.Version versionString = pod.Metadata.Labels[PodLabels.Version];
 
             var missing = false;
             missing |= CheckAndWarnIfPodIsMissingLabel(pod, PodLabels.Tenant);

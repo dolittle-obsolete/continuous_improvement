@@ -41,7 +41,7 @@ namespace Read.Improvements
         /// <summary>
         /// 
         /// </summary>
-        public VersionString Version {  get; set; }
+        public Concepts.Version Version {  get; set; }
 
         /// <summary>
         /// 

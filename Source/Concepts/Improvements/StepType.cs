@@ -4,21 +4,32 @@
  *--------------------------------------------------------------------------------------------*/
 using System;
 using Dolittle.Concepts;
+using Dolittle.Runtime.Events;
 
 namespace Concepts.Improvements
 {
     /// <summary>
-    /// Represents the identifier of a build step
+    /// Encapsulates a Unique Identifier
     /// </summary>
+    /// <typeparam name="Guid"></typeparam>
     public class StepType : ConceptAs<Guid>
     {
         /// <summary>
-        /// Implicitly convert from <see cref="Guid"/> to a <see cref="StepType"/>
+        /// An empty / not set Id
         /// </summary>
-        /// <param name="value"><see cref="Guid"/> to convert from</param>
-        public static implicit operator StepType(Guid value)
-        {
-            return new StepType { Value = value };
-        }
+        public static StepType Empty { get; } = Guid.Empty;
+
+        /// <summary>
+        /// Instantiates an instance of an <see cref="StepType" /> with the specified value
+        /// </summary>
+        /// <param name="value"></param>
+        public StepType(Guid value) => Value = value;
+        
+
+        /// <summary>
+        /// Implicitly convert Guid to an StepType
+        /// </summary>
+        /// <param name="value"></param>
+        public static implicit operator StepType(Guid value) => new StepType(value);
     }
 }

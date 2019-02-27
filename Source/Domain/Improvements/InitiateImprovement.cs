@@ -9,7 +9,7 @@ namespace Domain.Improvements
     {
         public ImprovementId Improvement { get; set; }
         public ImprovableId ForImprovable { get; set; }
-        public VersionString Version { get; set; }
+        public Version Version { get; set; }
         public bool IsFromPullRequest { get; set; }
     }
 }

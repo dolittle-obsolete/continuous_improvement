@@ -44,9 +44,9 @@ namespace Policies.Improvements
         public TenantId Tenant { get; }
 
         /// <summary>
-        /// Gets the <see cref="VersionString">version</see> for the improvement
+        /// Gets the <see cref="Version">version</see> for the improvement
         /// </summary>
-        public VersionString Version => Improvement.Version;
+        public Concepts.Version Version => Improvement.Version;
 
         /// <summary>
         /// Gets whether or not it was a pull request that caused the improvement to happen

@@ -59,7 +59,7 @@ namespace Policies.Improvements
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
-            VersionString version)
+            Concepts.Version version)
         {
             var context = _improvementContextFactory.GetFor(improvable, version);
             var recipe = _recipeLocator.GetByName(recipeType);
@@ -75,7 +75,7 @@ namespace Policies.Improvements
             StepNumber stepNumber,
             ImprovementId improvement,
             ImprovableId improvable,
-            VersionString version)
+            Concepts.Version version)
         {
             var context = _improvementContextFactory.GetFor(improvable, version);
             var recipe = _recipeLocator.GetByName(recipeType);
