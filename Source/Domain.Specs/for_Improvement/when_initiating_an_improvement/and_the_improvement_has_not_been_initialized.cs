@@ -21,5 +21,7 @@ namespace Domain.Specs.for_Improvement.when_initiating_an_improvement
                                                                 e => e.ForImprovable.ShouldEqual(for_improvable.Value),
                                                                 e => e.PullRequest.ShouldBeFalse()
                                                             );
+
+        It should_not_have_any_other_events = () => improvement.ShouldHaveEventCountOf(1);
     }
 }

@@ -17,7 +17,7 @@ namespace Domain.Specs.for_Improvement.when_completing_an_improvement
         static Exception exception;
         Because of = () => exception = Catch.Exception(() => improvement.Complete());
 
-        It should_not_fail_the_improvement = () => improvement.ShouldNotHaveEvent<ImprovementCompleted>();
+        It should_not_fail_the_improvement = () => improvement.ShouldHaveAnEmptyStream();
         It should_indicate_that_the_improvement_has_already_completed = () => exception.ShouldBeOfExactType<ImprovementAlreadyCompleted>();
     }
 }
