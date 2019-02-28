@@ -23,7 +23,6 @@ namespace Domain.Specs.for_Improvement.for_metadata.when_building
         It should_not_build_the_metadata = () => exception.ShouldNotBeNull();
         It should_throw_an_invalid_metadata_exception = () => exception.ShouldBeOfExactType<InvalidImprovementMetadata>();
         It should_indicate_which_metadata_elements_are_invalid = () => {
-            Console.WriteLine(exception.Message);
             exception.Message.Contains(Constants.Tenant).ShouldBeTrue();
             exception.Message.Contains(Constants.Version).ShouldBeTrue();
         };
