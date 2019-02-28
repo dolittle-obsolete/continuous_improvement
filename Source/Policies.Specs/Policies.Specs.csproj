@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../../Build/MSBuild/specs.props"></Import>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Policies.Specs</AssemblyName>
+    <RootNamespace>Policies</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Policies\Policies.csproj" />
+  </ItemGroup>
+</Project>
