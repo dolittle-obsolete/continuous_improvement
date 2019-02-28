@@ -33,16 +33,6 @@ namespace Policies.Improvements.Tracking
            return  _stepStatuses.Select(_ => new TrackedStepStatuses(_.Key,_.Value)).GetEnumerator();
         }
 
-        /// <inheritdoc />
-        public IEnumerable<TrackedStepStatuses> GetTrackedStepStatuses()
-        {
-            foreach(var kvp in _stepStatuses)
-            {
-                yield return new TrackedStepStatuses(kvp.Key,kvp.Value);
-            }
-            yield break;
-        }
-
        /// <inheritdoc />
         public void Track(StepNumber stepNumber, StepStatus status)
         {
@@ -54,7 +44,6 @@ namespace Policies.Improvements.Tracking
             {
                 _stepStatuses.Add(stepNumber, new List<StepStatus>(new [] { status } ));
             }
-            Debug.WriteLine($"Finished adding {stepNumber} - {status}");
         }
 
         IEnumerator IEnumerable.GetEnumerator()
