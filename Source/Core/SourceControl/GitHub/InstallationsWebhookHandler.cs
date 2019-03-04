@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 using Concepts.SourceControl.GitHub;
 using Dolittle.Commands.Coordination;
@@ -21,6 +22,16 @@ namespace Core.SourceControl.GitHub
         )
         {
             _commandCoordinator = commandCoordinator;
+        }
+
+        void On(InstallationEventPayload payload)
+        {
+            if (payload.Action.Equals("deleted", StringComparison.OrdinalIgnoreCase))
+            {
+                _commandCoordinator.Handle(new UnregisterInstallation {
+                    Id = payload.Installation.Id,
+                });
+            }
         }
 
         void On(InstallationRepositoriesEventPayload payload)
