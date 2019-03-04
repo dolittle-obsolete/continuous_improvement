@@ -81,6 +81,25 @@ namespace Read.SourceControl.GitHub
 
             _lock.Release();
         }
+
+        [EventProcessor("2d8914cf-176b-4198-ac14-dd9871c4fa3c")]
+        public async void Process(InstallationUnregistered @event)
+        {
+            await _lock.WaitAsync();
+
+            var installationsList = GetOrCreateGlobalInstallationsList();
+            installationsList.Installations.Remove(@event.InstallationId);
+            _repositoryForInstallationsList.Update(installationsList);
+
+            var repositoriesList = GetOrCreateGlobalRepositoriesList();
+            @event.Repositories.ForEach(name => repositoriesList.Repositories.Remove(name));
+            _repositoryForRepositoriesList.Update(repositoriesList);
+
+            var installation = GetOrCreateInstallationById(@event.InstallationId);
+            _repositoryForInstallationRepositories.Delete(installation);
+
+            _lock.Release();
+        }
         
         [EventProcessor("6ba34f84-bc4e-2900-9193-960358b8d4a2")]
         public async void Process(InstallationRepositoriesUpdateReceived @event)
