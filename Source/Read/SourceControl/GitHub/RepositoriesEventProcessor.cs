@@ -24,60 +24,38 @@ namespace Read.SourceControl.GitHub
             _repositoryForRepositoriesList = repositoryForRepositoriesList;
             _repositoryForInstallationsList = repositoryForInstallationsList;
             _repositoryForInstallationRepositories = repositoryForInstallationRepositories;
+
+            // Ensure we have the global lists
+            if (_repositoryForInstallationsList.GetById(0) == null)
+            {
+                _repositoryForInstallationsList.Insert(new InstallationsList { Installations = new List<InstallationId>() });
+            }
+            if (_repositoryForRepositoriesList.GetById(0) == null)
+            {
+                _repositoryForRepositoriesList.Insert(new RepositoriesList { Repositories = new List<RepositoryFullName>() });
+            }
         }
 
         // TODO: How do we do this?
         readonly static SemaphoreSlim _lock = new SemaphoreSlim(1,1);
-
-        RepositoriesList GetOrCreateGlobalRepositoriesList()
-        {
-            var list = _repositoryForRepositoriesList.GetById(0);
-            if (list == null)
-            {
-                list = new RepositoriesList{ Repositories = new List<RepositoryFullName>() };
-                _repositoryForRepositoriesList.Insert(list);
-            }
-            return list;
-        }
-
-        InstallationsList GetOrCreateGlobalInstallationsList()
-        {
-            var list = _repositoryForInstallationsList.GetById(0);
-            if (list == null)
-            {
-                list = new InstallationsList{ Installations = new List<InstallationId>() };
-                _repositoryForInstallationsList.Insert(list);
-            }
-            return list;
-        }
-
-        InstallationRepositories GetOrCreateInstallationById(InstallationId id)
-        {
-            var installation = _repositoryForInstallationRepositories.GetById(id);
-            if (installation == null)
-            {
-                installation = new InstallationRepositories{ Id = id, Repositories = new List<RepositoryFullName>() };
-                _repositoryForInstallationRepositories.Insert(installation);
-            }
-            return installation;
-        }
         
         [EventProcessor("3bd53c12-137b-ae5d-fc7a-5670f75cf402")]
         public async void Process(InstallationRegistered @event)
         {
             await _lock.WaitAsync();
 
-            var installationsList = GetOrCreateGlobalInstallationsList();
+            var installationsList = _repositoryForInstallationsList.GetById(0);
             installationsList.Installations.Add(@event.InstallationId);
             _repositoryForInstallationsList.Update(installationsList);
 
-            var repositoriesList = GetOrCreateGlobalRepositoriesList();
+            var repositoriesList = _repositoryForRepositoriesList.GetById(0);
             @event.Repositories.ForEach(name => repositoriesList.Repositories.Add(name));
             _repositoryForRepositoriesList.Update(repositoriesList);
 
-            var installation = GetOrCreateInstallationById(@event.InstallationId);
-            installation.Repositories = new List<RepositoryFullName>(@event.Repositories.Select(_ => (RepositoryFullName)_));
-            _repositoryForInstallationRepositories.Update(installation);
+            _repositoryForInstallationRepositories.Insert(new InstallationRepositories {
+                Id = @event.InstallationId,
+                Repositories = new List<RepositoryFullName>(@event.Repositories.Select(_ => (RepositoryFullName)_)),
+            });
 
             _lock.Release();
         }
@@ -87,16 +65,17 @@ namespace Read.SourceControl.GitHub
         {
             await _lock.WaitAsync();
 
-            var installationsList = GetOrCreateGlobalInstallationsList();
+            var installationsList = _repositoryForInstallationsList.GetById(0);
             installationsList.Installations.Remove(@event.InstallationId);
             _repositoryForInstallationsList.Update(installationsList);
 
-            var repositoriesList = GetOrCreateGlobalRepositoriesList();
+            var repositoriesList = _repositoryForRepositoriesList.GetById(0);
             @event.Repositories.ForEach(name => repositoriesList.Repositories.Remove(name));
             _repositoryForRepositoriesList.Update(repositoriesList);
 
-            var installation = GetOrCreateInstallationById(@event.InstallationId);
-            _repositoryForInstallationRepositories.Delete(installation);
+            _repositoryForInstallationRepositories.Delete(new InstallationRepositories {
+                Id = @event.InstallationId,
+            });
 
             _lock.Release();
         }
@@ -106,14 +85,28 @@ namespace Read.SourceControl.GitHub
         {
             await _lock.WaitAsync();
             
-            var list = GetOrCreateGlobalRepositoriesList();
-            @event.RepositoriesAdded.ForEach(name => list.Repositories.Add(name));
-            @event.RepositoriesRemoved.ForEach(name => list.Repositories.Remove(name));
-            _repositoryForRepositoriesList.Update(list);
+            var repositoriesList = _repositoryForRepositoriesList.GetById(0);
+            @event.RepositoriesAdded.ForEach(name => {
+                if (!repositoriesList.Repositories.Contains(name))
+                {
+                    repositoriesList.Repositories.Add(name);
+                }
+            });
+            @event.RepositoriesRemoved.ForEach(name => {
+                repositoriesList.Repositories.Remove(name);
+            });
+            _repositoryForRepositoriesList.Update(repositoriesList);
 
-            var installation = GetOrCreateInstallationById(@event.InstallationId);
-            @event.RepositoriesAdded.ForEach(name => installation.Repositories.Add(name));
-            @event.RepositoriesRemoved.ForEach(name => installation.Repositories.Remove(name));
+            var installation = _repositoryForInstallationRepositories.GetById(@event.InstallationId);
+            @event.RepositoriesAdded.ForEach(name => {
+                if (!installation.Repositories.Contains(name))
+                {
+                    installation.Repositories.Add(name);
+                }
+            });
+            @event.RepositoriesRemoved.ForEach(name => {
+                installation.Repositories.Remove(name);
+            });
             _repositoryForInstallationRepositories.Update(installation);
             
             _lock.Release();
@@ -124,25 +117,26 @@ namespace Read.SourceControl.GitHub
         {
             await _lock.WaitAsync();
 
-            var list = GetOrCreateGlobalRepositoriesList();
-            var installation = GetOrCreateInstallationById(@event.InstallationId);
+            var repositoriesList = _repositoryForRepositoriesList.GetById(0);
+            var installation = _repositoryForInstallationRepositories.GetById(@event.InstallationId);
 
             installation.Repositories.ForEach(_ => {
                 if (!@event.Repositories.Contains((string)_))
                 {
-                    list.Repositories.Remove(_);
+                    repositoriesList.Repositories.Remove(_);
                 }
             });
             @event.Repositories.ForEach(_ => {
                 if (!installation.Repositories.Contains(_))
                 {
-                    list.Repositories.Add(_);
+                    repositoriesList.Repositories.Add(_);
                 }
             });
+            repositoriesList.Repositories = new List<RepositoryFullName>(repositoriesList.Repositories.Distinct());
 
             installation.Repositories = new List<RepositoryFullName>(@event.Repositories.Select(_ => (RepositoryFullName)_));
 
-            _repositoryForRepositoriesList.Update(list);
+            _repositoryForRepositoriesList.Update(repositoriesList);
             _repositoryForInstallationRepositories.Update(installation);
 
             _lock.Release();
