@@ -56,16 +56,4 @@ export class Repositories {
             }
         });
     }
-
-    selectInstallations() {
-        fetch(process.env.BASE_URL+'/thirdparty/github/userauth/installations').then(response => {
-            if (response.status == 401) {
-                location = process.env.BASE_URL+'/thirdparty/github/userauth/initiate?callback='+encodeURIComponent(process.env.BASE_URL+'/GitHub/Repositories/SelectInstallations');
-            } else {
-                response.json().then(data => {
-                    console.log('Available installations', data);
-                });
-            }
-        });
-    }
 }

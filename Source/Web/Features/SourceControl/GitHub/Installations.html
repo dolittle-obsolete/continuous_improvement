@@ -1,0 +1,19 @@
+<template>
+    <require from="./Installations.scss"></require>
+    <section class="github-installations-page">
+        <section class="page-content acrylic">
+            <h1>Your GitHub Installations:</h1>
+            <hr />
+            <section>
+                <p repeat.for="installation of allInstallations">
+                    <img src.bind="installation.AvatarUrl"/>
+                    ${installation.Login}
+                    <button if.bind="installation.Registered" type="button" click.delegate="triggerUnregister(installation.Id, $event)">Remove</button>
+                    <button else type="button" click.delegate="triggerRegister(installation.Id, $event)">Add</button>
+                </p>
+            </section>
+            <hr />
+            <a href="/GitHub/Repositories/"><button>Back to list of repositories</button></a>
+        </section>
+    </section>
+</template>

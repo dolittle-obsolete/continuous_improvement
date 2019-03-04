@@ -13,6 +13,7 @@ export class app {
             { route: 'Improvements/:improvable', name: 'Improvements', moduleId: PLATFORM.moduleName('Improvements/Index') },
 
             { route: ['GitHub/', 'GitHub/Repositories', 'GitHub/Repositories/:status/:id?'], name: 'GitHub - Repositories', moduleId: PLATFORM.moduleName('SourceControl/GitHub/Repositories') },
+            { route: ['GitHub/Installations/'], name: 'GitHub - Installations', moduleId: PLATFORM.moduleName('SourceControl/GitHub/Installations') },
         ]);
 
         this.router = router;
