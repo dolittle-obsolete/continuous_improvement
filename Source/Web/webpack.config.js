@@ -11,7 +11,10 @@ const config = require('@dolittle/build.aurelia/webpack.config.js');
 module.exports = () => {
     const obj = config.apply(null, arguments);
     obj.devServer = {
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:5000'
+        }
     };
     return obj;
 };
