@@ -35,15 +35,10 @@ namespace Read.SourceControl.GitHub
                 _repositoryForRepositoriesList.Insert(new RepositoriesList { Repositories = new List<RepositoryFullName>() });
             }
         }
-
-        // TODO: How do we do this?
-        readonly static SemaphoreSlim _lock = new SemaphoreSlim(1,1);
         
         [EventProcessor("3bd53c12-137b-ae5d-fc7a-5670f75cf402")]
-        public async void Process(InstallationRegistered @event)
+        public void Process(InstallationRegistered @event)
         {
-            await _lock.WaitAsync();
-
             var installationsList = _repositoryForInstallationsList.GetById(0);
             installationsList.Installations.Add(@event.InstallationId);
             _repositoryForInstallationsList.Update(installationsList);
@@ -56,15 +51,11 @@ namespace Read.SourceControl.GitHub
                 Id = @event.InstallationId,
                 Repositories = new List<RepositoryFullName>(@event.Repositories.Select(_ => (RepositoryFullName)_)),
             });
-
-            _lock.Release();
         }
 
         [EventProcessor("2d8914cf-176b-4198-ac14-dd9871c4fa3c")]
-        public async void Process(InstallationUnregistered @event)
+        public void Process(InstallationUnregistered @event)
         {
-            await _lock.WaitAsync();
-
             var installationsList = _repositoryForInstallationsList.GetById(0);
             installationsList.Installations.Remove(@event.InstallationId);
             _repositoryForInstallationsList.Update(installationsList);
@@ -76,15 +67,11 @@ namespace Read.SourceControl.GitHub
             _repositoryForInstallationRepositories.Delete(new InstallationRepositories {
                 Id = @event.InstallationId,
             });
-
-            _lock.Release();
         }
         
         [EventProcessor("6ba34f84-bc4e-2900-9193-960358b8d4a2")]
-        public async void Process(InstallationRepositoriesUpdateReceived @event)
+        public void Process(InstallationRepositoriesUpdateReceived @event)
         {
-            await _lock.WaitAsync();
-            
             var repositoriesList = _repositoryForRepositoriesList.GetById(0);
             @event.RepositoriesAdded.ForEach(name => {
                 if (!repositoriesList.Repositories.Contains(name))
@@ -108,15 +95,11 @@ namespace Read.SourceControl.GitHub
                 installation.Repositories.Remove(name);
             });
             _repositoryForInstallationRepositories.Update(installation);
-            
-            _lock.Release();
         }
 
         [EventProcessor("fb15250a-ff40-4161-916a-8565bee547af")]
-        public async void Process(InstallationRepositoriesRefreshed @event)
+        public void Process(InstallationRepositoriesRefreshed @event)
         {
-            await _lock.WaitAsync();
-
             var repositoriesList = _repositoryForRepositoriesList.GetById(0);
             var installation = _repositoryForInstallationRepositories.GetById(@event.InstallationId);
 
@@ -138,8 +121,6 @@ namespace Read.SourceControl.GitHub
 
             _repositoryForRepositoriesList.Update(repositoriesList);
             _repositoryForInstallationRepositories.Update(installation);
-
-            _lock.Release();
         }
     }
 }
