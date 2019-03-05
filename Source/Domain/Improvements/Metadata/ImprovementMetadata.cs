@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace Domain.Improvements.Metadata
 {
-    public class ImprovementMetadata 
+    public class ImprovementMetadata : Value<ImprovementMetadata>
     {
         public ImprovementMetadata(TenantId tenant, RecipeType recipe, ImprovementId improvement, ImprovableId improvementFor, Version version)
         {

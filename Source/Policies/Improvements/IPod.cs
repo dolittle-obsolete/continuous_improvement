@@ -1,5 +1,13 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
+using System.Collections.Generic;
+using System.Linq;
 using Concepts.Improvements;
 using Dolittle.DependencyInversion;
+using Domain.Improvements.Metadata;
 using k8s;
 using k8s.Models;
 
@@ -8,6 +16,13 @@ namespace Policies.Improvements
     public interface IPod
     {
         bool IsDeleted { get; }
+        bool HasSucceeded { get; }
+        bool HasFailed { get; }
+        string Status { get; }
+        bool HasStatuses { get; }
+        IEnumerable<IContainerStatus> Statuses { get; }
+        ImprovementMetadata Metadata { get; }
+        void Delete();
     }
 
     public class Pod : IPod
@@ -19,10 +34,11 @@ namespace Policies.Improvements
         private readonly V1Pod _pod;
         private readonly FactoryFor<IKubernetes> _clientFactory;
 
-        public Pod(V1Pod pod, FactoryFor<IKubernetes> clientFactory)
+        public Pod(V1Pod pod, FactoryFor<IKubernetes> clientFactory, IImprovementMetadataFactory metadataFactory)
         {
             _pod = pod;
             _clientFactory = clientFactory;
+            Metadata = metadataFactory.BuildFrom(pod.Metadata.Labels,pod.Metadata.Name);
         }
         public bool IsDeleted => _pod?.Metadata?.DeletionTimestamp.HasValue ?? false;
 
@@ -32,9 +48,11 @@ namespace Policies.Improvements
 
         public string Status => _pod?.Status?.Phase ?? UNKNOWN;
 
-        public string Metadata => _pod?.Metadata?.ToString() ?? string.Empty; //Not sure about this...
-
         public bool HasStatuses => _pod?.Status?.InitContainerStatuses != null;
+
+        public IEnumerable<IContainerStatus> Statuses => _pod?.Status?.InitContainerStatuses.Select(_ => new ContainerStatus(_)).ToList();
+
+        public ImprovementMetadata Metadata { get; }
 
         public void Delete()
         {
