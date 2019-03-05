@@ -12,12 +12,10 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
     [Singleton]
     public class TenantMapper : ITenantMapper
     {
-        const string FileName = "installationToTenantMap.json";
-        const string FilePathEnvName = "GITHUB_INSTALLATION_TENANT_MAP_PATH";
+        const string _filePath = "Data/SourceControl/GitHub/installationToTenantMap.json";
 
         readonly ISerializer _serializer;
         readonly IFileSystem _fileSystem;
-        readonly string _filePath;
 
         Dictionary<long, Guid> _mapping;
 
@@ -25,16 +23,8 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         {
             _serializer = serializer;
             _fileSystem = fileSystem;
-
-            var rootPath = Environment.GetEnvironmentVariable(FilePathEnvName) ?? throw new Exception("GITHUB_INSTALLATION_TENANT_MAP_PATH not set");
-            _filePath = Path.Combine(rootPath, FileName);
-            
-            _mapping = new Dictionary<long, Guid>();
-            if (_fileSystem.Exists(_filePath))
-            {
-                var content = _fileSystem.ReadAllText(_filePath);
-                _mapping = _serializer.FromJson<Dictionary<long, Guid>>(content);
-            }
+            var content = _fileSystem.ReadAllText(_filePath);
+            _mapping = _serializer.FromJson<Dictionary<long, Guid>>(content);
         }
 
         public TenantId GetTenantFor(InstallationId installationId)

@@ -5,6 +5,13 @@ https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/
 
 https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 
+## Data files
+The files in the `Source/Core/Data/` directory should only contain default data. Unfortunately, adding files to a `.gitignore` file does not tell Git to ignore them, since they are already tracked. A work-around is to run the following command:
+```bash
+git ls-files -z Source/Core/Data | xargs -0 git update-index --skip-worktree
+```
+This tells Git to ignore any future changes to all these files. If you add new ones, simply re-run the command.
+
 ## GitHub application setup
 The Core project requires credentials to the GitHub application to start. So - for development - add the following lines in your shell startup script:
 ```bash
@@ -13,7 +20,6 @@ export GITHUB_PRIVATE_KEY_PATH="path-to-private-key.pem"
 export GITHUB_HOOK_SECRET="..."
 export GITHUB_OAUTH_ID="..."
 export GITHUB_OAUTH_SECRET="..."
-export GITHUB_INSTALLATION_TENANT_MAP_PATH="path-to-existing-folder-where-tenant-map-file-will-be-created"
 ```
 You can get the values of these variables and the private key from the GitHub application setup.
 
