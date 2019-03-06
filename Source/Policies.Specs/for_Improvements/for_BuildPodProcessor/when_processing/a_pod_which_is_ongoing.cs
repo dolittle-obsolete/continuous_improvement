@@ -23,7 +23,7 @@ namespace Policies.Specs.for_Improvements.for_BuildPodProcessor.when_processing
         {
             pod = new Mock<IPod>();
             pod.SetupGet(_ => _.Metadata).Returns(metadata);
-            pod.SetupGet(_ => _.HasStatuses).Returns(true);
+            pod.SetupGet(_ => _.HasBuildContainerStatuses).Returns(true);
             pod.SetupGet(_ => _.HasSucceeded).Returns(false);
             pod.SetupGet(_ => _.HasFailed).Returns(false);
 

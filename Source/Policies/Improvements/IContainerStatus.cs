@@ -7,6 +7,7 @@ namespace Policies.Improvements
 {
     public interface IContainerStatus
     {
+        bool IsBuildContainer { get; }
         StepId Step { get; }
         StepStatus GetStatus();
     }
@@ -21,6 +22,8 @@ namespace Policies.Improvements
         }
 
         public StepId Step => _status.Name;
+
+        public bool IsBuildContainer => Step.IsValid();
 
         public StepStatus GetStatus()
         {

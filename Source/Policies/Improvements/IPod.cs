@@ -19,7 +19,7 @@ namespace Policies.Improvements
         bool HasSucceeded { get; }
         bool HasFailed { get; }
         string Status { get; }
-        bool HasStatuses { get; }
+        bool HasBuildContainerStatuses { get; }
         IEnumerable<IContainerStatus> Statuses { get; }
         ImprovementMetadata Metadata { get; }
         void Delete();
@@ -48,9 +48,9 @@ namespace Policies.Improvements
 
         public string Status => _pod?.Status?.Phase ?? UNKNOWN;
 
-        public bool HasStatuses => _pod?.Status?.InitContainerStatuses != null;
+        public bool HasBuildContainerStatuses => Statuses.Any();
 
-        public IEnumerable<IContainerStatus> Statuses => _pod?.Status?.InitContainerStatuses.Select(_ => new ContainerStatus(_)).ToList();
+        public IEnumerable<IContainerStatus> Statuses => _pod?.Status?.InitContainerStatuses.Select(_ => new ContainerStatus(_)).Where(s => s.IsBuildContainer).ToList();
 
         public ImprovementMetadata Metadata { get; }
 

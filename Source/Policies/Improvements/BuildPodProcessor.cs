@@ -36,7 +36,7 @@ namespace Policies.Improvements
                 return;
             } 
 
-            if(!pod.HasStatuses)
+            if(!pod.HasBuildContainerStatuses)
             {
                 _logger.Information($"Build-pod '{pod.Metadata.ToString()}' has no statuses to process.");
                 return;
