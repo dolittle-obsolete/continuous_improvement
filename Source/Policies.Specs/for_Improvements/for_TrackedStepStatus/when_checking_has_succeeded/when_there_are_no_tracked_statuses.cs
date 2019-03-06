@@ -2,7 +2,7 @@
 using Machine.Specifications;
 using Policies.Improvements.Tracking;
 
-namespace Policies.Specs.for_Improvements.for_TrackedStepStatus.when_checking_has_succeded
+namespace Policies.Specs.for_Improvements.for_TrackedStepStatus.when_checking_has_succeeded
 {
     [Subject(typeof(TrackedStepStatuses),"HasSucceeded")]
     public class when_there_are_no_tracked_statuses
