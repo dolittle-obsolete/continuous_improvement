@@ -3,6 +3,7 @@ using Concepts.Improvements;
 using Machine.Specifications;
 using Policies.Improvements.Tracking;
 using Policies.Specs.for_Improvements.for_Tracking;
+using Policies.Specs.for_Improvements;
 
 namespace Policies.Specs.for_Improvements.for_Tracking.when_tracking_a_step_status
 {
@@ -20,10 +21,10 @@ namespace Policies.Specs.for_Improvements.for_Tracking.when_tracking_a_step_stat
             step = 2;
             status = StepStatus.NotStarted;
            
-            tracker.Track( BuildStatusFor(existing_step,status));
+            tracker.Track(a.container_status_with(existing_step,status));
         };
 
-        Because of = () => tracker.Track( BuildStatusFor(step,status));
+        Because of = () => tracker.Track(a.container_status_with(step,status));
 
         It should_add_a_new_step_with_the_status = () => 
         {
