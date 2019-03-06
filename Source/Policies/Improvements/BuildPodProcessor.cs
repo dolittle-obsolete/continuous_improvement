@@ -62,7 +62,7 @@ namespace Policies.Improvements
         void ProcessSteps(IPod pod)
         {
             var tracker = _getTracker();
-            pod.Statuses.ForEach(_ => tracker.Track(_.Step.StepNumber,_.Status));
+            pod.Statuses.ForEach(_ => tracker.Track(_));
             _handleBuildSteps.Handle(pod.Metadata,tracker);
         }
     }

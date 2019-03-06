@@ -15,8 +15,7 @@ namespace Policies.Improvements.Tracking
         /// <summary>
         /// Adds a Build Step and status to track
         /// </summary>
-        /// <param name="stepNumber">The identifier of the Build Step</param>
-        /// <param name="status">The status to append to the Build Step</param>
-        void Track(StepNumber stepNumber, StepStatus status);
+        /// <param name="containerStepStatus">The step container to track</param>
+        void Track(IContainerStatus containerStepStatus);
     }
 }

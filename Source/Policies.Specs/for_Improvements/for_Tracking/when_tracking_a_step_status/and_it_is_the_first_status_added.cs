@@ -19,7 +19,7 @@ namespace Policies.Specs.for_Improvements.for_Tracking.when_tracking_a_step_stat
             status = StepStatus.NotStarted;
         };
 
-        Because of = () => tracker.Track(step,status);
+        Because of = () => tracker.Track( BuildStatusFor(step,status));
 
         It should_add_a_new_step_with_the_status = () => 
         {

@@ -8,8 +8,11 @@ using System.Collections.Generic;
 using Concepts.Improvables;
 using Concepts.Improvements;
 using Machine.Specifications;
+using Moq;
+using Policies.Improvements;
 using Policies.Improvements.StepHandling;
 using Policies.Improvements.Tracking;
+using It = Machine.Specifications.It;
 
 namespace Policies.Specs.for_Improvements.for_handling_build_steps
 {
@@ -27,12 +30,12 @@ namespace Policies.Specs.for_Improvements.for_handling_build_steps
         Establish context = () => 
         {
             tracked_statuses = new BuildStepsStatusTracker();
-            tracked_statuses.Track(first_succeeded,StepStatus.Succeeded);
-            tracked_statuses.Track(second_succeeded,StepStatus.Succeeded);
-            tracked_statuses.Track(first_failed,StepStatus.Failed);
-            tracked_statuses.Track(second_failed,StepStatus.Failed);
-            tracked_statuses.Track(first_in_progress,StepStatus.InProgress);
-            tracked_statuses.Track(second_in_progress,StepStatus.InProgress);
+            tracked_statuses.Track(BuildStatusFor(first_succeeded,StepStatus.Succeeded));
+            tracked_statuses.Track(BuildStatusFor(second_succeeded,StepStatus.Succeeded));
+            tracked_statuses.Track(BuildStatusFor(first_failed,StepStatus.Failed));
+            tracked_statuses.Track(BuildStatusFor(second_failed,StepStatus.Failed));
+            tracked_statuses.Track(BuildStatusFor(first_in_progress,StepStatus.InProgress));
+            tracked_statuses.Track(BuildStatusFor(second_in_progress,StepStatus.InProgress));
         };
 
         Because of = () => handle_build_steps.Handle(metadata,tracked_statuses);
@@ -92,6 +95,15 @@ namespace Policies.Specs.for_Improvements.for_handling_build_steps
                         Moq.It.IsAny<ImprovableId>(),
                         Moq.It.IsAny<Concepts.Version>()),
                     times:Moq.Times.Never);
-        };                               
+        };  
+
+        static IContainerStatus BuildStatusFor(int step, StepStatus status)
+        {
+            var mock = new Mock<IContainerStatus>();
+            mock.SetupGet(_ => _.IsBuildContainer).Returns(true);
+            mock.SetupGet(_ => _.Step).Returns(new StepId(step,0,"test"));
+            mock.SetupGet(_ => _.Status).Returns(status);
+            return mock.Object;
+        }                             
     }
 }

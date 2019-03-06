@@ -34,15 +34,15 @@ namespace Policies.Improvements.Tracking
         }
 
        /// <inheritdoc />
-        public void Track(StepNumber stepNumber, StepStatus status)
+        public void Track(IContainerStatus containerStepStatus)
         {
-            if (_stepStatuses.TryGetValue(stepNumber, out var subStepStatuses))
+            if (_stepStatuses.TryGetValue(containerStepStatus.Step.StepNumber, out var subStepStatuses))
             {
-                subStepStatuses.Add(status);
+                subStepStatuses.Add(containerStepStatus.Status);
             }
             else
             {
-                _stepStatuses.Add(stepNumber, new List<StepStatus>(new [] { status } ));
+                _stepStatuses.Add(containerStepStatus.Step.StepNumber, new List<StepStatus>(new [] { containerStepStatus.Status } ));
             }
         }
 

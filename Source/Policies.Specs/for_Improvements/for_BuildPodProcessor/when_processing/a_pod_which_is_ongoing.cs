@@ -42,10 +42,7 @@ namespace Policies.Specs.for_Improvements.for_BuildPodProcessor.when_processing
         Because of = () => processor.Process(pod.Object);
 
         It should_log_that_the_pod_is_still_in_progress = () => VerifyLoggedInformationMessageContains("still in progress");
-        It should_track_the_statuses = () => {
-            status_tracker.Verify(_ => _.Track(1,StepStatus.InProgress), Times.Once());
-            status_tracker.Verify(_ => _.Track(2,StepStatus.NotStarted), Times.Once());
-        };
+        It should_track_the_statuses = () => container_statuses.ForEach(s => status_tracker.Verify(_ => _.Track(s), Times.Once()));
         It should_handle_the_steps = () => handle_build_steps.Verify(_ => _.Handle(metadata,status_tracker.Object), Times.Once());
         It should_not_delete_the_pod = () => pod.Verify(_ => _.Delete(),Times.Never());
     }

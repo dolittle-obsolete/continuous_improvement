@@ -18,10 +18,10 @@ namespace Policies.Specs.for_Improvements.for_Tracking.when_tracking_a_step_stat
             step = 2;
             first_status = StepStatus.NotStarted;
             second_status = StepStatus.InProgress;
-            tracker.Track(step,first_status);
+            tracker.Track(BuildStatusFor(step,first_status));
         };
 
-        Because of = () => tracker.Track(step,second_status);
+        Because of = () => tracker.Track(BuildStatusFor(step,second_status));
 
         It should_not_add_a_new_step = () =>  tracker.Count().ShouldEqual(1);
         It should_add_the_status_to_the_existing_step = () => tracker.First().Statuses.ShouldContainOnly(new[]{ first_status, second_status});
