@@ -20,6 +20,7 @@ export GITHUB_PRIVATE_KEY_PATH="path-to-private-key.pem"
 export GITHUB_HOOK_SECRET="..."
 export GITHUB_OAUTH_ID="..."
 export GITHUB_OAUTH_SECRET="..."
+export GITHUB_CI_SMEE_URL="https://smee.io/..."
 ```
 You can get the values of these variables and the private key from the GitHub application setup.
 
@@ -28,3 +29,17 @@ You can get the values of these variables and the private key from the GitHub ap
 > 2. ["Continuous Improvement - DEV"](https://github.com/apps/continuous-improvement-dev) with callbacks to _localhost_ and webhooks a [smee.io](https://smee.io) channel.
 >
 > They have their own secrets, ids and keys, so make sure they match for the developent / production setup.
+
+#### Running the application with the GitHub integration in development
+Once all the environmental variables above have been configured, run - in three separate terminals:
+```console
+sh:Source/Core $ dotnet run
+```
+```console
+sh:Source/Web $ yarn start
+```
+```console
+sh:* $ smee -u $GITHUB_CI_SMEE_URL -p 5000 -P /thirdparty/github/webhooks/
+```
+
+The redirects from the ["Continuous Improvement - DEV"](https://github.com/apps/continuous-improvement-dev) application will then send you to your local development version, and the webhooks will be delivered through the smee.io channel also to the development backend. To delete the installation, follow the link to the application above, and click configure in the top right corner, and then uninstall at the very bottom. 
