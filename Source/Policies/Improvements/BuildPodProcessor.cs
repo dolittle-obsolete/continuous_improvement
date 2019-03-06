@@ -29,7 +29,13 @@ namespace Policies.Improvements
 
         public void Process(IPod pod)
         {  
-            _executionContextManager.CurrentFor(pod.Metadata.Tenant);          
+            _executionContextManager.CurrentFor(pod.Metadata.Tenant); 
+            if(pod.IsDeleted)
+            {
+                _logger.Information($"Build-pod '{pod.Metadata.ToString()}' is deleted.");
+                return;
+            } 
+
             if(!pod.HasStatuses)
             {
                 _logger.Information($"Build-pod '{pod.Metadata.ToString()}' has no statuses to process.");
