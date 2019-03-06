@@ -30,10 +30,10 @@ namespace Policies.Specs.for_Improvements.for_BuildPodProcessor.when_processing
             container_statuses = new List<IContainerStatus>();
             var first = new Mock<IContainerStatus>();
             first.SetupGet(_ => _.Step).Returns(new Concepts.Improvements.StepId(1,1,"first"));
-            first.Setup(_ => _.GetStatus()).Returns(StepStatus.InProgress);
+            first.SetupGet(_ => _.Status).Returns(StepStatus.InProgress);
             var second = new Mock<IContainerStatus>();
             second.SetupGet(_ => _.Step).Returns(new Concepts.Improvements.StepId(2,1,"second"));
-            second.Setup(_ => _.GetStatus()).Returns(StepStatus.NotStarted);
+            second.SetupGet(_ => _.Status).Returns(StepStatus.NotStarted);
             container_statuses.Add(first.Object);
             container_statuses.Add(second.Object);
             pod.SetupGet(_ => _.Statuses).Returns(container_statuses);

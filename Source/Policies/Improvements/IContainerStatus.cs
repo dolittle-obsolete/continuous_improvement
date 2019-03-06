@@ -9,7 +9,7 @@ namespace Policies.Improvements
     {
         bool IsBuildContainer { get; }
         StepId Step { get; }
-        StepStatus GetStatus();
+        StepStatus Status { get; }
     }
 
     public class ContainerStatus : IContainerStatus
@@ -25,7 +25,9 @@ namespace Policies.Improvements
 
         public bool IsBuildContainer => Step.IsValid();
 
-        public StepStatus GetStatus()
+        public StepStatus Status => GetStatus();
+
+        StepStatus GetStatus()
         {
             var exitCode = _status.State.Terminated?.ExitCode;
             if (exitCode.HasValue && exitCode != 0) 
