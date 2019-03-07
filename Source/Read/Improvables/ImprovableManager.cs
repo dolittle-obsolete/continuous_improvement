@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Improvables;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
@@ -19,9 +20,9 @@ namespace Read.Improvables
 
         private readonly ISerializer _serializer;
         private readonly IRecipeManager _recipeManager;
-        private readonly ITenantAwareFileSystem _fileSystem;
+        private readonly IFiles _fileSystem;
 
-        public ImprovableManager(ITenantAwareFileSystem fileSystem, ISerializer serializer, IRecipeManager recipeManager)
+        public ImprovableManager(IFiles fileSystem, ISerializer serializer, IRecipeManager recipeManager)
         {
             _serializer = serializer;
             _recipeManager = recipeManager;

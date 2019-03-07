@@ -8,6 +8,7 @@ using System.Linq;
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 
@@ -18,9 +19,9 @@ namespace Read.Improvements
     /// </summary>
     public class RawLogForStep : IQueryFor<StepRawLog>
     {
-        readonly ITenantAwareFileSystem _fileSystem;
+        readonly IFiles _fileSystem;
 
-        public RawLogForStep(ITenantAwareFileSystem fileSystem)
+        public RawLogForStep(IFiles fileSystem)
         {
             _fileSystem = fileSystem;
         }

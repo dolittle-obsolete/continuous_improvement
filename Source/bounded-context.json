@@ -10,6 +10,10 @@
     "readModels": {
       "production": "MongoDB",
       "development": "MongoDB"
+    },
+    "files": {
+      "production": "Files",
+      "development": "Files"
     }
   },
   "core": {

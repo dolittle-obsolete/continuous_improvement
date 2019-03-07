@@ -8,6 +8,7 @@ using System.Linq;
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 
@@ -18,9 +19,9 @@ namespace Read.Improvements
     /// </summary>
     public class ImprovementsForImprovable : IQueryFor<Improvement>
     {
-        private readonly ITenantAwareFileSystem _fileSystem;
+        private readonly IFiles _fileSystem;
 
-        public ImprovementsForImprovable(ITenantAwareFileSystem fileSystem)
+        public ImprovementsForImprovable(IFiles fileSystem)
         {
             _fileSystem = fileSystem;
         }
