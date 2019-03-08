@@ -20,6 +20,15 @@ namespace Concepts.Improvements
         public static StepType Empty { get; } = Guid.Empty;
 
         /// <summary>
+        /// Initializes a new instance of <see cref="StepType"/>
+        /// </summary>
+        public StepType() 
+        { 
+            Value = Guid.Empty;
+        }
+
+
+        /// <summary>
         /// Instantiates an instance of an <see cref="StepType" /> with the specified value
         /// </summary>
         /// <param name="value"></param>

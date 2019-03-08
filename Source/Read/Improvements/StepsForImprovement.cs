@@ -10,6 +10,7 @@ using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
 using Dolittle.Collections;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 using Dolittle.Serialization.Json;
@@ -21,16 +22,16 @@ namespace Read.Improvements
     /// </summary>
     public class StepsForImprovement : IQueryFor<Step>
     {
-        readonly ITenantAwareFileSystem _tenantAwareFileSystem;
+        readonly IFiles _fileSystem;
         readonly ISerializer _serializer;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serializer"><see cref="ISerializer">Json Serializer</see></param>
-        public StepsForImprovement(ITenantAwareFileSystem tenantAwareFilsSystem, ISerializer serializer)
+        public StepsForImprovement(IFiles fileSystem, ISerializer serializer)
         {
-            _tenantAwareFileSystem = tenantAwareFilsSystem;
+            _fileSystem = fileSystem;
             _serializer = serializer;
         }
 
@@ -53,7 +54,7 @@ namespace Read.Improvements
             {
                 var versionPath = Path.Combine(Improvable.Value.ToString(),Version);
                 var stepsFile = Path.Combine(versionPath,"steps.json");
-                var stepsAsJson = _tenantAwareFileSystem.ReadAllText(stepsFile);
+                var stepsAsJson = _fileSystem.ReadAllText(stepsFile);
                 var steps = _serializer.FromJson<IEnumerable<Step>>(stepsAsJson).ToArray();
 
                 return steps.AsQueryable();

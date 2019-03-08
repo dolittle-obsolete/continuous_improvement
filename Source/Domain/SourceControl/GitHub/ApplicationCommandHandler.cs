@@ -5,6 +5,7 @@ using Dolittle.Domain;
 using Events.SourceControl.GitHub;
 using Infrastructure.Services.Github;
 using Infrastructure.Services.Github.Client;
+using Octokit;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,6 +45,12 @@ namespace Domain.SourceControl.GitHub
             );
         }
 
+        public void Handle(UnregisterInstallation cmd)
+        {
+            var aggregateRoot = _aggregateRootRepoForInstallations.GetApplication();
+            aggregateRoot.UnegisterInstallation(cmd.Id);
+        }
+
         public void Handle(UpdateInstallationRepositories cmd)
         {
             // Trigger the update
@@ -59,9 +66,17 @@ namespace Domain.SourceControl.GitHub
         {
             var aggregateRoot = _aggregateRootRepoForInstallations.GetApplication();
             cmd.InstallationIds.ForEach(id => {
-                var client = _githubClientFactory.NewInstallationAuthenticatedClient(id).Result;
-                var repositories = client.GitHubApps.Installation.GetAllRepositoriesForCurrent().Result.Repositories;
-                aggregateRoot.RefreshedInstallationRepositories(id, repositories.Select(_ => (RepositoryFullName)_.FullName));
+                try
+                {
+                    var client = _githubClientFactory.NewInstallationAuthenticatedClient(id).Result;
+                    var repositories = client.GitHubApps.Installation.GetAllRepositoriesForCurrent().Result.Repositories;
+                    aggregateRoot.RefreshedInstallationRepositories(id, repositories.Select(_ => (RepositoryFullName)_.FullName));
+                }
+                catch (NotFoundException)
+                {
+                    // This means that the installation no longer exists, i.e. has been removed
+                    aggregateRoot.UnegisterInstallation(id);
+                }
             });
         }
     }

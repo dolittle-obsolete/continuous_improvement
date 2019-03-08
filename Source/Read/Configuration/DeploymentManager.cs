@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Configuration;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
@@ -16,9 +17,9 @@ namespace Read.Configuration
     {
         const string _deploymentsFile = "deployments.json";
         private readonly ISerializer _serializer;
-        private readonly ITenantAwareFileSystem _fileSystem;
+        private readonly IFiles _fileSystem;
 
-        public DeploymentManager(ITenantAwareFileSystem fileSystem, ISerializer serializer)
+        public DeploymentManager(IFiles fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
             _fileSystem = fileSystem;

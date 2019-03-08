@@ -6,31 +6,35 @@ using Events.SourceControl.GitHub;
 using System.Linq;
 using Dolittle.Execution;
 using System.IO;
+using Infrastructure.Services.Github.Webhooks.Handling;
 
 namespace Core.SourceControl.GitHub
 {
     public class InstallationEventProcessor : ICanProcessEvents
     {
-        IExecutionContextManager _executionContextManager;
-        public InstallationEventProcessor(IExecutionContextManager executionContextManager)
+        readonly IExecutionContextManager _executionContextManager;
+        readonly ITenantMapper _tenantMapper;
+
+        public InstallationEventProcessor(IExecutionContextManager executionContextManager, ITenantMapper tenantMapper)
         {
             _executionContextManager = executionContextManager;
+            _tenantMapper = tenantMapper;
         }
         
         [EventProcessor("27ff986e-1caf-40e6-98c1-b9ee67ea6dfd")]
         public void Process(InstallationRegistered @event)
         {
-            var installationTenantId = _executionContextManager.Current.Tenant;
-            var installationGithubId = @event.InstallationId;
+            var tenantId = _executionContextManager.Current.Tenant;
+            var installationId = new Octokit.InstallationId(@event.InstallationId);
 
-            // Save the mapping
-            using (var file = new StreamWriter("./webhooks-mapping.txt", true))
-            {
-                file.Write(installationGithubId);
-                file.Write(" -> ");
-                file.WriteLine(installationTenantId);
-            }
+            _tenantMapper.SetTenantFor(installationId, tenantId);
         }
-        
+
+        [EventProcessor("40c28d57-fa35-48ed-bac8-40e972e17649")]
+        public void Process(InstallationUnregistered @event)
+        {
+            var installationId = new Octokit.InstallationId(@event.InstallationId);
+            _tenantMapper.UnsetTenantFor(installationId);
+        }
     }
 }

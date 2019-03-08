@@ -36,8 +36,6 @@ namespace Infrastructure.Services.Github.Installation
 
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
-            // TODO: This endpoint should be secured like all the others, so that when the final request gets here, we should know the tenant
-
             _executionContextConfigurator.ConfigureFor(_tenantResolver.Resolve(request), Guid.NewGuid(), ClaimsPrincipal.Current.ToClaims());
                 
             var installationId = long.Parse(request.Query["installation_id"].Single());

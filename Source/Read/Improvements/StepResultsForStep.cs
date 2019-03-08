@@ -9,6 +9,7 @@ using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
 using Dolittle.Collections;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Queries;
 using Dolittle.Serialization.Json;
@@ -21,13 +22,13 @@ namespace Read.Improvements
     public class StepResultsForStep : IQueryFor<StepResult>
     {
         readonly ISerializer _serializer;
-        private readonly ITenantAwareFileSystem _fileSystem;
+        private readonly IFiles _fileSystem;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="serializer"></param>
-        public StepResultsForStep(ITenantAwareFileSystem fileSystem, ISerializer serializer)
+        public StepResultsForStep(IFiles fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
             _fileSystem = fileSystem;

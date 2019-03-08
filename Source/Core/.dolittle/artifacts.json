@@ -12,6 +12,10 @@
       "22749d02-8e79-4443-82c5-504f8970cc9c": {
         "generation": 1,
         "type": "Domain.SourceControl.GitHub.UpdateInstallationRepositories, Domain"
+      },
+      "53e20637-8928-402f-897f-8ab154834a00": {
+        "generation": 1,
+        "type": "Domain.SourceControl.GitHub.UnregisterInstallation, Domain"
       }
     },
     "events": {
@@ -26,6 +30,10 @@
       "2c787673-b3dc-43bb-bf6b-84979b17058b": {
         "generation": 1,
         "type": "Events.SourceControl.GitHub.InstallationRepositoriesUpdateReceived, Events"
+      },
+      "b4aa8bf2-5d27-4733-adb7-6d55544077b4": {
+        "generation": 1,
+        "type": "Events.SourceControl.GitHub.InstallationUnregistered, Events"
       }
     },
     "eventSources": {

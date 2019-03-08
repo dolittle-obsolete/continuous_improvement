@@ -24,12 +24,12 @@ namespace Concepts.Improvables
         /// </summary>
         /// <param name="value"></param>
         public ImprovableId(Guid value) => Value = value;
-        
+
         /// <summary>
-        /// Create an instance of an <see cref="ImprovableId" /> with a generated value
+        /// Instantiates an instance of an <see cref="ImprovableId" /> with the generated value
         /// </summary>
-        /// <returns></returns>
-        public static ImprovableId New() => Guid.NewGuid();   
+        /// <param name="value"></param>
+        public ImprovableId() => Value = Guid.NewGuid();
 
         /// <summary>
         /// Implicitly convert Guid to an ImprovableId

@@ -4,6 +4,8 @@ using System.Reflection;
 using Dolittle.DependencyInversion;
 using Dolittle.Execution;
 using Dolittle.Lifecycle;
+using Dolittle.Logging;
+using Dolittle.Tenancy;
 using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
@@ -14,16 +16,19 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         readonly ITenantMapper _tenantMapper;
         readonly FactoryFor<IWebhookScheduler> _schedulerFactory;
         readonly IExecutionContextManager _executionContextManager;
+        readonly ILogger _logger;
 
         public WebhookCoordinator(
             ITenantMapper tenantMapper,
             FactoryFor<IWebhookScheduler> schedulerFactory,
-            IExecutionContextManager executionContextManager
+            IExecutionContextManager executionContextManager,
+            ILogger logger
         )
         {
             _tenantMapper = tenantMapper;
             _schedulerFactory = schedulerFactory;
             _executionContextManager = executionContextManager;
+            _logger = logger;
         }
 
         class Handler {
@@ -60,6 +65,13 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             {
                 // Figure out the execution context for this event
                 var tenantId = _tenantMapper.GetTenantFor(payload.Installation);
+
+                if (tenantId == TenantId.Unknown)
+                {
+                    _logger.Warning($"GitHub installation '{payload.Installation.Id}' is not mapped to a tenant. The webhook will be ignored.");
+                    return;
+                }
+
                 _executionContextManager.CurrentFor(tenantId, deliveryId);
 
                 // Schedule the event for processing

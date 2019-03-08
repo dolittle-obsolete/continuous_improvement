@@ -21,12 +21,12 @@ namespace Read.Improvables
     public class AllImprovables : IQueryFor<ImprovableForListing>
     {
         const string _improvablesFile = "improvables.json";
-        readonly ITenantAwareFileSystem _fileSystem;
+        readonly IFiles _fileSystem;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AllImprovables"/>
         /// </summary>
-        public AllImprovables(ITenantAwareFileSystem fileSystem, ISerializer serializer)
+        public AllImprovables(IFiles fileSystem, ISerializer serializer)
         {
             _fileSystem = fileSystem;
             if (_fileSystem.Exists(_improvablesFile))

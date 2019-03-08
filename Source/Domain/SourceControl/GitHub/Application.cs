@@ -25,6 +25,11 @@ namespace Domain.SourceControl.GitHub
             );
         }
 
+        void On(InstallationUnregistered @event)
+        {
+            _installations.Remove(@event.InstallationId);
+        }
+
         void On(InstallationRepositoriesUpdateReceived @event)
         {
             var installation = _installations[@event.InstallationId];
@@ -57,6 +62,16 @@ namespace Domain.SourceControl.GitHub
                 targetType,
                 targetAccount,
                 repositories.Select(fullName => (string)fullName)
+            ));
+        }
+
+        public void UnegisterInstallation(InstallationId id)
+        {
+            if (!_installations.ContainsKey(id)) throw new Exception("Installation is not registered!");
+
+            Apply(new InstallationUnregistered(
+                id,
+                _installations[id].Repositories.Select(_ => _.Value)
             ));
         }
         public void UpdateInstallationRepositories(InstallationId id, IEnumerable<RepositoryFullName> repositoriesAdded, IEnumerable<RepositoryFullName> repositoriesRemoved)

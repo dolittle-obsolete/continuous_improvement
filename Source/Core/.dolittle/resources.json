@@ -9,6 +9,9 @@
             "host": "mongodb://localhost:27017",
             "database": "ci_read_models",
             "useSSL": false
+        },
+        "files": {
+            "rootPath": "./Data/Improvements/"
         }
     }
 }

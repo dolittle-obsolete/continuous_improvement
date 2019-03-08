@@ -13,6 +13,8 @@ export class Repositories {
     errorMessage;
     successMessage;
 
+    GITHUB_APP_INSTALL_URL = process.env.GITHUB_APP_INSTALL_URL;
+
     constructor(queryCoordinator, commandCoordinator) {
         this._queryCoordinator = queryCoordinator;
         this._commandCoordinator = commandCoordinator;
@@ -50,18 +52,6 @@ export class Repositories {
                     if (result.success) {
                         event.target.innerHTML = 'It might take a minute to refresh...'
                     }
-                });
-            }
-        });
-    }
-
-    selectInstallations() {
-        fetch('http://localhost:5000/thirdparty/github/userauth/installations').then(response => {
-            if (response.status == 401) {
-                location = 'http://localhost:5000/thirdparty/github/userauth/initiate?callback='+encodeURIComponent('http://localhost:8080/GitHub/Repositories/SelectInstallations');
-            } else {
-                response.json().then(data => {
-                    console.log('Available installations', data);
                 });
             }
         });

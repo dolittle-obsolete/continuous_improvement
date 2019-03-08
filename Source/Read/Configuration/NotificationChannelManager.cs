@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Concepts.Configuration;
+using Dolittle.IO;
 using Dolittle.IO.Tenants;
 using Dolittle.Serialization.Json;
 
@@ -17,9 +18,9 @@ namespace Read.Configuration
         const string _notificationChannelsFils = "notificationChannels.json";
         
         private readonly ISerializer _serializer;
-        private readonly ITenantAwareFileSystem _fileSystem;
+        private readonly IFiles _fileSystem;
 
-        public NotificationChannelManager(ITenantAwareFileSystem fileSystem, ISerializer serializer)
+        public NotificationChannelManager(IFiles fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
             _fileSystem = fileSystem;

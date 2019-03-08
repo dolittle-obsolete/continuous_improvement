@@ -11,7 +11,7 @@ namespace Concepts.Improvements
     /// </summary>
     public class LogParserName : ConceptAs<string>
     {
-        public LogParserName Empty { get; } = string.Empty;
+        public static LogParserName Empty { get; } = string.Empty;
 
         public LogParserName(string value) => Value = value;
 
