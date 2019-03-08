@@ -14,15 +14,18 @@ namespace Concepts.Improvements
         /// <summary>
         /// Represent an Empty / Null / Not Set StepNumber
         /// </summary>
-        /// <value></value>
-        public StepNumber Empty { get; } = int.MinValue;
+        public static StepNumber Empty { get; } = int.MinValue;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="StepNumber"/>
+        /// </summary>
+        public StepNumber() { }
 
         /// <summary>
         /// Instantiates an instance of an <see cref="StepNumber" /> with the specified value
         /// </summary>
         /// <param name="value"></param>
         public StepNumber(int value) => Value = value;
-
 
         /// <summary>
         /// Implicitly convert from <see cref="int"/> to <see cref="StepNumber"/>
