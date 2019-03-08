@@ -335,3 +335,5 @@ wwwroot
 
 yarn.lock
 package-lock.json
+
+environment.sh
