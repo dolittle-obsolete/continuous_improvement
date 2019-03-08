@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Dolittle.Booting;
+using Dolittle.Collections;
 using Dolittle.Logging;
 using Dolittle.Types;
 using Octokit;
@@ -38,23 +41,33 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             
             foreach (var handler in _handlers)
             {
-                // Get usable handler methods
-                var methods = handler.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                                     .Where(_ => _.ReturnType == typeof(void) && _.Name == "On" && _.GetParameters().Length == 1 && _.GetParameters().All(p => typeof(ActivityPayload).IsAssignableFrom(p.ParameterType)));
+                var handlerMethods = GetUsableHandlerMethods(handler);
             
-                if (methods.Count() > 0)
-                {
-                    _logger.Information($"GitHubWebHookHandlers - Type {handler.FullName} can handle webhooks");
+                if(!handlerMethods.Any())
+                    continue;
 
-                    // Register all the methods
-                    foreach (var method in methods)
-                    {
-                        var eventType = method.GetParameters().First().ParameterType;
-                        _coordinator.RegisterHandlerMethod(eventType, handler, method);
-                        _logger.Information($"GitHubWebHookHandlers - Registered {handler.FullName} for handling event {eventType.Name}");
-                    }
-                }
+                _logger.Information($"GitHubWebHookHandlers - Type {handler.FullName} can handle webhooks");
+
+                handlerMethods.ForEach(_ => RegisterHandlerMethod(_,handler));
             }
+        }
+
+        IEnumerable<MethodInfo> GetUsableHandlerMethods(Type handler)
+        {
+            return handler.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                                     .Where(_ => IsAWebHookMethod(_));
+        }
+
+        bool IsAWebHookMethod(MethodInfo methodInfo)
+        {
+            return methodInfo.ReturnType == typeof(void) && methodInfo.Name == "On" && methodInfo.GetParameters().Length == 1 && methodInfo.GetParameters().All(p => typeof(ActivityPayload).IsAssignableFrom(p.ParameterType));
+        }
+
+        void RegisterHandlerMethod(MethodInfo method, Type handler)
+        {
+            var eventType = method.GetParameters().First().ParameterType;
+            _coordinator.RegisterHandlerMethod(eventType, handler, method);
+            _logger.Information($"GitHubWebHookHandlers - Registered {handler.FullName} for handling event {eventType.Name}");
         }
     }
 }
