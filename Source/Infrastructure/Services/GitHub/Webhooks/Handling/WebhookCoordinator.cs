@@ -13,13 +13,13 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
     [Singleton]
     public class WebhookCoordinator : IWebhookCoordinator
     {
-        readonly ITenantMapper _tenantMapper;
+        readonly IInstallationToTenantMapper _tenantMapper;
         readonly FactoryFor<IWebhookScheduler> _schedulerFactory;
         readonly IExecutionContextManager _executionContextManager;
         readonly ILogger _logger;
 
         public WebhookCoordinator(
-            ITenantMapper tenantMapper,
+            IInstallationToTenantMapper tenantMapper,
             FactoryFor<IWebhookScheduler> schedulerFactory,
             IExecutionContextManager executionContextManager,
             ILogger logger
@@ -64,7 +64,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             if (_registeredHandlers.TryGetValue(payload.GetType(), out var handlers))
             {
                 // Figure out the execution context for this event
-                var tenantId = _tenantMapper.GetTenantFor(payload.Installation);
+                var tenantId = _tenantMapper.GetTenantFor(payload.Installation.Id);
 
                 if (tenantId == TenantId.Unknown)
                 {

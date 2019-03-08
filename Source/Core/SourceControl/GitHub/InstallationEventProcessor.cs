@@ -13,9 +13,9 @@ namespace Core.SourceControl.GitHub
     public class InstallationEventProcessor : ICanProcessEvents
     {
         readonly IExecutionContextManager _executionContextManager;
-        readonly ITenantMapper _tenantMapper;
+        readonly IInstallationToTenantMapper _tenantMapper;
 
-        public InstallationEventProcessor(IExecutionContextManager executionContextManager, ITenantMapper tenantMapper)
+        public InstallationEventProcessor(IExecutionContextManager executionContextManager, IInstallationToTenantMapper tenantMapper)
         {
             _executionContextManager = executionContextManager;
             _tenantMapper = tenantMapper;
