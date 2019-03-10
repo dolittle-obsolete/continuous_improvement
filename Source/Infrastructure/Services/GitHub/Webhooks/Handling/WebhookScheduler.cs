@@ -21,18 +21,18 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         readonly object _locker = new object();
         readonly Dictionary<Type, Task> _queues = new Dictionary<Type, Task>();
 
-        public void QueueWebhookEventForHandling(Type handler, MethodInfo method, ActivityPayload payload)
+        public void QueueWebhookEventForHandling(HandlerMethod handlerMethod, ActivityPayload payload)
         {
             lock (_locker)
             {
                 Task previousTask;
-                if (!_queues.TryGetValue(handler, out previousTask))
+                if (!_queues.TryGetValue(handlerMethod.Type, out previousTask))
                 {
                     previousTask = Task.CompletedTask;
                 }
-                _queues[handler] = Task.Run(async () => {
+                _queues[handlerMethod.Type] = Task.Run(async () => {
                     await previousTask;
-                    method.Invoke(_container.Get(handler), new object[] { payload } );
+                    handlerMethod.Method.Invoke(_container.Get(handlerMethod.Type), new object[] { payload } );
                 });
             }
         }

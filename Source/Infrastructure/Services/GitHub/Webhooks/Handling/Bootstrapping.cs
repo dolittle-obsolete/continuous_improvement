@@ -48,15 +48,15 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
 
                 _logger.Information($"GitHubWebHookHandlers - Type {handler.FullName} can handle webhooks");
 
-                handlerMethods.ForEach(_ => RegisterHandlerMethod(_,handler));
+                handlerMethods.ForEach(_ => RegisterHandlerMethod(_));
             }
         }
 
-        void RegisterHandlerMethod(MethodInfo method, Type handler)
+        void RegisterHandlerMethod(HandlerMethod handlerMethod)
         {
-            var eventType = method.GetParameters().First().ParameterType;
-            _registry.RegisterHandlerMethod(eventType, new HandlerMethod(handler, method));
-            _logger.Information($"GitHubWebHookHandlers - Registered {handler.FullName} for handling event {eventType.Name}");
+            var eventType = handlerMethod.Method.GetParameters().First().ParameterType;
+            _registry.RegisterHandlerMethod(eventType, handlerMethod);
+            _logger.Information($"GitHubWebHookHandlers - Registered {handlerMethod.Type.FullName} for handling event {eventType.Name}");
         }
     }
 }
