@@ -21,7 +21,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Bootstrapping.giv
     {
         protected static Mock<ILogger> logger;
         protected static Mock<IImplementationsOf<ICanHandleGitHubWebhooks>> handlers_implementations;
-        protected static Mock<IWebhookCoordinator> webhook_coordinator;
+        protected static Mock<IWebhookHandlerRegistry> webhook_handler_registry;
         protected static ICanPerformBootProcedure bootstrapper;
         protected static Mock<first_handler> first_handler;
         protected static Mock<second_handler> second_handler;
@@ -40,32 +40,15 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Bootstrapping.giv
             handlers_implementations = new Mock<IImplementationsOf<ICanHandleGitHubWebhooks>>();
             handlers_implementations.Setup(_ => _.GetEnumerator()).Returns(handlers.Select(h => h.GetType()).GetEnumerator());
 
-            webhook_coordinator = new Mock<IWebhookCoordinator>();
+            webhook_handler_registry = new Mock<IWebhookHandlerRegistry>();
             logger = new Mock<ILogger>();
 
-            bootstrapper = new Bootstrapping(logger.Object,handlers_implementations.Object,webhook_coordinator.Object);
+            bootstrapper = new Bootstrapping(logger.Object,handlers_implementations.Object,webhook_handler_registry.Object);
         };
 
-        protected static Type IsType<T>()
+        protected static HandlerMethod IsHandlerMethodForType<T>()
         {
-            return Moq.It.Is<Type>(t => typeof(T).IsAssignableFrom(t));
+            return Moq.It.Is<HandlerMethod>(hm => typeof(T).IsAssignableFrom(hm.Type));
         }
-    }
-
-    public interface first_handler : ICanHandleGitHubWebhooks
-    {
-        void On(CreateEventPayload payload);
-        void On(DeleteEventPayload payload);
-    }
-
-    public interface second_handler : ICanHandleGitHubWebhooks
-    {
-        void On(InstallationEventPayload payload);
-        void On(InstallationRepositoriesEventPayload payload);
-        void On(DeleteEventPayload payload);
-    }
-
-    public interface handler_with_no_implementations : ICanHandleGitHubWebhooks
-    {
     }
 }

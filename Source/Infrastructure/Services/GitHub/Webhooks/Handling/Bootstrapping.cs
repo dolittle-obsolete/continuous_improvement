@@ -15,17 +15,17 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
     {
         readonly ILogger _logger;
         readonly IImplementationsOf<ICanHandleGitHubWebhooks> _handlers;
-        readonly IWebhookCoordinator _coordinator;
+        readonly IWebhookHandlerRegistry _registry;
 
         public Bootstrapping(
             ILogger logger,
             IImplementationsOf<ICanHandleGitHubWebhooks> handlers,
-            IWebhookCoordinator coordinator
+            IWebhookHandlerRegistry registry
         )
         {
             _logger = logger;
             _handlers = handlers;
-            _coordinator = coordinator;
+            _registry = registry;
         }
 
         /// <inheritdoc/>
@@ -66,7 +66,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         void RegisterHandlerMethod(MethodInfo method, Type handler)
         {
             var eventType = method.GetParameters().First().ParameterType;
-            _coordinator.RegisterHandlerMethod(eventType, handler, method);
+            _registry.RegisterHandlerMethod(eventType, new HandlerMethod(handler, method));
             _logger.Information($"GitHubWebHookHandlers - Registered {handler.FullName} for handling event {eventType.Name}");
         }
     }

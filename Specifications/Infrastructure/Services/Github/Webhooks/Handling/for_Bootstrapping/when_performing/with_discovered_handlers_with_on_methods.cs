@@ -19,19 +19,19 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Bootstrapping.whe
         Because of = () => bootstrapper.Perform();
 
         It should_register_a_method_for_the_create_event_payload = 
-            () => webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(typeof(CreateEventPayload),IsType<first_handler>(),Moq.It.IsAny<MethodInfo>()),Times.Once());
+            () => webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(typeof(CreateEventPayload),IsHandlerMethodForType<first_handler>()),Times.Once());
         It should_register_two_methods_for_the_delete_event_payload = 
             () => {
-                webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(typeof(DeleteEventPayload),IsType<first_handler>(),Moq.It.IsAny<MethodInfo>()),Times.Once());
-                webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(typeof(DeleteEventPayload),IsType<second_handler>(),Moq.It.IsAny<MethodInfo>()),Times.Once());
+                webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(typeof(DeleteEventPayload),IsHandlerMethodForType<first_handler>()),Times.Once());
+                webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(typeof(DeleteEventPayload),IsHandlerMethodForType<second_handler>()),Times.Once());
             };
         It should_register_a_method_for_the_installation_event_payload = 
-            () => webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(typeof(InstallationEventPayload),IsType<second_handler>(),Moq.It.IsAny<MethodInfo>()),Times.Once());
+            () => webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(typeof(InstallationEventPayload),IsHandlerMethodForType<second_handler>()),Times.Once());
         It should_register_a_method_for_the_installation_repositories_event_payload = 
-            () => webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(typeof(InstallationRepositoriesEventPayload),IsType<second_handler>(),Moq.It.IsAny<MethodInfo>()),Times.Once()); 
+            () => webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(typeof(InstallationRepositoriesEventPayload),IsHandlerMethodForType<second_handler>()),Times.Once()); 
         It should_not_register_any_methods_for_the_implementation_with_no_methods = 
-            () => webhook_coordinator.Verify(_ => _.RegisterHandlerMethod(Moq.It.IsAny<Type>(),
-                                                                            IsType<handler_with_no_implementations>(),
-                                                                            Moq.It.IsAny<MethodInfo>()),Times.Never());       
+            () => webhook_handler_registry.Verify(_ => _.RegisterHandlerMethod(Moq.It.IsAny<Type>(),
+                                                                            IsHandlerMethodForType<handler_with_no_implementations>())
+                                                                            ,Times.Never());       
     }
 }
