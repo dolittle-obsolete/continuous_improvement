@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using Dolittle.Concepts;
 using Dolittle.Lifecycle;
+using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
@@ -38,5 +39,18 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         /// The method that handles that ActivityPayload
         /// </summary>
         public MethodInfo Method { get; set; }
+
+        public static IEnumerable<MethodInfo> GetUsableHandlerMethodsFrom(Type handler)
+        {
+            return handler.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                                     .Where(_ => IsAWebHookMethod(_));
+        }
+
+        private static bool IsAWebHookMethod(MethodInfo methodInfo)
+        {
+            return methodInfo.ReturnType == typeof(void) && methodInfo.Name == "On" 
+                                                && methodInfo.GetParameters().Length == 1 
+                                                && methodInfo.GetParameters().All(p => typeof(ActivityPayload).IsAssignableFrom(p.ParameterType));
+        }        
     }
 }

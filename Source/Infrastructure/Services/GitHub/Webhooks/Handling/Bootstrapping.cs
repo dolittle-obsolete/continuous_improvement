@@ -41,7 +41,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             
             foreach (var handler in _handlers)
             {
-                var handlerMethods = GetUsableHandlerMethods(handler);
+                var handlerMethods = HandlerMethod.GetUsableHandlerMethodsFrom(handler);
             
                 if(!handlerMethods.Any())
                     continue;
@@ -50,17 +50,6 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
 
                 handlerMethods.ForEach(_ => RegisterHandlerMethod(_,handler));
             }
-        }
-
-        IEnumerable<MethodInfo> GetUsableHandlerMethods(Type handler)
-        {
-            return handler.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                                     .Where(_ => IsAWebHookMethod(_));
-        }
-
-        bool IsAWebHookMethod(MethodInfo methodInfo)
-        {
-            return methodInfo.ReturnType == typeof(void) && methodInfo.Name == "On" && methodInfo.GetParameters().Length == 1 && methodInfo.GetParameters().All(p => typeof(ActivityPayload).IsAssignableFrom(p.ParameterType));
         }
 
         void RegisterHandlerMethod(MethodInfo method, Type handler)
