@@ -4,57 +4,70 @@
  * --------------------------------------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Dolittle.Collections;
 using Dolittle.Logging;
 
 namespace Infrastructure
 {
+
     /// <summary>
     /// Basic console logger implemenation of <see cref="ILogger" />
     /// </summary>
     public class ConsoleLogger : ILogger
     {
+        private HashSet<LogLevel> _logLevels = new HashSet<LogLevel>();
+
         /// <inheritdoc />
         public void Critical(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Critical),message);
+            Output(LogLevel.Critical,message);
         }
 
         /// <inheritdoc />
         public void Debug(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Debug),message);
+            Output(LogLevel.Debug,message);
         }
 
         /// <inheritdoc />
         public void Error(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Error),message);
+            Output(LogLevel.Error,message);
         }
        /// <inheritdoc />
         public void Error(Exception exception, string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Error),message, exception);
+            Output(LogLevel.Error,message, exception);
         }
         /// <inheritdoc />
         public void Information(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Information),message);
+            Output(LogLevel.Info,message);
         }
         /// <inheritdoc />
         public void Trace(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Trace),message);
+            Output(LogLevel.Trace,message);
         }
         /// <inheritdoc />
         public void Warning(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
-            Output(nameof(Warning),message);
+            Output(LogLevel.Warning,message);
         }
 
-        void Output(string label, string message, Exception ex = null)
+        void Output(LogLevel level, string message, Exception ex = null)
         {
-            Console.WriteLine($"{DateTime.UtcNow.ToString()} {label} {message} {ex?.ToString() ?? ""}");
+            if(!_logLevels.Contains(level))
+                return;
+            Console.WriteLine($"{DateTime.UtcNow.ToString()} {level} {message} {ex?.ToString() ?? ""}");
+        }
+
+        public void Enable(params LogLevel[] levels)
+        {
+            levels.Distinct().ForEach(_ => _logLevels.Add(_));
         }
     }
 }
