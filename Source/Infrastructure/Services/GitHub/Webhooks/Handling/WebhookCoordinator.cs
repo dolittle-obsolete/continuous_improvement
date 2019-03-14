@@ -35,11 +35,6 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             _handlerRegistry = handlerRegistry;
         }
 
-        class Handler {
-            public Type Type { get; set; }
-            public MethodInfo Method { get; set; }
-        }
-
         /// <inheritdoc />
         public bool WillHandle<T>() where T : ActivityPayload
         {

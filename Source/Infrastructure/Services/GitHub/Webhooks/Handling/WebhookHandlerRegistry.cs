@@ -14,7 +14,7 @@ using Dolittle.Lifecycle;
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
 
-    [Singleton]
+    [SingletonPerTenant]
     public class WebhookHandlerRegistry : IWebhookHandlerRegistry
     {
         private readonly ConcurrentDictionary<Type, ConcurrentBag<HandlerMethod>> _registeredHandlers;
