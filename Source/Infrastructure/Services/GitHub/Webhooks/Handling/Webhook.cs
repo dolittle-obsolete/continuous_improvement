@@ -44,17 +44,6 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         public ActivityPayload Payload { get; }
 
         /// <summary>
-        /// Indicates whether the HandlerMethod is an async method
-        /// </summary>
-        /// <returns>True if async, false otherwise</returns>
-        public bool IsAsyncMethod()
-        {
-            Type attType = typeof(AsyncStateMachineAttribute);
-            var attrib = (AsyncStateMachineAttribute)Handler.Method.GetCustomAttribute(attType);
-            return (attrib != null);
-        }
-
-        /// <summary>
         /// Returns a string representation of the <see cref="Webhook" />
         /// </summary>
         /// <returns></returns>

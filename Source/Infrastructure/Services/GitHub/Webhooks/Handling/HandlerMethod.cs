@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Dolittle.Concepts;
 using Dolittle.Lifecycle;
 using Octokit;
@@ -53,7 +54,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
 
         private static bool IsAWebHookMethod(MethodInfo methodInfo)
         {
-            return methodInfo.ReturnType == typeof(void) && methodInfo.Name == "On" 
+            return (methodInfo.ReturnType == typeof(void) || methodInfo.ReturnType == typeof(Task)) && methodInfo.Name == "On" 
                                                 && methodInfo.GetParameters().Length == 1 
                                                 && methodInfo.GetParameters().All(p => typeof(ActivityPayload).IsAssignableFrom(p.ParameterType));
         }        
