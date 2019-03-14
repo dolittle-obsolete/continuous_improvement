@@ -23,7 +23,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
             scheduler = new WebhookScheduler(processor.Object, new ConsoleLogger());
         };
 
-        protected static Webhook BuildWebhookOperation(Payload payload)
+        protected static Webhook BuildWebhook(Payload payload)
         {
             var type = typeof(first_handler);
             return new Webhook(new HandlerMethod(type, type.GetMethods().First()),payload);

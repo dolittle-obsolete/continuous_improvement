@@ -40,28 +40,26 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         }
 
         /// <inheritdoc />
-        public void QueueWebhookEventForHandling(HandlerMethod handlerMethod, ActivityPayload payload)
+        public void QueueWebhookEventForHandling(Webhook webhook)
         {
-            var info = $"Webhook for '{payload?.GetType().FullName ?? "NULL"}' on '{handlerMethod?.Type.FullName ?? "[NULL]"}:{handlerMethod?.Method.Name ?? "[NULL]"}'";
-            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULING: {info}");
-            _blockingCollection.Add(new Webhook(handlerMethod,payload));
-            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULED: {info}");
+            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULING: {webhook}");
+            _blockingCollection.Add(webhook);
+            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULED: {webhook}");
         }
 
         async Task Process()
         {
-            foreach (var operation in _blockingCollection.GetConsumingEnumerable())
+            foreach (var webhook in _blockingCollection.GetConsumingEnumerable())
             {
-                var info = $"Operation for '{operation?.Payload.GetType().FullName ?? "NULL"}' on '{operation?.Handler?.Type.FullName ?? "[NULL]"}:{operation?.Handler?.Method.Name ?? "[NULL]"}'";
-                _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSING: {info}");
+                _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSING: {webhook}");
                 try
                 {
-                    await _processor.Process(operation);
-                    _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSED: {info}");
+                    await _processor.Process(webhook);
+                    _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSED: {webhook}");
                 }
                 catch(Exception ex)
                 {
-                    _logger.Error(ex,"ERROR", info);
+                    _logger.Error(ex,"ERROR", webhook.ToString());
                 }
             }
         }

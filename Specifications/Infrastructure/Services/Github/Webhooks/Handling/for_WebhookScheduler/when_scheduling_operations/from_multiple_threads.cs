@@ -12,6 +12,7 @@ using Machine.Specifications;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.when_scheduling_operations
 {
+    [Subject(typeof(IWebhookScheduler),"QueueWebhookEventForHandling")]
     public class from_multiple_threads : given.a_webhook_scheduler_handler
     {
         static object locker = new object();
@@ -54,8 +55,8 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         {
             lock(locker)
             {
-                var operation = BuildWebhookOperation(new given.Payload(counter));
-                scheduler.QueueWebhookEventForHandling(operation.Handler,operation.Payload);
+                var operation = BuildWebhook(new given.Payload(counter));
+                scheduler.QueueWebhookEventForHandling(new Webhook(operation.Handler,operation.Payload));
                 Interlocked.Increment(ref counter);
             }
         }

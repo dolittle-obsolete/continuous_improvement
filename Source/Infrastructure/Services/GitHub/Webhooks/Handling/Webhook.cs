@@ -53,5 +53,14 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             var attrib = (AsyncStateMachineAttribute)Handler.Method.GetCustomAttribute(attType);
             return (attrib != null);
         }
+
+        /// <summary>
+        /// Returns a string representation of the <see cref="Webhook" />
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"Webhook for '{this.Payload?.GetType().FullName ?? "NULL"}' on '{this.Handler?.Type.FullName ?? "[NULL]"}:{this.Handler?.Method.Name ?? "[NULL]"}'";
+        }
     }
 }

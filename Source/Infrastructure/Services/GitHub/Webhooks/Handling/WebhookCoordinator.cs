@@ -62,7 +62,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
                 var scheduler = _schedulerFactory();
                 foreach (var handler in handlerMethods)
                 {
-                    scheduler.QueueWebhookEventForHandling(handler, payload);
+                    scheduler.QueueWebhookEventForHandling(new Webhook(handler,payload));
                 }
             }
         }

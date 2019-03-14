@@ -38,7 +38,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.when_
         It should_set_the_correct_tenant_scope = () => execution_context_manager.Verify(_ => _.CurrentFor(tenant,delivery_id,Moq.It.IsAny<string>(),Moq.It.IsAny<int>(),Moq.It.IsAny<string>()));
         It should_schedule_each_registered_handler_method = () => 
         {
-            handler_methods.ForEach(_ => scheduler.Verify(s => s.QueueWebhookEventForHandling(_,payload_event),Times.Once()));
+            handler_methods.ForEach(_ => scheduler.Verify(s => s.QueueWebhookEventForHandling(Moq.It.Is<Webhook>((wh) => wh.Handler == _ && wh.Payload == payload_event)),Times.Once()));
         };
      }
 }

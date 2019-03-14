@@ -27,6 +27,6 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.when_
 
         Because of = () => coordinator.HandleWebhookPayload(payload_event,delivery_id);
 
-        It should_not_schedule_any_handlers = () => scheduler.Verify(_ => _.QueueWebhookEventForHandling(Moq.It.IsAny<HandlerMethod>(),Moq.It.IsAny<ActivityPayload>()),Moq.Times.Never());
+        It should_not_schedule_any_handlers = () => scheduler.Verify(_ => _.QueueWebhookEventForHandling(Moq.It.IsAny<Webhook>()),Moq.Times.Never());
     }
 }
