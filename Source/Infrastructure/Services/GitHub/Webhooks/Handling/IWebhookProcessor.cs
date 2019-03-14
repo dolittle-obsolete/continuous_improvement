@@ -2,24 +2,23 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  * --------------------------------------------------------------------------------------------*/
+
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using Dolittle.Booting;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using Dolittle.DependencyInversion;
+using Dolittle.Lifecycle;
 using Dolittle.Logging;
-using Dolittle.Types;
-using Infrastructure.Services.Github.Webhooks.EventPayloads;
-using Machine.Specifications;
-using Moq;
 using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
 
-    public interface second_handler : ICanHandleGitHubWebhooks
+    public interface IWebhookProcessor
     {
-        void On(InstallationEventPayload payload);
-        void On(InstallationRepositoriesEventPayload payload);
-        void On(DeleteEventPayload payload);
+        Task Process(Webhook webhookOperation);
     }
 }
