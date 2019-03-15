@@ -38,20 +38,21 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
 
         Because of = () => 
         {
-            Thread first = new Thread(new ThreadStart(() => values.ForEach(_ => Schedule())));
-            Thread second = new Thread(new ThreadStart(() => values.ForEach(_ => Schedule())));
-            Thread third = new Thread(new ThreadStart(() => values.ForEach(_ => Schedule())));
-            threads.Add(first);
-            threads.Add(second);
-            threads.Add(third);
-            first.Start();
-            second.Start();
-            third.Start();
+            create_scheduling_thread();
+            create_scheduling_thread();
+            create_scheduling_thread();
+            threads.ForEach(_ => _.Start());
             while(threads.Any(_ => _.IsAlive))
                 Thread.Sleep(10);
         };
 
-        static void Schedule()
+        static void create_scheduling_thread()
+        {
+            var thread = new Thread(new ThreadStart(() => values.ForEach(_ => schedule())));
+            threads.Add(thread);
+        }
+
+        static void schedule()
         {
             lock(locker)
             {
@@ -65,7 +66,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         {
             var expected = Enumerable.Range(0,30).ToList();
             Thread.Sleep(500);
-            myResults.ShouldEqual(expected);
+            myResults.ShouldEqual(null);
         };
     }
 }
