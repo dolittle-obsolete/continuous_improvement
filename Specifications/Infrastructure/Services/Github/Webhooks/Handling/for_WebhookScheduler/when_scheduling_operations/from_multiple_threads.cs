@@ -15,20 +15,15 @@ using It = Machine.Specifications.It;
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.when_scheduling_operations
 {
     [Subject(typeof(IWebhookScheduler),"QueueWebhookEventForHandling")]
-    public class from_multiple_threads 
+    public class from_multiple_threads : given.a_webhook_scheduler_for<from_multiple_threads>
     {
         static object locker = new object();
         static List<int> values;
         static List<Thread> threads;
         static List<int> myResults;
-        static IWebhookScheduler scheduler;
-        static Mock<IWebhookProcessor> processor;
         static int counter = 0;
         Establish context = () => 
         {
-            var dependencies = given.dependencies.get();
-            scheduler = dependencies.scheduler;
-            processor = dependencies.processor;
             values = Enumerable.Range(0,10).ToList();
             myResults = new List<int>();
             threads = new List<Thread>();
@@ -60,7 +55,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         {
             lock(locker)
             {
-                var operation = given.dependencies.build_webhook(new given.Payload(counter));
+                var operation = given.a.webhook_from(new given.Payload(counter));
                 scheduler.QueueWebhookEventForHandling(new Webhook(operation.Handler,operation.Payload));
                 Interlocked.Increment(ref counter);
             }

@@ -15,20 +15,14 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
 {
     [Subject(typeof(IWebhookScheduler),"QueueWebhookEventForHandling")]
     public class and_there_are_multiple_successful_operations 
+        : given.a_webhook_scheduler_for<and_there_are_multiple_successful_operations>
     {
         static List<int> values;
         static List<given.Payload> payloads;
         static List<int> results;
 
-        static IWebhookScheduler scheduler;
-        static Mock<IWebhookProcessor> processor;
-
         Establish context = () => 
         {
-            var dependencies = given.dependencies.get();
-            scheduler = dependencies.scheduler;
-            processor = dependencies.processor;
-
             values = Enumerable.Range(0,10).ToList();
             results = new List<int>();
             payloads = new List<given.Payload>();
@@ -47,7 +41,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         {
             payloads.ForEach(_ => 
             {
-                var webhook = given.dependencies.build_webhook(_);
+                var webhook = given.a.webhook_from(_);
                 scheduler.QueueWebhookEventForHandling(webhook);
             });
         };
