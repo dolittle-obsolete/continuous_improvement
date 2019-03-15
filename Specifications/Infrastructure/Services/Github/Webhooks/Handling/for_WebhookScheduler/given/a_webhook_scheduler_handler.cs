@@ -12,21 +12,27 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.given
 {
-    public class a_webhook_scheduler_handler
+    public class dependencies
     {
-        protected static IWebhookScheduler scheduler;
-        protected static Mock<IWebhookProcessor> processor;
-
-        Establish context = () => 
+        private dependencies(IWebhookScheduler s, Mock<IWebhookProcessor> p)
         {
-            processor = new Mock<IWebhookProcessor>();
-            scheduler = new WebhookScheduler(processor.Object, new ConsoleLogger());
-        };
+            scheduler = s;
+            processor = p;
+        }
+        public IWebhookScheduler scheduler { get; }
+        public Mock<IWebhookProcessor> processor { get; }
 
-        protected static Webhook BuildWebhook(Payload payload)
+        public static dependencies get()
+        {
+            var processor = new Mock<IWebhookProcessor>();
+            var scheduler = new WebhookScheduler(processor.Object, new ConsoleLogger());
+            return new dependencies(scheduler, processor);
+        }
+
+        public static Webhook build_webhook(Payload payload)
         {
             var type = typeof(first_handler);
-            return new Webhook(new HandlerMethod(type, type.GetMethods().First()),payload);
+            return new Webhook(new HandlerMethod(type, type.GetMethods().First()), payload);
         }
     }
 

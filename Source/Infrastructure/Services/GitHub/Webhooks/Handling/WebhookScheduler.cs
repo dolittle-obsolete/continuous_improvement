@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Dolittle.DependencyInversion;
 using Dolittle.Lifecycle;
@@ -36,7 +37,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             _blockingCollection = new BlockingCollection<Webhook>();
             _processor = processor;
             _logger = logger;
-            Task.Run(async () => await Process());
+            Task.Run(async () => await Process().ConfigureAwait(false));
         }
 
         /// <inheritdoc />
@@ -54,7 +55,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
                 _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSING: {webhook}");
                 try
                 {
-                    await _processor.Process(webhook);
+                    await _processor.Process(webhook).ConfigureAwait(false);
                     _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSED: {webhook}");
                 }
                 catch(Exception ex)
