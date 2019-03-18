@@ -67,7 +67,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         {
             var expected = Enumerable.Range(0, 30).ToList();
             Thread.Sleep(500);
-            myResults.ShouldEqual(null);
+            myResults.ShouldEqual(expected);
         };
     }
 }
