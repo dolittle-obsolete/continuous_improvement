@@ -14,7 +14,7 @@ using It = Machine.Specifications.It;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.when_scheduling_operations
 {
-    [Subject(typeof(IWebhookScheduler),"QueueWebhookEventForHandling")]
+    [Subject(typeof(IWebhookScheduler), "QueueWebhookEventForHandling")]
     public class from_multiple_threads : given.a_webhook_scheduler_for<from_multiple_threads>
     {
         static object locker = new object();
@@ -22,27 +22,28 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
         static List<Thread> threads;
         static List<int> myResults;
         static int counter = 0;
-        Establish context = () => 
+        Establish context = () =>
         {
-            values = Enumerable.Range(0,10).ToList();
+            values = Enumerable.Range(0, 10).ToList();
             myResults = new List<int>();
             threads = new List<Thread>();
 
             processor.Setup(_ => _.Process(Moq.It.IsAny<Webhook>()))
-                .Returns(async(Webhook _) => {
+                .Returns(async(Webhook _) =>
+                {
                     await Task.Delay(10);
                     var payload = (given.Payload)_.Payload;
                     myResults.Add(payload.Number);
                 });
         };
 
-        Because of = () => 
+        Because of = () =>
         {
             create_scheduling_thread();
             create_scheduling_thread();
             create_scheduling_thread();
             threads.ForEach(_ => _.Start());
-            while(threads.Any(_ => _.IsAlive))
+            while (threads.Any(_ => _.IsAlive))
                 Thread.Sleep(10);
         };
 
@@ -57,14 +58,14 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
             lock(locker)
             {
                 var operation = given.a.webhook_from(new given.Payload(counter));
-                scheduler.QueueWebhookEventForHandling(new Webhook(operation.Handler,operation.Payload));
+                scheduler.QueueWebhookEventForHandling(new Webhook(operation.Handler, operation.Payload));
                 Interlocked.Increment(ref counter);
             }
         }
 
-        It should_process_all_webhooks_in_the_order_in_which_they_are_scheduled = () => 
+        It should_process_all_webhooks_in_the_order_in_which_they_are_scheduled = () =>
         {
-            var expected = Enumerable.Range(0,30).ToList();
+            var expected = Enumerable.Range(0, 30).ToList();
             Thread.Sleep(500);
             myResults.ShouldEqual(null);
         };

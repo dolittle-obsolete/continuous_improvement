@@ -29,7 +29,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_TenantMapper.give
         protected static long installation_three;
         protected static long installation_that_does_not_exist;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             tenant_with_no_installations = Guid.NewGuid();
             tenant_with_single_installation = Guid.NewGuid();
@@ -40,20 +40,19 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_TenantMapper.give
             installation_that_does_not_exist = 100;
 
             var tenants = new Dictionary<long, Guid>
-            {
-                { installation_one, tenant_with_single_installation },
-                { installation_two, tenant_with_multiple_installations },
-                { installation_three, tenant_with_multiple_installations }
-            };
+                { { installation_one, tenant_with_single_installation },
+                    { installation_two, tenant_with_multiple_installations },
+                    { installation_three, tenant_with_multiple_installations }
+                };
             mapped_tenants = new ConcurrentDictionary<long, Guid>(tenants);
 
             serializer = new Mock<ISerializer>();
             file_system = new Mock<IFileSystem>();
             file_system.Setup(_ => _.ReadAllText(Moq.It.IsAny<string>())).Returns(file_contents);
-            serializer.Setup(_ => _.FromJson<ConcurrentDictionary<long,Guid>>(file_contents,null)).Returns(mapped_tenants);
-            serializer.Setup(_ => _.ToJson(mapped_tenants,null)).Returns(file_contents);
+            serializer.Setup(_ => _.FromJson<ConcurrentDictionary<long, Guid>>(file_contents, null)).Returns(mapped_tenants);
+            serializer.Setup(_ => _.ToJson(mapped_tenants, null)).Returns(file_contents);
 
-            mapper = new InstallationToTenantMapper(serializer.Object,file_system.Object);
+            mapper = new InstallationToTenantMapper(serializer.Object, file_system.Object);
         };
     }
 }

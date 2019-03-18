@@ -2,12 +2,12 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  * --------------------------------------------------------------------------------------------*/
-using Machine.Specifications;
-using Moq;
-using Infrastructure.Services.Github.Webhooks.Handling;
+using System;
 using Dolittle.Execution;
 using Dolittle.Logging;
-using System;
+using Infrastructure.Services.Github.Webhooks.Handling;
+using Machine.Specifications;
+using Moq;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.given
 {
@@ -22,7 +22,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.given
         protected static Mock<ILogger> logger;
         protected static Guid delivery_id;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             delivery_id = Guid.NewGuid();
             installation_tenant_mapper = new Mock<IInstallationToTenantMapper>();
@@ -32,10 +32,10 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.given
             logger = new Mock<ILogger>();
 
             coordinator = new WebhookCoordinator(installation_tenant_mapper.Object,
-                                                    () => scheduler.Object,
-                                                    execution_context_manager.Object,
-                                                    registry.Object,
-                                                    logger.Object);
+                () => scheduler.Object,
+                execution_context_manager.Object,
+                registry.Object,
+                logger.Object);
         };
     }
 }

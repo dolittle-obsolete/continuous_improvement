@@ -18,15 +18,15 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookProcessor.
         protected static IWebhookProcessor processor;
         protected static Mock<IContainer> container;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             container = new Mock<IContainer>();
             processor = new WebhookProcessor(container.Object);
         };
 
-        protected static Webhook BuildWebhook<T>(ActivityPayload payload) where T : ICanHandleGitHubWebhooks
+        protected static Webhook BuildWebhook<T>(ActivityPayload payload)where T : ICanHandleGitHubWebhooks
         {
-            return new Webhook(HandlerMethod.GetUsableHandlerMethodsFrom(typeof(T)).First(),payload);
+            return new Webhook(HandlerMethod.GetUsableHandlerMethodsFrom(typeof(T)).First(), payload);
         }
     }
 }

@@ -19,28 +19,28 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_TenantMapper.when
         static TenantId new_tenant;
         static IEnumerable<InstallationId> mapped_installations;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             new_installation = 10;
         };
 
-        Because of = () => 
+        Because of = () =>
         {
             new_tenant = Guid.NewGuid();
             mapper.AssociateTenantWithInstallation(new_installation, new_tenant);
             mapped_installations = mapper.GetInstallationsFor(new_tenant);
         };
-        
-        It should_add_a_second_installation_mapping = () => 
-        { 
+
+        It should_add_a_second_installation_mapping = () =>
+        {
             mapped_installations.Count().ShouldEqual(1);
             mapped_installations.First().ShouldEqual(new_installation);
-        };    
+        };
 
-        It should_update_the_installation_tenant_mapping_file = () => 
+        It should_update_the_installation_tenant_mapping_file = () =>
         {
-            serializer.Verify(_ => _.ToJson(mapped_tenants, null),Moq.Times.Once());
-            file_system.Verify(_ => _.WriteAllText(Moq.It.IsAny<string>(),file_contents));
-        };    
+            serializer.Verify(_ => _.ToJson(mapped_tenants, null), Moq.Times.Once());
+            file_system.Verify(_ => _.WriteAllText(Moq.It.IsAny<string>(), file_contents));
+        };
     }
 }

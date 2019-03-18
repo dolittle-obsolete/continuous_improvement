@@ -9,7 +9,6 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookProcessor.given
 {
-
     public class task_webhook_handler : ICanHandleGitHubWebhooks
     {
         public ActivityPayload CalledWithPayload { get; private set; }

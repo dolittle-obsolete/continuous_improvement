@@ -12,9 +12,9 @@ using Dolittle.Logging;
 
 namespace Infrastructure
 {
-
     /// <summary>
     /// Basic console logger implemenation of <see cref="ILogger" />
+    /// TODO: we probably need a testing ILogger implementation as part of the testing helpers
     /// </summary>
     public class ConsoleLogger : ILogger
     {

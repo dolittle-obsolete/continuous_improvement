@@ -8,11 +8,11 @@ using Machine.Specifications;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_Coordinator.when_checking_will_handle
 {
-    [Subject(typeof(IWebhookCoordinator),"WillHandle")]
+    [Subject(typeof(IWebhookCoordinator), "WillHandle")]
     public class for_a_type_with_registered_handlers : given.a_webhook_coordinator
     {
         static bool will_handle;
-        Establish context = () => 
+        Establish context = () =>
         {
             registry.Setup(_ => _.GetHandlersFor(typeof(CreateEventPayload))).Returns(HandlerMethod.GetUsableHandlerMethodsFrom(typeof(first_handler)));
         };

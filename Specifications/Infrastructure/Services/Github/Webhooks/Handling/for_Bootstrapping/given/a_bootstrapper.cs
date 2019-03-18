@@ -3,7 +3,6 @@
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  * --------------------------------------------------------------------------------------------*/
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +27,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Bootstrapping.giv
         protected static Mock<handler_with_no_implementations> handler_with_no_implementations;
         protected static List<ICanHandleGitHubWebhooks> handlers;
 
-        Establish context = () => 
+        Establish context = () =>
         {
             first_handler = new Mock<first_handler>();
             second_handler = new Mock<second_handler>();
@@ -43,7 +42,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_Bootstrapping.giv
             webhook_handler_registry = new Mock<IWebhookHandlerRegistry>();
             logger = new Mock<ILogger>();
 
-            bootstrapper = new Bootstrapping(logger.Object,handlers_implementations.Object,webhook_handler_registry.Object);
+            bootstrapper = new Bootstrapping(logger.Object, handlers_implementations.Object, webhook_handler_registry.Object);
         };
 
         protected static HandlerMethod IsHandlerMethodForType<T>()

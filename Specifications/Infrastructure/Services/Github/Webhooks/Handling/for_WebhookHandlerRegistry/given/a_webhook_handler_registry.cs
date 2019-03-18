@@ -2,10 +2,10 @@
  *  Copyright (c) Dolittle. All rights reserved.
  *  Licensed under the MIT License. See LICENSE in the project root for license information.
  * --------------------------------------------------------------------------------------------*/
+using System.Linq;
+using Infrastructure.Services.Github.Webhooks.Handling;
 using Machine.Specifications;
 using Moq;
-using Infrastructure.Services.Github.Webhooks.Handling;
-using System.Linq;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookHandlerRegistry.given
 {
@@ -17,7 +17,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookHandlerReg
 
         protected static HandlerMethod create_from<T>()
         {
-            return new HandlerMethod(typeof(T),typeof(T).GetMethods().First());
+            return new HandlerMethod(typeof(T), typeof(T).GetMethods().First());
         }
     }
 }
