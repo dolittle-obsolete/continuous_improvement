@@ -67,15 +67,32 @@ namespace Concepts.Improvements
         /// <param name="value"></param>
         public static implicit operator StepId(string value) => new StepId(value);
 
+        /// <summary>
+        /// Gets the <see cref="StepNumber" /> from this Id
+        /// </summary>
         public StepNumber StepNumber { get; }
+        /// <summary>
+        /// Gets the <see cref="StepNumber">Substep Number</see>from this Id
+        /// </summary>
         public StepNumber SubStepNumber { get; }
+        /// <summary>
+        /// Gets the Container from this Id
+        /// </summary>
         public string Container { get; }
 
+        /// <summary>
+        /// Generates a string representation of this Id
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"step-{StepNumber}-{SubStepNumber}-{Container??string.Empty}";
         }
 
+        /// <summary>
+        /// Indicates whether this is a valid Id.
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid()
         {
             return StepNumber != StepNumber.Empty;

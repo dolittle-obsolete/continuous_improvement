@@ -11,7 +11,6 @@ namespace Concepts.Improvables
     /// <summary>
     /// Encapsulates a Unique Identifier
     /// </summary>
-    /// <typeparam name="Guid"></typeparam>
     public class ImprovableId : ConceptAs<Guid>
     {
         /// <summary>
@@ -28,7 +27,6 @@ namespace Concepts.Improvables
         /// <summary>
         /// Instantiates an instance of an <see cref="ImprovableId" /> with the generated value
         /// </summary>
-        /// <param name="value"></param>
         public ImprovableId() => Value = Guid.NewGuid();
 
         /// <summary>

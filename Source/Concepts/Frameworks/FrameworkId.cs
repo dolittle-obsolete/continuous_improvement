@@ -11,7 +11,6 @@ namespace Concepts.Frameworks
     /// <summary>
     /// Encapsulates a Unique Identifier
     /// </summary>
-    /// <typeparam name="Guid"></typeparam>
     public class FrameworkId : ConceptAs<Guid>
     {
         /// <summary>

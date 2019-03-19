@@ -11,7 +11,6 @@ namespace Concepts.Improvements
     /// <summary>
     /// Encapsulates a Unique Identifier
     /// </summary>
-    /// <typeparam name="Guid"></typeparam>
     public class ImprovementId : ConceptAs<Guid>
     {
         /// <summary>
