@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,12 +14,21 @@ using Events.SourceControl.GitHub;
 
 namespace Read.SourceControl.GitHub
 {
+    /// <summary>
+    /// Event processor for installation events
+    /// </summary>
     public class RepositoriesEventProcessor : ICanProcessEvents
     {
         readonly IReadModelRepositoryFor<RepositoriesList> _repositoryForRepositoriesList;
         readonly IReadModelRepositoryFor<InstallationsList> _repositoryForInstallationsList;
         readonly IReadModelRepositoryFor<InstallationRepositories> _repositoryForInstallationRepositories;
 
+        /// <summary>
+        /// Instantiates a new instance of <see cref="RepositoriesEventProcessor" />
+        /// </summary>
+        /// <param name="repositoryForRepositoriesList">repository to get list of repositories</param>
+        /// <param name="repositoryForInstallationsList"> repositoryt to get list of installations</param>
+        /// <param name="repositoryForInstallationRepositories">repository to get a list of repositories for installations</param>
         public RepositoriesEventProcessor(
             IReadModelRepositoryFor<RepositoriesList> repositoryForRepositoriesList,
             IReadModelRepositoryFor<InstallationsList> repositoryForInstallationsList,
@@ -36,6 +50,7 @@ namespace Read.SourceControl.GitHub
             }
         }
         
+        /// <inheritdoc />
         [EventProcessor("3bd53c12-137b-ae5d-fc7a-5670f75cf402")]
         public void Process(InstallationRegistered @event)
         {
@@ -53,6 +68,7 @@ namespace Read.SourceControl.GitHub
             });
         }
 
+        /// <inheritdoc />
         [EventProcessor("2d8914cf-176b-4198-ac14-dd9871c4fa3c")]
         public void Process(InstallationUnregistered @event)
         {
@@ -69,6 +85,7 @@ namespace Read.SourceControl.GitHub
             });
         }
         
+        /// <inheritdoc />
         [EventProcessor("6ba34f84-bc4e-2900-9193-960358b8d4a2")]
         public void Process(InstallationRepositoriesUpdateReceived @event)
         {
@@ -97,6 +114,7 @@ namespace Read.SourceControl.GitHub
             _repositoryForInstallationRepositories.Update(installation);
         }
 
+        /// <inheritdoc />
         [EventProcessor("fb15250a-ff40-4161-916a-8565bee547af")]
         public void Process(InstallationRepositoriesRefreshed @event)
         {

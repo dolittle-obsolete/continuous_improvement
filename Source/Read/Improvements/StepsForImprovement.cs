@@ -18,7 +18,7 @@ using Dolittle.Serialization.Json;
 namespace Read.Improvements
 {
     /// <summary>
-    /// 
+    /// Gets the steps for an improvement
     /// </summary>
     public class StepsForImprovement : IQueryFor<Step>
     {
@@ -26,8 +26,9 @@ namespace Read.Improvements
         readonly ISerializer _serializer;
 
         /// <summary>
-        /// 
+        /// Instantiates an instance of <see cref="StepsForImprovement" />
         /// </summary>
+        /// <param name="fileSystem">A file system wrapper</param>
         /// <param name="serializer"><see cref="ISerializer">Json Serializer</see></param>
         public StepsForImprovement(IFiles fileSystem, ISerializer serializer)
         {
@@ -36,18 +37,16 @@ namespace Read.Improvements
         }
 
         /// <summary>
-        /// 
+        /// The improvable being improved
         /// </summary>
         public ImprovableId Improvable { get; set; }
 
         /// <summary>
-        /// 
+        /// The version associated with the improvement
         /// </summary>
         public Concepts.Version Version { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public IQueryable<Step> Query
         {
             get 

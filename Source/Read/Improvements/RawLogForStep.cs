@@ -21,23 +21,27 @@ namespace Read.Improvements
     {
         readonly IFiles _fileSystem;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="RawLogForStep" />
+        /// </summary>
+        /// <param name="fileSystem"></param>
         public RawLogForStep(IFiles fileSystem)
         {
             _fileSystem = fileSystem;
         }
 
         /// <summary>
-        /// 
+        /// The improvable the step is improving
         /// </summary>
         public ImprovableId Improvable {  get; set; }
 
         /// <summary>
-        /// 
+        /// The version of the improvement
         /// </summary>
         public Concepts.Version Version {  get; set; }
 
         /// <summary>
-        /// 
+        /// The Step Number that the log message refers to
         /// </summary>
         public StepNumber Number {  get; set; }
 

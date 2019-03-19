@@ -9,12 +9,12 @@ using Dolittle.ReadModels;
 namespace Read.Improvables
 {
     /// <summary>
-    /// Represents a project
+    /// Represents an ImprovableFor
     /// </summary>
     public class ImprovableForListing : IReadModel
     {
         /// <summary>
-        /// Gets or sets the <see cref="ImprovementConfigurationId"/> of the <see cref="Project"/>
+        /// Gets or sets the <see cref="ImprovableId"/> of the <see cref="Improvable"/>
         /// </summary>
         public ImprovableId Id { get; set; }
 

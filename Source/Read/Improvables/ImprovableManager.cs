@@ -13,6 +13,7 @@ using Dolittle.Serialization.Json;
 
 namespace Read.Improvables
 {
+    /// <inheritdoc />
     public class ImprovableManager : IImprovableManager
     {
         const string _improvablesFile = "improvables.json";
@@ -22,6 +23,12 @@ namespace Read.Improvables
         private readonly IRecipeManager _recipeManager;
         private readonly IFiles _fileSystem;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="ImprovableManager" />
+        /// </summary>
+        /// <param name="fileSystem">A file system wrapper</param>
+        /// <param name="serializer">A serializer</param>
+        /// <param name="recipeManager">A recipe manager</param>
         public ImprovableManager(IFiles fileSystem, ISerializer serializer, IRecipeManager recipeManager)
         {
             _serializer = serializer;
@@ -29,6 +36,7 @@ namespace Read.Improvables
             _fileSystem = fileSystem;
         }
         
+        /// <inheritdoc />
         public IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId)
         {
             if (_fileSystem.Exists(_improvablesFile))
@@ -42,6 +50,7 @@ namespace Read.Improvables
             }
         }
 
+        /// <inheritdoc />
         public Improvable GetById(ImprovableId improvableId)
         {
             var improvableFile = Path.Combine(improvableId.ToString(), _improvableFile);
@@ -50,6 +59,7 @@ namespace Read.Improvables
             return improvable;
         }
 
+        /// <inheritdoc />
         public ExpandedImprovable GetExpandedById(ImprovableId improvableId)
         {
             var improvable = GetById(improvableId);
@@ -64,7 +74,7 @@ namespace Read.Improvables
             return expandedImprovable;
         }
 
-
+        /// <inheritdoc />
         public void Save(Improvable improvable)
         {
             var improvableFile = Path.Combine(improvable.Id.ToString(), _improvableFile);
