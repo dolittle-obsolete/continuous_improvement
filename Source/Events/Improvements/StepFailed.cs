@@ -7,13 +7,19 @@ using Dolittle.Events;
 
 namespace Events.Improvements
 {
+    /// <summary>
+    /// Records that a Step failed
+    /// </summary>
     public class StepFailed : IEvent
     {
-        public StepFailed(int stepNumber)
-        {
-            StepNumber = stepNumber;
-        }
-
+        /// <summary>
+        /// Instantiates a new instance of <see cref="StepFailed" />
+        /// </summary>
+        /// <param name="stepNumber">The Step Number that failed</param>
+        public StepFailed(int stepNumber) => StepNumber = stepNumber;
+        /// <summary>
+        /// The Step Number that failed
+        /// </summary>
         public int StepNumber { get; }
     }
 }
