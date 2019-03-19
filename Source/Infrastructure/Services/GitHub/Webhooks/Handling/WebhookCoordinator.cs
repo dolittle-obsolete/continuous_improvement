@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +16,7 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
+    /// <inheritdoc />
     [Singleton]
     public class WebhookCoordinator : IWebhookCoordinator
     {
@@ -19,7 +25,14 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         readonly IExecutionContextManager _executionContextManager;
         readonly ILogger _logger;
         private readonly IWebhookHandlerRegistry _handlerRegistry;
-
+        /// <summary>
+        /// Instantiates an instance of <see cref="WebhookCoordinator" />
+        /// </summary>
+        /// <param name="tenantMapper">An installation to tenant mapper</param>
+        /// <param name="schedulerFactory">A factory for creating an instance of the scheduler</param>
+        /// <param name="executionContextManager">The execution context manager for scoping to the correct tenant</param>
+        /// <param name="handlerRegistry">The handler registry for finding the correct handlers for the webhook type</param>
+        /// <param name="logger">A logger for logging</param>
         public WebhookCoordinator(
             IInstallationToTenantMapper tenantMapper,
             FactoryFor<IWebhookScheduler> schedulerFactory,

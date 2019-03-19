@@ -45,7 +45,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         /// Creates Handler methods based on the supplied type
         /// </summary>
         /// <param name="handler">Type to inspect for handler methods</param>
-        /// <returns>An enumerable of <see cref="HandlerMethod"> for each method on the supplied type that is a Webhook method</returns>
+        /// <returns>An enumerable of <see cref="HandlerMethod" /> for each method on the supplied type that is a Webhook method</returns>
         public static IEnumerable<HandlerMethod> GetUsableHandlerMethodsFrom(Type handler)
         {
             return handler.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)

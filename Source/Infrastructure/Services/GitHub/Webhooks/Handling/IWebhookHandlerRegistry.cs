@@ -18,7 +18,18 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
     /// </summary>
     public interface IWebhookHandlerRegistry
     {
+        /// <summary>
+        /// Registers a <see cref="HandlerMethod" /> for a particular payload <see cref="Type" />
+        /// </summary>
+        /// <param name="payloadType">The type of the payload</param>
+        /// <param name="handlerMethod">A <see cref="HandlerMethod" /> for this type</param>
         void RegisterHandlerMethod(Type payloadType, HandlerMethod handlerMethod);
+
+        /// <summary>
+        /// Returns all the <see cref="HandlerMethod">handler methods</see> for a <see cref="Type">payload type</see>
+        /// </summary>
+        /// <param name="payloadType">The <see cref="Type" /> of the activity handler</param>
+        /// <returns></returns>
         IEnumerable<HandlerMethod> GetHandlersFor(Type payloadType);
     }
 }

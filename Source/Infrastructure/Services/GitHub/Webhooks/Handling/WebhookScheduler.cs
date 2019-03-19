@@ -18,7 +18,7 @@ using Octokit;
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
     /// <summary>
-    /// An implemention of <see cref="IWebhookScheduler" /> using a <see cref="BlockingCollection" />
+    /// An implemention of <see cref="IWebhookScheduler" /> using a <see cref="BlockingCollection{Webhook}" />
     /// </summary>
     [SingletonPerTenant]
     public class WebhookScheduler : IWebhookScheduler

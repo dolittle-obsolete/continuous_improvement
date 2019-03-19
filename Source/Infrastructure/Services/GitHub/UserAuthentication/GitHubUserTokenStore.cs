@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -8,6 +13,7 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.UserAuthentication
 {
+    /// <inheritdoc />
     [SingletonPerTenant]
     public class GitHubUserTokenStore : IGitHubUserTokenStore
     {
@@ -20,6 +26,10 @@ namespace Infrastructure.Services.Github.UserAuthentication
         string _authState;
         string _callback;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="GitHubUserTokenStore" />
+        /// </summary>
+        /// <param name="executionContextManager">The execution context manager</param>
         public GitHubUserTokenStore(
             IExecutionContextManager executionContextManager
         )
@@ -29,16 +39,19 @@ namespace Infrastructure.Services.Github.UserAuthentication
             _generator = new RNGCryptoServiceProvider();
         }        
 
+        /// <inheritdoc />
         public bool HasTokenForCurrentUser()
         {
             return _hasUserToken;
         }
 
+        /// <inheritdoc />
         public OauthToken GetTokenForCurrentUser()
         {
             return _userToken;
         }
 
+        /// <inheritdoc />
         public string GenerateStateForCurrentUser(string callback)
         {
             _callback = callback;
@@ -51,6 +64,7 @@ namespace Infrastructure.Services.Github.UserAuthentication
             return _authState;
         }
 
+        /// <inheritdoc />
         public string SetTokenForCurrentUser(string state, OauthToken token)
         {
             if (state == _authState) {

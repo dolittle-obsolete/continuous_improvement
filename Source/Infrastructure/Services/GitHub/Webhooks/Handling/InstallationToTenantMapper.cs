@@ -11,6 +11,7 @@ using System.Collections.Concurrent;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
+    /// <inheritdoc />
     [Singleton]
     public class InstallationToTenantMapper : IInstallationToTenantMapper
     {
@@ -21,6 +22,11 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
 
         ConcurrentDictionary<long, Guid> _mapping;
 
+        /// <summary>
+        /// Instantiates a new instance of <see cref="InstallationToTenantMapper" />
+        /// </summary>
+        /// <param name="serializer">A serializer for reading the mapping from the file</param>
+        /// <param name="fileSystem">File system access</param>
         public InstallationToTenantMapper(ISerializer serializer, IFileSystem fileSystem)
         {
             _serializer = serializer;
@@ -28,7 +34,8 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             var content = _fileSystem.ReadAllText(_filePath);
             _mapping = _serializer.FromJson<ConcurrentDictionary<long, Guid>>(content);
         }
-
+        
+        /// <inheritdoc />
         public TenantId GetTenantFor(InstallationId installationId)
         {
             if (_mapping.TryGetValue(installationId, out var tenantId))
@@ -37,7 +44,8 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             }
             return TenantId.Unknown;
         }
-
+        
+        /// <inheritdoc />
         public void AssociateTenantWithInstallation(InstallationId installationId, TenantId tenantId)
         {
             _mapping[installationId] = tenantId;
@@ -47,6 +55,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             _fileSystem.WriteAllText(_filePath, content);
         }
 
+        /// <inheritdoc />
         public void DisassociateTenantFromInstallation(InstallationId installationId)
         {
             Guid removed;
@@ -57,6 +66,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<InstallationId> GetInstallationsFor(TenantId tenant)
         {
             return _mapping.Where(_ => _.Value == tenant).Select(_ => (InstallationId)_.Key).ToList();

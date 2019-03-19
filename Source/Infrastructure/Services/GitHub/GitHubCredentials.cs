@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.IO;
 using System.Text;
@@ -73,9 +78,9 @@ namespace Infrastructure.Services.Github
         public string ApplicationUserAgent => _applicationUserAgent;
         /// <inheritdoc />
         public byte[] WebhookSecret { get; private set; }
-
+        /// <inheritdoc />
         public string OAuthClientID { get; private set; }
-
+        /// <inheritdoc />
         public string OAuthClientSecret { get; private set; }
     }
 }

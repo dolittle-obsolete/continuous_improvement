@@ -13,23 +13,28 @@ using Dolittle.Lifecycle;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
-
+    /// <inheritdoc />
     [SingletonPerTenant]
     public class WebhookHandlerRegistry : IWebhookHandlerRegistry
     {
         private readonly ConcurrentDictionary<Type, ConcurrentBag<HandlerMethod>> _registeredHandlers;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="WebhookHandlerRegistry" />
+        /// </summary>
         public WebhookHandlerRegistry()
         {
             _registeredHandlers = new ConcurrentDictionary<Type, ConcurrentBag<HandlerMethod>>();
         }
 
+        /// <inheritdoc />
         public IEnumerable<HandlerMethod> GetHandlersFor(Type payloadType)
         {
             ConcurrentBag<HandlerMethod> handlers;
             return _registeredHandlers.TryGetValue(payloadType, out handlers) ? handlers.ToArray() : Enumerable.Empty<HandlerMethod>();
         }
 
+        /// <inheritdoc />
         public void RegisterHandlerMethod(Type payloadType, HandlerMethod handlerMethod)
         {
             _registeredHandlers.AddOrUpdate(payloadType, new ConcurrentBag<HandlerMethod>{ handlerMethod }, (key, list) => AppendToExisting(list,handlerMethod));
