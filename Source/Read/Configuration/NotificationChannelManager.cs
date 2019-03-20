@@ -13,6 +13,7 @@ using Dolittle.Serialization.Json;
 
 namespace Read.Configuration
 {
+    /// <inheritdoc />
     public class NotificationChannelManager : INotificationChannelManager
     {
         const string _notificationChannelsFils = "notificationChannels.json";
@@ -20,12 +21,18 @@ namespace Read.Configuration
         private readonly ISerializer _serializer;
         private readonly IFiles _fileSystem;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="NotificationChannelManager" />
+        /// </summary>
+        /// <param name="fileSystem">A file system wrapper</param>
+        /// <param name="serializer">A serializer</param>
         public NotificationChannelManager(IFiles fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
             _fileSystem = fileSystem;
         }
 
+        /// <inheritdoc />
         public IEnumerable<NotificationChannel> GetAll()
         {
             if( !_fileSystem.Exists(_notificationChannelsFils)) return new NotificationChannel[0];
@@ -34,6 +41,7 @@ namespace Read.Configuration
             return notificationChannels;
         }
         
+        /// <inheritdoc />
         public NotificationChannel GetById(NotificationChannelId notificationChannelId)
         {
             var notificationChannel = GetAll().Single(_ => _.Id == notificationChannelId);

@@ -23,9 +23,7 @@ namespace Infrastructure.Services.Github.Client
         /// <summary>
         /// Instanciates a new <see cref="GitHubClientFactory">GitHubClientFactory</see>
         /// </summary>
-        /// <param name="applicationUserAgent">The user-agent string to use while accessing the API</param>
-        /// <param name="applicationId">The id of the application to authenticate</param>
-        /// <param name="credentials">The private key to use for signing api tokens</param>
+        /// <param name="credentials">The credentials for GitHub</param>
         public GitHubClientFactory(IGitHubCredentials credentials)
         {
             _credentials = credentials;

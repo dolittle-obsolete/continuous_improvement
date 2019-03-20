@@ -5,8 +5,14 @@
 
 namespace Read.Improvables
 {
+    /// <summary>
+    /// Details of Source Control
+    /// </summary>
     public class SourceControl
     {
+        /// <summary>
+        /// The repository
+        /// </summary>
         public string Repository { get; set; }
     }
 }

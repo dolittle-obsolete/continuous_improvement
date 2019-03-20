@@ -11,7 +11,6 @@ namespace Concepts.Improvements
     /// <summary>
     /// Encapsulates a Unique Identifier
     /// </summary>
-    /// <typeparam name="Guid"></typeparam>
     public class StepType : ConceptAs<Guid>
     {
         /// <summary>
@@ -27,13 +26,11 @@ namespace Concepts.Improvements
             Value = Guid.Empty;
         }
 
-
         /// <summary>
         /// Instantiates an instance of an <see cref="StepType" /> with the specified value
         /// </summary>
         /// <param name="value"></param>
         public StepType(Guid value) => Value = value;
-        
 
         /// <summary>
         /// Implicitly convert Guid to an StepType

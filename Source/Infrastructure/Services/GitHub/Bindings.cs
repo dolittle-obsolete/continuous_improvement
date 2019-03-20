@@ -13,6 +13,7 @@ namespace Infrastructure.Services.Github
     /// </summary>
     public class GitHubBindings : ICanProvideBindings
     {
+        /// <inheritdoc />
         public void Provide(IBindingProviderBuilder builder)
         {
             builder.Bind<IGitHubCredentials>().To(new GitHubCredentials());

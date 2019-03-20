@@ -29,10 +29,11 @@ namespace Concepts
     public static partial class ValidatorBuilderExtensions 
     {
         /// <summary>
-        /// Adds a VersionValidator and a Null Check to a Version
+        /// Adds a VersionValidator to a Version. If the validator is not optional a Null Check will also be added.
         /// </summary>
         /// <typeparam name="T">Type of the Command</typeparam>
         /// <param name="ruleBuilder">instance of the IRuleBuilder</param>
+        /// <param name="isOptional">Optional flag indicating whether the rule is optional or not.</param>
         /// <returns></returns>
         public static IRuleBuilderOptions<T, Version> MustBeAValidVersion<T>(this IRuleBuilder<T, Version> ruleBuilder, bool isOptional = false) {
             if(!isOptional)

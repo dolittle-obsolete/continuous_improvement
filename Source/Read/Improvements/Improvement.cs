@@ -16,14 +16,20 @@ namespace Read.Improvements
     public class Improvement : IReadModel
     {
 
+        /// <summary>
+        /// The Id of the Improvement
+        /// </summary>
         public ImprovementId Id { get; set; }
 
         /// <summary>
-        /// 
+        /// The Improvable being improved
         /// </summary>
         public ImprovableId Improvable { get; set; }
 
-
+        /// <summary>
+        /// Flag indicating if the improvement was the result of a pull request
+        /// </summary>
+        /// <value></value>
         public bool PullRequest { get; set; }
 
         /// <summary>
@@ -36,7 +42,13 @@ namespace Read.Improvements
         /// </summary>
         public DateTimeOffset? Failed { get; set; }
 
+        /// <summary>
+        /// Indicates if the improvement has completed or not
+        /// </summary>
         public bool HasCompleted => Completed.HasValue && Completed >= DateTimeOffset.MinValue;
+        /// <summary>
+        /// Indicates if the improvment has failed or not
+        /// </summary>
         public bool HasFailed => Failed.HasValue && Failed >= DateTimeOffset.MinValue;
 
         /// <summary>

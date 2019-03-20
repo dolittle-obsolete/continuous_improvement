@@ -21,12 +21,12 @@ namespace Concepts.Improvements
         InProgress,
 
         /// <summary>
-        /// Step did fail
+        /// Step failed
         /// </summary>
         Failed,
 
         /// <summary>
-        /// Step did succeed
+        /// Step succeeded
         /// </summary>
         Succeeded,
     }

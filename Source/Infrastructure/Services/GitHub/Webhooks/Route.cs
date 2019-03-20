@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.IO;
 using System.Linq;
@@ -15,12 +20,20 @@ using Octokit.Internal;
 
 namespace Infrastructure.Services.Github.Webhooks
 {
+    /// <summary>
+    /// A handler for the route for github webhooks
+    /// </summary>
     public class Route : ICanHandleRoute
     {
         readonly ILogger _logger;
         readonly IGitHubCredentials _credentials;
         readonly IWebhookCoordinator _coordinator;
-
+        /// <summary>
+        /// Instantiates an instance of <see cref="Route" />
+        /// </summary>
+        /// <param name="logger">A logger</param>
+        /// <param name="credentials">Github credentials</param>
+        /// <param name="coordinator">A webhook co-ordinator to handle the request</param>
         public Route(
             ILogger logger,
             IGitHubCredentials credentials,
@@ -32,6 +45,13 @@ namespace Infrastructure.Services.Github.Webhooks
             _coordinator = coordinator;
         }
 
+        /// <summary>
+        /// Validates, authorizes and processes the request from github
+        /// </summary>
+        /// <param name="request">the incoming HttpRequest</param>
+        /// <param name="response">The outgoing HttResponse</param>
+        /// <param name="routeData">Data associated with the route</param>
+        /// <returns></returns>
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
             // Get interesting headers from GitHub

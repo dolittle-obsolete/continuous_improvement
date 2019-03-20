@@ -11,8 +11,16 @@ namespace Concepts.Improvements
     /// </summary>
     public class LogParserName : ConceptAs<string>
     {
+        /// <summary>
+        /// Represents an Empty or Unset <see cref="LogParserName" />
+        /// </summary>
+        /// <value></value>
         public static LogParserName Empty { get; } = string.Empty;
 
+        /// <summary>
+        /// Instantiats an instance of a <see cref="LogParserName" />
+        /// </summary>
+        /// <param name="value"></param>
         public LogParserName(string value) => Value = value;
 
         /// <summary>

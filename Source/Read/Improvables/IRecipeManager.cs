@@ -5,8 +5,15 @@
 
 namespace Read.Improvables
 {
+    /// <summary>
+    /// Defines a recipe manager
+    /// </summary>
     public interface IRecipeManager
     {
+        /// <summary>
+        /// Expands a recipe by adding additional information
+        /// </summary>
+        /// <param name="recipe">The recipe to expand</param>
         ExpandedRecipe Expand(Recipe recipe);
     }
 }

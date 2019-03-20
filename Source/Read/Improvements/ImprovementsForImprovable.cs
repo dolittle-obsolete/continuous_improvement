@@ -15,25 +15,26 @@ using Dolittle.Queries;
 namespace Read.Improvements
 {
     /// <summary>
-    /// 
+    /// A list of the improvements for an improvable
     /// </summary>
     public class ImprovementsForImprovable : IQueryFor<Improvement>
     {
         private readonly IFiles _fileSystem;
-
+        /// <summary>
+        /// Instantiates an instance of <see cref="ImprovementsForImprovable" />
+        /// </summary>
+        /// <param name="fileSystem">A file system wrapper</param>
         public ImprovementsForImprovable(IFiles fileSystem)
         {
             _fileSystem = fileSystem;
         }
 
         /// <summary>
-        /// 
+        /// The improvable 
         /// </summary>
         public ImprovableId Improvable { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public IQueryable<Improvement> Query 
         { 
             get

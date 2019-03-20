@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.IO;
 using System.Linq;
@@ -14,11 +19,21 @@ using Octokit.Internal;
 
 namespace Infrastructure.Services.Github.UserAuthentication
 {
+    /// <summary>
+    /// A route to handle requests for getting the installations for a user
+    /// </summary>
     public class GetInstallationsForUserProxy : ICanHandleRoute
     {
         readonly IGitHubClientFactory _clientFactory;
         readonly IGitHubUserTokenStore _tokenStore;
         readonly ISerializer _serializer;
+
+        /// <summary>
+        /// Instantiates an instance of <see cref="GetInstallationsForUserProxy" />
+        /// </summary>
+        /// <param name="clientFactory">A factory for creating the github client</param>
+        /// <param name="tokenStore">A store for the token for the github user</param>
+        /// <param name="serializer">A serializer</param>
         public GetInstallationsForUserProxy(IGitHubClientFactory clientFactory, IGitHubUserTokenStore tokenStore, ISerializer serializer)
         {
             _clientFactory = clientFactory;
@@ -26,6 +41,7 @@ namespace Infrastructure.Services.Github.UserAuthentication
             _serializer = serializer;
         }
 
+        /// <inheritdoc />
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
             if (_tokenStore.HasTokenForCurrentUser())

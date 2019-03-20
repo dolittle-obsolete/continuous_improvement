@@ -1,5 +1,11 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Dolittle.DependencyInversion;
 using Dolittle.Execution;
@@ -10,18 +16,28 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
+    /// <inheritdoc />
     [Singleton]
     public class WebhookCoordinator : IWebhookCoordinator
     {
-        readonly ITenantMapper _tenantMapper;
+        readonly IInstallationToTenantMapper _tenantMapper;
         readonly FactoryFor<IWebhookScheduler> _schedulerFactory;
         readonly IExecutionContextManager _executionContextManager;
         readonly ILogger _logger;
-
+        private readonly IWebhookHandlerRegistry _handlerRegistry;
+        /// <summary>
+        /// Instantiates an instance of <see cref="WebhookCoordinator" />
+        /// </summary>
+        /// <param name="tenantMapper">An installation to tenant mapper</param>
+        /// <param name="schedulerFactory">A factory for creating an instance of the scheduler</param>
+        /// <param name="executionContextManager">The execution context manager for scoping to the correct tenant</param>
+        /// <param name="handlerRegistry">The handler registry for finding the correct handlers for the webhook type</param>
+        /// <param name="logger">A logger for logging</param>
         public WebhookCoordinator(
-            ITenantMapper tenantMapper,
+            IInstallationToTenantMapper tenantMapper,
             FactoryFor<IWebhookScheduler> schedulerFactory,
             IExecutionContextManager executionContextManager,
+            IWebhookHandlerRegistry handlerRegistry,
             ILogger logger
         )
         {
@@ -29,42 +45,23 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
             _schedulerFactory = schedulerFactory;
             _executionContextManager = executionContextManager;
             _logger = logger;
-        }
-
-        class Handler {
-            public Type Type { get; set; }
-            public MethodInfo Method { get; set; }
-        }
-
-        Dictionary<Type,List<Handler>> _registeredHandlers = new Dictionary<Type, List<Handler>>();
-
-        /// <inheritdoc />
-        public void RegisterHandlerMethod(Type payloadType, Type handler, MethodInfo method)
-        {
-            var handlerEntry = new Handler{ Type = handler, Method = method };
-            if (_registeredHandlers.TryGetValue(payloadType, out var handlers))
-            {
-                handlers.Add(handlerEntry);
-            }
-            else
-            {
-                _registeredHandlers.Add(payloadType, new List<Handler>{ handlerEntry });
-            }
+            _handlerRegistry = handlerRegistry;
         }
 
         /// <inheritdoc />
         public bool WillHandle<T>() where T : ActivityPayload
         {
-            return _registeredHandlers.ContainsKey(typeof(T));
+            return _handlerRegistry.GetHandlersFor(typeof(T)).Any();
         }
 
         /// <inheritdoc />
         public void HandleWebhookPayload(ActivityPayload payload, Guid deliveryId)
         {
-            if (_registeredHandlers.TryGetValue(payload.GetType(), out var handlers))
+            IEnumerable<HandlerMethod> handlerMethods = _handlerRegistry.GetHandlersFor(payload.GetType());
+            if (handlerMethods.Any())
             {
                 // Figure out the execution context for this event
-                var tenantId = _tenantMapper.GetTenantFor(payload.Installation);
+                var tenantId = _tenantMapper.GetTenantFor(payload.Installation.Id);
 
                 if (tenantId == TenantId.Unknown)
                 {
@@ -76,9 +73,9 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
 
                 // Schedule the event for processing
                 var scheduler = _schedulerFactory();
-                foreach (var handler in handlers)
+                foreach (var handler in handlerMethods)
                 {
-                    scheduler.QueueWebhookEventForHandling(handler.Type, handler.Method, payload);
+                    scheduler.QueueWebhookEventForHandling(new Webhook(handler,payload));
                 }
             }
         }

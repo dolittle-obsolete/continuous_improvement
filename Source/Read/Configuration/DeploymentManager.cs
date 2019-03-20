@@ -13,18 +13,25 @@ using Dolittle.Serialization.Json;
 
 namespace Read.Configuration
 {
+    /// <inheritdoc />
     public class DeploymentManager : IDeploymentManager
     {
         const string _deploymentsFile = "deployments.json";
         private readonly ISerializer _serializer;
         private readonly IFiles _fileSystem;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="DeploymentManager" />
+        /// </summary>
+        /// <param name="fileSystem">A file system wrapper</param>
+        /// <param name="serializer">A serializer</param>
         public DeploymentManager(IFiles fileSystem, ISerializer serializer)
         {
             _serializer = serializer;
             _fileSystem = fileSystem;
         }
 
+        /// <inheritdoc />
         public IEnumerable<Deployment> GetAll()
         {
             if( !_fileSystem.Exists(_deploymentsFile)) return new Deployment[0];
@@ -33,6 +40,7 @@ namespace Read.Configuration
             return deployments;
         }
         
+        /// <inheritdoc />
         public Deployment GetById(DeploymentId deploymentId)
         {
             var deployment = GetAll().Single(_ => _.Id == deploymentId);

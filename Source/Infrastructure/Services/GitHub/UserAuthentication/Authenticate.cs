@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.IO;
 using System.Linq;
@@ -11,12 +16,21 @@ using Octokit;
 
 namespace Infrastructure.Services.Github.UserAuthentication
 {
+    /// <summary>
+    /// A route handler for Authentication
+    /// </summary>
     public class Authenticate : ICanHandleRoute
     {
         readonly IGitHubCredentials _credentials;
         readonly IGitHubClientFactory _clientFactory;
         readonly IGitHubUserTokenStore _tokenStore;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="Authenticate" />
+        /// </summary>
+        /// <param name="credentials">The github credentials that are needed</param>
+        /// <param name="clientFactory">A factory for creating the github client</param>
+        /// <param name="tokenStore">A store for the token for the github user</param>
         public Authenticate(IGitHubCredentials credentials, IGitHubClientFactory clientFactory, IGitHubUserTokenStore tokenStore)
         {
             _credentials = credentials;
@@ -24,6 +38,7 @@ namespace Infrastructure.Services.Github.UserAuthentication
             _tokenStore = tokenStore;
         }
 
+        /// <inheritdoc />
         public async Task Handle(HttpRequest request, HttpResponse response, RouteData routeData)
         {
             // We should know the TenantID and user ID here

@@ -5,10 +5,22 @@
 
 namespace Concepts.Improvables
 {
+    /// <summary>
+    /// Represents the status of an Improvable
+    /// </summary>
     public enum ImprovableStatus
     {
+        /// <summary>
+        /// The Improvable succeeded
+        /// </summary>
         Success=1,
+        /// <summary>
+        /// The Improvable is still in progress
+        /// </summary>
         InProgress,
+        /// <summary>
+        /// The Improvable failed
+        /// </summary>
         Failed
     }
 }

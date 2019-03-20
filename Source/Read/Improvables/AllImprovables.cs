@@ -16,7 +16,7 @@ namespace Read.Improvables
 {
 
     /// <summary>
-    /// Represents all the <see cref="Project">projects</see>
+    /// Represents all the <see cref="ImprovableForListing">improvables</see>
     /// </summary>
     public class AllImprovables : IQueryFor<ImprovableForListing>
     {
