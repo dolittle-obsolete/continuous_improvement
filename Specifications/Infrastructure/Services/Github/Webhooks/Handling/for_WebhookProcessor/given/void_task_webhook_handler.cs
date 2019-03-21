@@ -14,8 +14,8 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookProcessor.
         public bool WasCalled => CalledWithPayload != null;
         public virtual void On(ActivityPayload payload)
         {
-            CalledWithPayload = payload;
             Task.Delay(100).Wait();
+            CalledWithPayload = payload;
         }
     }
 }

@@ -18,14 +18,16 @@ using Octokit;
 namespace Infrastructure.Services.Github.Webhooks.Handling
 {
     /// <summary>
-    /// An implemention of <see cref="IWebhookScheduler" /> using a <see cref="BlockingCollection{Webhook}" />
+    /// An implemention of <see cref="IWebhookScheduler" />
     /// </summary>
     [SingletonPerTenant]
     public class WebhookScheduler : IWebhookScheduler
     {
-        private readonly BlockingCollection<Webhook> _blockingCollection;
+        private Queue<Webhook> _queue;
+        private object locker = new object();
         private readonly IWebhookProcessor _processor;
         private readonly ILogger _logger;
+        private bool _backgroundProcessingRunning = false;
 
         /// <summary>
         /// Instantiates a new instance of <see cref="WebhookScheduler" />
@@ -34,34 +36,57 @@ namespace Infrastructure.Services.Github.Webhooks.Handling
         /// <param name="logger">A logger to log information</param>
         public WebhookScheduler(IWebhookProcessor processor, ILogger logger)
         {
-            _blockingCollection = new BlockingCollection<Webhook>();
+            _queue = new Queue<Webhook>();
             _processor = processor;
             _logger = logger;
-            Task.Run(async () => await Process().ConfigureAwait(false));
         }
 
         /// <inheritdoc />
         public void QueueWebhookEventForHandling(Webhook webhook)
         {
-            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULING: {webhook}");
-            _blockingCollection.Add(webhook);
-            _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULED: {webhook}");
+            lock(locker)
+            {
+                _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULING: {webhook}");
+                _queue.Enqueue(webhook);
+                ScheduleProcessQueueTask();
+                _logger.Information($"{DateTime.UtcNow.ToString()} SCHEDULED: {webhook}");
+            }
         }
 
-        async Task Process()
+        void Process(object obj)
         {
-            foreach (var webhook in _blockingCollection.GetConsumingEnumerable())
+            while(true)
             {
-                _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSING: {webhook}");
+                Webhook webhook;
+                lock(locker)
+                {
+                    if(_queue.Count == 0)
+                    {
+                        _backgroundProcessingRunning = false;
+                        break;
+                    }
+                    webhook = _queue.Dequeue();
+                }
                 try
                 {
-                    await _processor.Process(webhook).ConfigureAwait(false);
+                    _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSING: {webhook}");
+                    _processor.Process(webhook).Wait();
                     _logger.Information($"{DateTime.UtcNow.ToString()} PROCESSED: {webhook}");
                 }
                 catch(Exception ex)
                 {
-                    _logger.Error(ex,"ERROR", webhook.ToString());
+                    var errorMsg = $"Processing of queued github webhook task failed: {webhook?.Handler?.Type.FullName ?? "[NULL]"} {webhook?.Handler?.Method.Name ?? "[NULL]"} {webhook?.Payload?.GetType().FullName ?? "[NULL]"}";
+                    _logger.Error(new GitHubWebHookProcessingFailure(webhook?.ToString() ?? "[NULL]",ex),errorMsg);
                 }
+            }
+        }
+
+        void ScheduleProcessQueueTask()
+        {
+            if (!_backgroundProcessingRunning)
+            {
+                _backgroundProcessingRunning = true;
+                ThreadPool.UnsafeQueueUserWorkItem(Process, null);
             }
         }
     }

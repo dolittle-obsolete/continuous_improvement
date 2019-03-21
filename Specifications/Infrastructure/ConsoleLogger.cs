@@ -20,6 +20,8 @@ namespace Infrastructure
     {
         private HashSet<LogLevel> _logLevels = new HashSet<LogLevel>();
 
+        private List<string> _loggedMessages = new List<string>();
+
         /// <inheritdoc />
         public void Critical(string message, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string member = "")
         {
@@ -62,8 +64,12 @@ namespace Infrastructure
         {
             if(!_logLevels.Contains(level))
                 return;
-            Console.WriteLine($"{DateTime.UtcNow.ToString()} {level} {message} {ex?.ToString() ?? ""}");
+            var msg = $"{DateTime.UtcNow.ToString()} {level} {message} {ex?.ToString() ?? ""}";
+            Console.WriteLine(msg);
+            _loggedMessages.Add(msg);
         }
+
+        public IEnumerable<string> GetLoggedMessages() => _loggedMessages.ToArray();
 
         public void Enable(params LogLevel[] levels)
         {
