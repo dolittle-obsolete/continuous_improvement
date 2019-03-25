@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using Concepts.SourceControl.GitHub;
+using Dolittle.Commands;
 using Dolittle.Commands.Coordination;
 using Dolittle.ReadModels;
 using Domain.SourceControl.GitHub;
@@ -22,6 +23,9 @@ namespace Core.SourceControl.GitHub
     /// </summary>
     public class InstallationsWebhookHandler : ICanHandleGitHubWebhooks
     {
+        /// <summary>
+        /// A string constant for the deleted action
+        /// </summary>
         public const string DELETED = "deleted";
         readonly ICommandCoordinator _commandCoordinator;
 
