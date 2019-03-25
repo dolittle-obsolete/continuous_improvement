@@ -12,7 +12,7 @@ namespace Domain.Improvements
     public delegate bool ImprovementExists(ImprovementId id);
 
     /// <summary>
-    /// Indicates whether or not there is an <see cref="Improvable" /> with the specified Id
+    /// Indicates whether or not there is an <see cref="ImprovableId" /> with the specified Id
     /// </summary>
     /// <param name="id">The Id of the improvable</param>
     /// <returns>True if exists, false otherwise</returns>

@@ -22,7 +22,8 @@ namespace Domain.Improvements
         /// <summary>
         /// Instantiates an <see cref="InitiateImprovementBusinessValidator" />
         /// </summary>
-        /// <param name="exists">delegate that checks if an Improvement Exists</param>
+        /// <param name="improvementExists">delegate that checks if an Improvement Exists</param>
+        /// <param name="improvableExists">delegate that checks if an Improvable Exists</param>
         public InitiateImprovementBusinessValidator(ImprovementExists improvementExists, ImprovableExists improvableExists)
         {
             _improvableExists = improvableExists;
