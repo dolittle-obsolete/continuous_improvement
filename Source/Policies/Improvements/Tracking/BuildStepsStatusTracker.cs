@@ -17,7 +17,8 @@ namespace Policies.Improvements.Tracking
     /// <inheritdoc />
     public class BuildStepsStatusTracker : IBuildStepsStatusTracker
     {
-        protected Dictionary<StepNumber, List<StepStatus>> _stepStatuses;
+
+        private Dictionary<StepNumber, List<StepStatus>> _stepStatuses;
 
         /// <summary>
         /// Instantiates an instance of <see cref="BuildStepsStatusTracker" />

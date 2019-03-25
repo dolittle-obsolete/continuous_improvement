@@ -1,17 +1,19 @@
-﻿using Dolittle.Collections;
+﻿/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
+using Dolittle.Collections;
 using Dolittle.DependencyInversion;
 using Dolittle.Execution;
 using Dolittle.Logging;
+using Dolittle.Runtime.Tenancy;
 using Policies.Improvements.StepHandling;
 using Policies.Improvements.Tracking;
 
 namespace Policies.Improvements
 {
-    public interface IBuildPodProcessor
-    {
-        void Process(IPod pod);
-    }
-
+    /// <inheritdoc />
     public class BuildPodProcessor : IBuildPodProcessor
     {
         private readonly ILogger _logger;
@@ -19,6 +21,13 @@ namespace Policies.Improvements
         private readonly FactoryFor<IBuildStepsStatusTracker> _getTracker;
         private readonly IExecutionContextManager _executionContextManager;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="BuildPodProcessor" />
+        /// </summary>
+        /// <param name="executionContextManager">The <see cref="IExecutionContextManager" /> for setting the correct <see cref="Tenant"/> context</param>
+        /// <param name="handleBuildSteps">A <see cref="IHandleBuildSteps" /> for handling each build step</param>
+        /// <param name="getTracker">A factory for building instances of <see cref="IBuildStepsStatusTracker" /> for tracking the status of individual build steps</param>
+        /// <param name="logger">A logger for logging</param>
         public BuildPodProcessor(IExecutionContextManager executionContextManager, IHandleBuildSteps handleBuildSteps, FactoryFor<IBuildStepsStatusTracker> getTracker, ILogger logger)
         {
             _logger = logger;
@@ -27,6 +36,7 @@ namespace Policies.Improvements
             _executionContextManager = executionContextManager;
         }
 
+        /// <inheritdoc />
         public void Process(IPod pod)
         {  
             _executionContextManager.CurrentFor(pod.Metadata.Tenant); 

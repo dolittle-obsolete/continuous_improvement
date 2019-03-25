@@ -19,9 +19,20 @@ using Domain.Improvements;
 
 namespace Policies.Improvements
 {
+    /// <summary>
+    /// Defines a handler for Improvement Results
+    /// </summary>
     public interface IImprovementResultHandler 
     {
+        /// <summary>
+        /// Handles a successful result for an <see cref="Improvement" />
+        /// </summary>
+        /// <param name="improvement">The Improvement that succeeded</param>
         void HandleSuccess(ImprovementId improvement);
+        /// <summary>
+        /// Handles a failed result for an <see cref="Improvement" />
+        /// </summary>
+        /// <param name="improvement">The Improvement that failed</param>
         void HandleFailure(ImprovementId improvement);
     }
 }

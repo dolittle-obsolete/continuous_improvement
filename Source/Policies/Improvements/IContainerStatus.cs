@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using Concepts.Improvements;
 using Dolittle.DependencyInversion;
 using k8s;
@@ -5,39 +10,22 @@ using k8s.Models;
 
 namespace Policies.Improvements
 {
+    /// <summary>
+    /// Defines the contract for a ContainerStatus
+    /// </summary>
     public interface IContainerStatus
     {
+        /// <summary>
+        /// Indicates whether the Container is a Build Container or not
+        /// </summary>
         bool IsBuildContainer { get; }
+        /// <summary>
+        /// The Id of the Step
+        /// </summary>
         StepId Step { get; }
+        /// <summary>
+        /// The status of the Step
+        /// </summary>
         StepStatus Status { get; }
     }
-
-    public class ContainerStatus : IContainerStatus
-    {
-        private readonly V1ContainerStatus _status;
-
-        public ContainerStatus(V1ContainerStatus status)
-        {
-            _status = status;
-        }
-
-        public StepId Step => _status.Name;
-
-        public bool IsBuildContainer => Step.IsValid();
-
-        public StepStatus Status => GetStatus();
-
-        StepStatus GetStatus()
-        {
-            var exitCode = _status.State.Terminated?.ExitCode;
-            if (exitCode.HasValue && exitCode != 0) 
-                return StepStatus.Failed;
-            if (exitCode.HasValue) 
-                return StepStatus.Succeeded;
-            if (_status.State.Running != null) 
-                return StepStatus.InProgress;
-
-            return StepStatus.NotStarted;
-        }
-    } 
 }

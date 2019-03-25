@@ -19,10 +19,7 @@ using Domain.Improvements;
 
 namespace Policies.Improvements
 {
-
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <inheritdoc />
     public class ImprovementResultHandler : IImprovementResultHandler
     {
         static ArtifactId _nullCommandArtifactId = (ArtifactId)Guid.Parse("c7d1f5cc-40bb-4cd4-b589-9cb11a43c962");
@@ -31,6 +28,12 @@ namespace Policies.Improvements
         readonly ICommandContextManager _commandContextManager;
         readonly IAggregateRootRepositoryFor<Improvement> _repository;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="ImprovementResultHandler" />
+        /// </summary>
+        /// <param name="executionContextManager">An <see cref="IExecutionContextManager" /> for accessing the current <see cref="ExecutionContext" /></param>
+        /// <param name="commandContextManager">An <see cref="ICommandContextManager" /> for creating a <see cref="ICommandContext" /></param>
+        /// <param name="repository">A repository for accessing a <see cref="Improvement" /></param>
         public ImprovementResultHandler(
             IExecutionContextManager executionContextManager,
             ICommandContextManager commandContextManager,
@@ -41,12 +44,14 @@ namespace Policies.Improvements
             _repository = repository;
         }
 
+        /// <inheritdoc />
         public void HandleSuccess(
             ImprovementId improvement)
         {
             SetImprovmentResult(improvement, succeeded: true);
         }
         
+        /// <inheritdoc />
         public void HandleFailure(
             ImprovementId improvement)
         {

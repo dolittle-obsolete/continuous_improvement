@@ -8,12 +8,16 @@ using Dolittle.Execution;
 using Dolittle.Runtime.Events;
 using Events.Improvements;
 using k8s;
+using k8s.Models;
 using Policies.Improvements.Recipes;
 using Read.Improvables;
 using Read.Improvements;
 
 namespace Policies.Improvements
 {
+    /// <summary>
+    /// Schedules improvements with Kubernetes when receiving an <see cref="ImprovementInitiated" /> event
+    /// </summary>
     public class ImprovementScheduler : ICanProcessEvents
     {
         readonly IExecutionContextManager _executionContextManager;
@@ -21,6 +25,13 @@ namespace Policies.Improvements
         readonly FactoryFor<IKubernetes> _kubernetesClientFactory;
         readonly IImprovableManager _improvableManager;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="ImprovementScheduler" />
+        /// </summary>
+        /// <param name="executionContextManager">An <see cref="IExecutionContextManager" /> for accessing the current <see cref="ExecutionContext" /></param>
+        /// <param name="improvementPodFactory">An <see cref="IImprovementPodFactory" /> for creating <see cref="V1Pod">improvement pods</see></param>
+        /// <param name="improvableManager">An <see cref="IImprovableManager" /> for fetching an <see cref="Improvable" /></param>
+        /// <param name="kubernetesClientFactory">A factory for creating <see cref="IKubernetes">kubernetes client</see></param>
         public ImprovementScheduler(
             IExecutionContextManager executionContextManager,
             IImprovementPodFactory improvementPodFactory,
@@ -33,6 +44,7 @@ namespace Policies.Improvements
             _improvableManager = improvableManager;
         }
 
+        /// <inheritdoc />
         [EventProcessor("dda99c89-5659-441b-8026-e013d95aa732")]
         public void Process(ImprovementInitiated @event, EventSourceId eventSourceId)
         {

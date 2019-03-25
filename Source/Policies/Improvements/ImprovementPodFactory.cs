@@ -17,8 +17,6 @@ namespace Policies.Improvements
     /// </summary>
     public class ImprovementPodFactory : IImprovementPodFactory
     {
-
-
         /// <inheritdoc/>
         public V1Pod BuildFrom(ImprovementContext context, IRecipe recipe)
         {

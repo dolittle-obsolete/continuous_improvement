@@ -22,7 +22,7 @@ namespace Policies.Improvements
         /// </summary>
         /// <param name="improvement">The <see cref="Improvement">improvement</see></param>
         /// <param name="tenant">The <see cref="Tenant">tenant</see></param>
-        /// <param name="improvableConfiguration">The <see cref="Read.Improvables.Improvable">Improvable</see></param>
+        /// <param name="improvable">The <see cref="Read.Improvables.Improvable">Improvable</see></param>
         public ImprovementContext(
             TenantId tenant,
             Improvement improvement,

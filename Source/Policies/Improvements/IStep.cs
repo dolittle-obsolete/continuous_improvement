@@ -10,7 +10,6 @@ using k8s.Models;
 
 namespace Policies.Improvements
 {
-
     /// <summary>
     /// Defines the abstracts of a step
     /// </summary>
