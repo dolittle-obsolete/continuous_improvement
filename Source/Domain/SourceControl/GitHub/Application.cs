@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +13,15 @@ using Events.SourceControl.GitHub;
 
 namespace Domain.SourceControl.GitHub
 {
+    /// <summary>
+    /// Allows <see cref="Installation">Installations</see> to be managed against an Application
+    /// </summary>
     public class Application : AggregateRoot
     {
+        /// <summary>
+        /// Instantiates an instance of <see cref="Application" />
+        /// </summary>
+        /// <param name="id">The Id of the Application</param>
         public Application(EventSourceId id) : base(id) {}
 
         Dictionary<InstallationId, Installation> _installations = new Dictionary<InstallationId, Installation>();
@@ -51,8 +63,13 @@ namespace Domain.SourceControl.GitHub
                 @event.Repositories.Select(_ => (RepositoryFullName)_)
             );
         }
-
-
+        /// <summary>
+        /// Registers an installation with this Application
+        /// </summary>
+        /// <param name="id">The id of the Installation</param>
+        /// <param name="targetType">The type of the GitHub account</param>
+        /// <param name="targetAccount">The login details of the GitHub account</param>
+        /// <param name="repositories">A collection of repositories to be registered</param>
         public void RegisterInstallation(InstallationId id, AccountType targetType, AccountLogin targetAccount, IEnumerable<RepositoryFullName> repositories)
         {
             if (_installations.ContainsKey(id)) throw new Exception("Installation already registered!");
@@ -65,7 +82,11 @@ namespace Domain.SourceControl.GitHub
             ));
         }
 
-        public void UnegisterInstallation(InstallationId id)
+        /// <summary>
+        /// Unregisteres an installation from this Applicaition
+        /// </summary>
+        /// <param name="id">The id of the <see cref="Installation" /> being unregistered</param>
+        public void UnregisterInstallation(InstallationId id)
         {
             if (!_installations.ContainsKey(id)) throw new Exception("Installation is not registered!");
 
@@ -74,6 +95,13 @@ namespace Domain.SourceControl.GitHub
                 _installations[id].Repositories.Select(_ => _.Value)
             ));
         }
+
+        /// <summary>
+        /// Updates the repositories that are associated with this <see cref="Installation" />
+        /// </summary>
+        /// <param name="id">The id of the <see cref="Installation" /> being updated</param>
+        /// <param name="repositoriesAdded">A collection of repositories being added</param>
+        /// <param name="repositoriesRemoved">A collection of repositories to be removed</param>
         public void UpdateInstallationRepositories(InstallationId id, IEnumerable<RepositoryFullName> repositoriesAdded, IEnumerable<RepositoryFullName> repositoriesRemoved)
         {
             if (!_installations.ContainsKey(id)) throw new Exception("Installation not registered on update!");
@@ -85,7 +113,12 @@ namespace Domain.SourceControl.GitHub
             ));
         }
 
-        public void RefreshedInstallationRepositories(InstallationId id, IEnumerable<RepositoryFullName> repositories)
+        /// <summary>
+        /// Refreshes the list of repositories with this installation
+        /// </summary>
+        /// <param name="id">The id of the installation being refreshed</param>
+        /// <param name="repositories">A collection of repositories that are associated with this <see cref="Installation" /></param>
+        public void RefreshInstallationRepositories(InstallationId id, IEnumerable<RepositoryFullName> repositories)
         {
             if (!_installations.ContainsKey(id)) throw new Exception("Installation not registered on update!");
 
@@ -93,16 +126,6 @@ namespace Domain.SourceControl.GitHub
                 id,
                 repositories.Select(_ => (string)_)
             ));
-        }
-    }
-
-    public static class ApplicationRepositoryExtensions
-    {
-        static readonly EventSourceId SINGLETON_ID = new Guid("ff042dd1-d012-46cb-b5ed-867ba80d54e3");
-
-        public static Application GetApplication(this IAggregateRootRepositoryFor<Application> repository)
-        {
-            return repository.Get(SINGLETON_ID);
         }
     }
 }
