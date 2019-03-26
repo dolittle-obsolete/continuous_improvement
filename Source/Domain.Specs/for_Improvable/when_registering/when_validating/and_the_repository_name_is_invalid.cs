@@ -13,7 +13,7 @@ using Dolittle.Validation;
 using Domain.Improvables;
 using Machine.Specifications;
 
-namespace Domain.Specs.for_Improvable.when_validating_register_improvable
+namespace Domain.Specs.for_Improvable.when_registering.when_validating
 {
 
     [Subject(typeof(RegisterImprovableInputValidator))]
@@ -30,7 +30,7 @@ namespace Domain.Specs.for_Improvable.when_validating_register_improvable
 
         Because of = () => results = input_validator.ValidateFor(register);
 
-        It should_not_be_valid = () => results.Any().ShouldBeTrue();
+        It should_not_be_valid = () => results.ShouldBeInvalid();
         It should_indicate_that_the_recipe_is_invalid = () => results.ShouldHaveInvalidProperty(nameof(RegisterImprovable.Repository));
-    }    
+    }        
 }

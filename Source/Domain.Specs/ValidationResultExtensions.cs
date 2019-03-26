@@ -16,7 +16,7 @@ namespace Domain.Specs
     /// </summary>
     public static class ValidationResultExtensions
     {
-        const string concept_ending = ".Value";
+        const string conceptEnding = ".Value";
         public static void ShouldBeValid(this IEnumerable<ValidationResult> validationResults)
         {
             validationResults.Any().ShouldBeFalse();
@@ -29,7 +29,7 @@ namespace Domain.Specs
 
         public static void ShouldHaveInvalidProperty(this IEnumerable<ValidationResult> validationResults, string propertyName)
         {
-            validationResults.Any(r => r.MemberNames.Any(n => n == propertyName) || r.MemberNames.Any(n => n == propertyName + concept_ending)).ShouldBeTrue();
+            validationResults.Any(r => r.MemberNames.Any(n => n == propertyName) || r.MemberNames.Any(n => n == propertyName + conceptEnding)).ShouldBeTrue();
         }
 
         public static void ShouldHaveInvalidCountOf(this IEnumerable<ValidationResult> validationResults, int expected)
@@ -54,7 +54,7 @@ namespace Domain.Specs
 
         public static void ShouldHaveInvalidNestedProperty(this fv.ValidationResult validationResults, string propertyName)
         {
-            validationResults.Errors.Any(r => r.PropertyName.EndsWith(propertyName) || r.PropertyName.EndsWith(propertyName + concept_ending)).ShouldBeTrue();
+            validationResults.Errors.Any(r => r.PropertyName.EndsWith(propertyName) || r.PropertyName.EndsWith(propertyName + conceptEnding)).ShouldBeTrue();
         }
 
         public static void ShouldHaveInvalidCountOf(this fv.ValidationResult validationResults, int expected)
