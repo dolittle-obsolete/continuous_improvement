@@ -8,10 +8,25 @@ using Dolittle.Concepts;
 namespace Concepts.Improvables
 {
     /// <summary>
-    /// Represents the unique identifier for an improvable in the system
+    /// Represents the unique identifier for a recipe type in the system
     /// </summary>
     public class RecipeType : ConceptAs<string>
     {
+        /// <summary>
+        /// Represents an Empty or Unset <see cref="RecipeType" />
+        /// </summary>
+        /// <value></value>
+        public static RecipeType Empty { get; } = string.Empty;
+        /// <summary>
+        /// Instantiates an instance of a <see cref="RecipeType" />
+        /// </summary>
+        public RecipeType() => Value = string.Empty;
+
+        /// <summary>
+        /// Instantiats an instance of a <see cref="RecipeType" />
+        /// </summary>
+        /// <param name="value">The value to set the name to</param>
+        public RecipeType(string value) => Value = value;
         /// <summary>
         /// Implicitly convert from <see cref="string"/> to <see cref="RecipeType"/>
         /// </summary>

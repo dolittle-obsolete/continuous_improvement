@@ -140,7 +140,12 @@
     }
   },
   "6c110b3c-d85b-48b7-bf5d-9572e93c7888": {
-    "commands": {},
+    "commands": {
+      "6182f76f-5617-4d5d-a78a-88df3d4c75eb": {
+        "generation": 1,
+        "type": "Domain.Improvables.RegisterImprovable, Domain"
+      }
+    },
     "events": {},
     "eventSources": {},
     "readModels": {
