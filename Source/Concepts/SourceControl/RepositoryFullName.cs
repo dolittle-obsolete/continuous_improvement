@@ -5,10 +5,10 @@
 
 using Dolittle.Concepts;
 
-namespace Concepts.SourceControl.GitHub
+namespace Concepts.SourceControl
 {
     /// <summary>
-    /// Repsents the name of a repository. Expressed as a string.
+    /// A unique name for a repository, expressed as a string.
     /// </summary>
     public class RepositoryFullName : ConceptAs<string>
     {

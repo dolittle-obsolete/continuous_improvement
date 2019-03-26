@@ -10,6 +10,7 @@ using Dolittle.Domain;
 using Dolittle.Runtime.Events;
 using Events.SourceControl.GitHub;
 using System.Linq;
+using Concepts.SourceControl;
 
 namespace Domain.SourceControl.GitHub
 {

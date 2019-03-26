@@ -4,6 +4,7 @@
  * --------------------------------------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using Concepts.SourceControl;
 using Concepts.SourceControl.GitHub;
 using Dolittle.Commands;
 

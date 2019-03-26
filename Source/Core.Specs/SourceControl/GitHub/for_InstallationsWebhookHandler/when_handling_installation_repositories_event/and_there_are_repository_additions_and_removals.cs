@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Concepts.SourceControl;
 using Concepts.SourceControl.GitHub;
 using Dolittle.Commands;
 using Domain.SourceControl.GitHub;

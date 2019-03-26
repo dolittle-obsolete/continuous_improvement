@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Concepts.SourceControl;
 using Concepts.SourceControl.GitHub;
 using Dolittle.Collections;
 using Dolittle.Events.Processing;
