@@ -24,7 +24,7 @@ namespace Domain.Specs.for_Improvable.when_registering.when_validating
         Establish context = () => 
         {
             Action<RegisterImprovable> invalidation = _ => _.Improvable = ImprovableId.Empty;
-            register = get_command(new []{ invalidation});
+            register = constants.get_command(new []{ invalidation});
         };
 
         Because of = () => results = input_validator.ValidateFor(register);
