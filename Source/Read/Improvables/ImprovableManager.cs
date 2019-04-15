@@ -43,7 +43,7 @@ namespace Read.Improvables
         }
         
         /// <inheritdoc />
-        public IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId)
+        public IEnumerable<ImprovableForListing> GetAllImprovableForListings()
         {
             if (_fileSystem.Exists(IMPROVABLES))
             {

@@ -54,10 +54,11 @@ namespace Read.Specs.for_Improvables.for_improvable_manager.given
             path_to_non_existing_improvable_file = Path.Combine(improvable_name_that_does_not_exist.ToString(), ImprovableManager.IMPROVABLE);
             path_to_unreadable_improvable_file = Path.Combine(improvable_that_is_unreadable.ToString(), ImprovableManager.IMPROVABLE);
 
-            file_system.Setup(_ => _.Exists(Moq.It.Is<string>(s => s == ImprovableManager.IMPROVABLES))).Returns(improvables_file_exists);
             file_system.Setup(_ => _.Exists(Moq.It.IsAny<string>())).Returns((string s) => s == path_to_existing_improvable_file || s == path_to_unreadable_improvable_file);
+            file_system.Setup(_ => _.Exists(Moq.It.Is<string>(s => s == ImprovableManager.IMPROVABLES && improvables_file_exists))).Returns(improvables_file_exists);
             file_system.Setup(_ => _.ReadAllText(Moq.It.Is<string>(s => s == path_to_existing_improvable_file))).Returns(text_from_improvable_file);
             file_system.Setup(_ => _.ReadAllText(Moq.It.Is<string>(s => s == path_to_unreadable_improvable_file))).Throws(new Exception());
+            file_system.Setup(_ => _.ReadAllText(Moq.It.Is<string>(s => s == ImprovableManager.IMPROVABLES))).Returns(text_from_improvables_file);
             
             improvable = new Improvable() { Id = improvable_that_exists, Name = improvable_name_that_exists };
             serializer.Setup(_ => _.FromJson<IEnumerable<ImprovableForListing>>(text_from_improvables_file,Moq.It.IsAny<ISerializationOptions>())).Returns(improvables_for_listing);

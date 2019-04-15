@@ -147,7 +147,12 @@
       }
     },
     "events": {},
-    "eventSources": {},
+    "eventSources": {
+      "44480fe0-5141-4357-b7f1-b24bebc19a66": {
+        "generation": 1,
+        "type": "Domain.Improvables.Improvable, Domain"
+      }
+    },
     "readModels": {
       "62eefdf0-1776-4621-98ab-d12e420f7b39": {
         "generation": 1,

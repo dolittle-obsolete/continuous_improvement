@@ -13,10 +13,9 @@ namespace Read.Improvables
     public interface IImprovableManager 
     {
         /// <summary>
-        /// Gets all the improvablefor listings for an improvable
+        /// Gets all the improvablefor listings 
         /// </summary>
-        /// <param name="improvableId">The improvable id to get the improvablefors</param>
-        IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId);
+        IEnumerable<ImprovableForListing> GetAllImprovableForListings();
         /// <summary>
         /// Gets the <see cref="Improvable" /> for the specific id
         /// </summary>
