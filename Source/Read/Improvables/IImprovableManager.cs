@@ -34,5 +34,11 @@ namespace Read.Improvables
         /// </summary>
         /// <param name="improvable"></param>
         void Save(Improvable improvable);
+        /// <summary>
+        /// Indicates whether or not an Improvable with the specified name exists
+        /// </summary>
+        /// <param name="name">Name to check for existence</param>
+        /// <returns>True if an improvable with this name exists, false otherwise</returns>
+        bool Exists(ImprovableName name);
     }
 }
