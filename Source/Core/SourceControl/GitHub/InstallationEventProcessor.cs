@@ -10,6 +10,8 @@ using Concepts.SourceControl.GitHub;
 using Dolittle.Events.Processing;
 using Dolittle.Execution;
 using Dolittle.ReadModels;
+using Dolittle.Runtime.Tenancy;
+using Domain.SourceControl.GitHub;
 using Events.SourceControl.GitHub;
 using Infrastructure.Services.Github.Webhooks.Handling;
 

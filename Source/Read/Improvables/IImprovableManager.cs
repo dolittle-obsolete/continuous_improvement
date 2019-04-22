@@ -13,10 +13,9 @@ namespace Read.Improvables
     public interface IImprovableManager 
     {
         /// <summary>
-        /// Gets all the improvablefor listings for an improvable
+        /// Gets all the improvablefor listings 
         /// </summary>
-        /// <param name="improvableId">The improvable id to get the improvablefors</param>
-        IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId);
+        IEnumerable<ImprovableForListing> GetAllImprovableForListings();
         /// <summary>
         /// Gets the <see cref="Improvable" /> for the specific id
         /// </summary>
@@ -34,5 +33,11 @@ namespace Read.Improvables
         /// </summary>
         /// <param name="improvable"></param>
         void Save(Improvable improvable);
+        /// <summary>
+        /// Indicates whether or not an Improvable with the specified name exists
+        /// </summary>
+        /// <param name="name">Name to check for existence</param>
+        /// <returns>True if an improvable with this name exists, false otherwise</returns>
+        bool Exists(ImprovableName name);
     }
 }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -18,6 +23,9 @@ using k8s.Models;
 
 namespace Policies.Improvements
 {
+    /// <summary>
+    /// Continuously watches the pods which are building the improvements for changes
+    /// </summary>
     public class BuildPodWatcher
     {
         private readonly FactoryFor<IKubernetes> _clientFactory;
@@ -25,7 +33,14 @@ namespace Policies.Improvements
         private readonly IExecutionContextManager _executionContextManager;
         private readonly IImprovementMetadataFactory _metadataFactory;
         private readonly IBuildPodProcessor _buildPodProcessor;
-
+        /// <summary>
+        /// Instantiates an instance of <see cref="BuildPodWatcher" /> 
+        /// </summary>
+        /// <param name="logger">A <see cref="ILogger">logger</see></param>
+        /// <param name="executionContextManager">An <see cref="IExecutionContextManager"> execution context manager</see></param>
+        /// <param name="clientFactory">A factory for creating an <see cref="IKubernetes"> kubernetes client</see></param>
+        /// <param name="metadataFactory">A factory for creating <see cref="ImprovementMetadata" /> </param>
+        /// <param name="buildPodProcessor">An <see cref="IBuildPodProcessor"> build pod processor</see></param>
         public BuildPodWatcher(
             ILogger logger,
             IExecutionContextManager executionContextManager,
@@ -41,6 +56,9 @@ namespace Policies.Improvements
             _buildPodProcessor = buildPodProcessor;
         }
 
+        /// <summary>
+        /// Starts the watcher
+        /// </summary>
         public void StartWatcher()
         {
             // FIXME: This should run all the time, so have a look at what happens on exceptions and when it is closed. The client should possibly be disposed.

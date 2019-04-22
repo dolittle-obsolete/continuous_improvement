@@ -15,7 +15,6 @@ namespace Domain.Improvements.Metadata
     /// <summary>
     /// Validates the metadata describing the improvement
     /// </summary>
-    /// <typeparam name="ImprovementMetadata"></typeparam>
     public class ImprovementMetadataValidator : AbstractValidator<ImprovementMetadata>
     {
         /// <summary>

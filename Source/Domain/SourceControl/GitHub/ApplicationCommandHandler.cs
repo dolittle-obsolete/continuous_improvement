@@ -1,5 +1,12 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
+using Concepts.SourceControl;
 using Concepts.SourceControl.GitHub;
 using Dolittle.Collections;
+using Dolittle.Commands;
 using Dolittle.Commands.Handling;
 using Dolittle.Domain;
 using Events.SourceControl.GitHub;
@@ -11,11 +18,19 @@ using System.Linq;
 
 namespace Domain.SourceControl.GitHub
 {
+    /// <summary>
+    /// Handles <see cref="ICommand">Commands</see> for an <see cref="Application" />
+    /// </summary>
     public class ApplicationCommandHandler : ICanHandleCommands
     {
         readonly IAggregateRootRepositoryFor<Application>  _aggregateRootRepoForInstallations;
         readonly IGitHubClientFactory _githubClientFactory;
 
+        /// <summary>
+        /// Instantiates an instance of <see cref="ApplicationCommandHandler" /> 
+        /// </summary>
+        /// <param name="aggregateRootRepoForInstallations">An aggregate root repository for <see cref="Installation">installations</see></param>
+        /// <param name="gitHubClientFactory">A factory to create a <see cref="GitHubClient" /></param>
         public ApplicationCommandHandler(
             IAggregateRootRepositoryFor<Application>  aggregateRootRepoForInstallations,
             IGitHubClientFactory gitHubClientFactory
@@ -25,6 +40,10 @@ namespace Domain.SourceControl.GitHub
              _githubClientFactory = gitHubClientFactory;
         }
 
+        /// <summary>
+        /// Handles a <see cref="RegisterInstallation" /> command
+        /// </summary>
+        /// <param name="cmd">a <see cref="RegisterInstallation" /> command</param>
         public void Handle(RegisterInstallation cmd)
         {
             // Get installation details
@@ -45,12 +64,20 @@ namespace Domain.SourceControl.GitHub
             );
         }
 
+        /// <summary>
+        /// Handles an <see cref="UnregisterInstallation" /> command
+        /// </summary>
+        /// <param name="cmd">an <see cref="UnregisterInstallation" /> command</param>
         public void Handle(UnregisterInstallation cmd)
         {
             var aggregateRoot = _aggregateRootRepoForInstallations.GetApplication();
-            aggregateRoot.UnegisterInstallation(cmd.Id);
+            aggregateRoot.UnregisterInstallation(cmd.Id);
         }
 
+        /// <summary>
+        /// Handles an <see cref="UpdateInstallationRepositories" /> command
+        /// </summary>
+        /// <param name="cmd">an <see cref="UpdateInstallationRepositories" /> command</param>
         public void Handle(UpdateInstallationRepositories cmd)
         {
             // Trigger the update
@@ -62,6 +89,10 @@ namespace Domain.SourceControl.GitHub
             );
         }
 
+        /// <summary>
+        /// Handles an <see cref="TriggerUpdateOfRepositories" /> command
+        /// </summary>
+        /// <param name="cmd">an <see cref="TriggerUpdateOfRepositories" /> command</param>
         public void Handle(TriggerUpdateOfRepositories cmd)
         {
             var aggregateRoot = _aggregateRootRepoForInstallations.GetApplication();
@@ -70,12 +101,12 @@ namespace Domain.SourceControl.GitHub
                 {
                     var client = _githubClientFactory.NewInstallationAuthenticatedClient(id).Result;
                     var repositories = client.GitHubApps.Installation.GetAllRepositoriesForCurrent().Result.Repositories;
-                    aggregateRoot.RefreshedInstallationRepositories(id, repositories.Select(_ => (RepositoryFullName)_.FullName));
+                    aggregateRoot.RefreshInstallationRepositories(id, repositories.Select(_ => (RepositoryFullName)_.FullName));
                 }
                 catch (NotFoundException)
                 {
                     // This means that the installation no longer exists, i.e. has been removed
-                    aggregateRoot.UnegisterInstallation(id);
+                    aggregateRoot.UnregisterInstallation(id);
                 }
             });
         }

@@ -18,12 +18,11 @@ using Dolittle.Runtime.Commands.Coordination;
 using Dolittle.Tenancy;
 using Domain.Improvements;
 using Events.Improvements;
+using Read.Improvables;
 
 namespace Policies.Improvements
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <inheritdoc />
     public class ImprovementStepResultHandler : IImprovementStepResultHandler
     {
         static ArtifactId _nullCommandArtifactId = (ArtifactId)Guid.Parse("c7d1f5cc-40bb-4cd4-b589-9cb11a43c962");
@@ -35,11 +34,13 @@ namespace Policies.Improvements
         readonly IRecipeLocator _recipeLocator;
 
         /// <summary>
-        /// 
+        /// Instantiates an instance fo <see cref="ImprovementStepResultHandler" /> 
         /// </summary>
-        /// <param name="commandContextManager"></param>
-        /// <param name="repository"></param>
-        /// <param name="improvementPodFactory"></param>
+        /// <param name="executionContextManager">An <see cref="IExecutionContextManager" /> for setting the Tenant in the <see cref="ExecutionContext" /></param>
+        /// <param name="commandContextManager">An <see cref="ICommandContextManager" /> for establishing a <see cref="ICommandContext" /> </param>
+        /// <param name="repository">A repository for fetching <see cref="Improvement">improvements</see></param>
+        /// <param name="improvementContextFactory">A factory for creating <see cref="ImprovementContext"> improvement contexts </see></param>
+        /// <param name="recipeLocator">A locator for finding the correct <see cref="Recipe" /></param>
         public ImprovementStepResultHandler(
             IExecutionContextManager executionContextManager,
             ICommandContextManager commandContextManager,
@@ -54,6 +55,7 @@ namespace Policies.Improvements
             _recipeLocator = recipeLocator;
         }
 
+        /// <inheritdoc />
         public void HandleSuccessfulStep(
             RecipeType recipeType,
             StepNumber stepNumber,
@@ -62,7 +64,7 @@ namespace Policies.Improvements
             Concepts.Version version)
         {
             var context = _improvementContextFactory.GetFor(improvable, version);
-            var recipe = _recipeLocator.GetByName(recipeType);
+            var recipe = _recipeLocator.GetByType(recipeType);
             var steps = recipe.GetStepsFor(context).ToArray();
             var step = steps[stepNumber];
             var events = step.GetSucceededEventsFor(context);
@@ -70,6 +72,7 @@ namespace Policies.Improvements
             ApplyEventsFor(context, events);
         }
         
+        /// <inheritdoc />
         public void HandleFailedStep(
             RecipeType recipeType,
             StepNumber stepNumber,
@@ -78,7 +81,7 @@ namespace Policies.Improvements
             Concepts.Version version)
         {
             var context = _improvementContextFactory.GetFor(improvable, version);
-            var recipe = _recipeLocator.GetByName(recipeType);
+            var recipe = _recipeLocator.GetByType(recipeType);
             var steps = recipe.GetStepsFor(context).ToArray();
             var step = steps[stepNumber];
             var events = step.GetFailedEventsFor(context);

@@ -8,16 +8,20 @@ using Dolittle.Execution;
 
 namespace Policies.Improvements
 {
-    
+    /// <inheritdoc />
     public class ImprovementContextFactory : IImprovementContextFactory
     {
         readonly IExecutionContextManager _executionContextManager;
-
+        /// <summary>
+        /// Instantiates an instance of <see cref="ImprovementContextFactory" />
+        /// </summary>
+        /// <param name="executionContextManager"></param>
         public ImprovementContextFactory(IExecutionContextManager executionContextManager)
         {
             _executionContextManager = executionContextManager;
         }
 
+        /// <inheritdoc />
         public ImprovementContext GetFor(
             ImprovableId improvable,
             Version version)

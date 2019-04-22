@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Machine.Specifications;
 using Moq;
@@ -30,12 +31,13 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
                 values.ForEach(v => payloads.Add(new given.Payload(v)));
 
                 processor.Setup(_ => _.Process(Moq.It.IsAny<Webhook>()))
-                    .Returns(async(Webhook _) =>
+                    .Returns<Webhook>(_ => 
                     {
-                        await Task.Delay(10);
-                        var payload = (given.Payload)_.Payload;
-                        results.Add(payload.Number);
+                        var payload = ((given.Payload)_.Payload);
+                        var processor = new number_payload_task_processor(results);
+                        return processor.On(payload);
                     });
+                
             };
 
             Because of = () =>
@@ -45,11 +47,11 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookScheduler.
                     var webhook = given.a.webhook_from(_);
                     scheduler.QueueWebhookEventForHandling(webhook);
                 });
+                Thread.Sleep(1000);
             };
 
-            It should_process_all_webhooks_in_the_order_in_which_they_are_scheduled = async() =>
+            It should_process_all_webhooks_in_the_order_in_which_they_are_scheduled = () =>
             {
-                await Task.Delay(200);
                 results.ShouldEqual(values);
             };
         }

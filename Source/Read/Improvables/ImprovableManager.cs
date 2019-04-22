@@ -16,8 +16,14 @@ namespace Read.Improvables
     /// <inheritdoc />
     public class ImprovableManager : IImprovableManager
     {
-        const string _improvablesFile = "improvables.json";
-        const string _improvableFile = "improvable.json";
+        /// <summary>
+        /// Name of the file holding the improvableforlistings
+        /// </summary>
+        public const string IMPROVABLES = "improvables.json";
+        /// <summary>
+        /// Name of the file holding an improvbale
+        /// </summary>
+        public const string IMPROVABLE = "improvable.json";
 
         private readonly ISerializer _serializer;
         private readonly IRecipeManager _recipeManager;
@@ -37,11 +43,11 @@ namespace Read.Improvables
         }
         
         /// <inheritdoc />
-        public IEnumerable<ImprovableForListing> GetAllForListing(ImprovableId improvableId)
+        public IEnumerable<ImprovableForListing> GetAllImprovableForListings()
         {
-            if (_fileSystem.Exists(_improvablesFile))
+            if (_fileSystem.Exists(IMPROVABLES))
             {
-                var json = _fileSystem.ReadAllText(_improvablesFile);
+                var json = _fileSystem.ReadAllText(IMPROVABLES);
                 return _serializer.FromJson<IEnumerable<ImprovableForListing>>(json);
             }
             else
@@ -51,12 +57,37 @@ namespace Read.Improvables
         }
 
         /// <inheritdoc />
+        public bool Exists(ImprovableName name)
+        {
+            if (_fileSystem.Exists(IMPROVABLES))
+            {
+                var json = _fileSystem.ReadAllText(IMPROVABLES);
+                var listings = _serializer.FromJson<IEnumerable<ImprovableForListing>>(json);
+                return listings.Any(_ => _.Name == name);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <inheritdoc />
         public Improvable GetById(ImprovableId improvableId)
         {
-            var improvableFile = Path.Combine(improvableId.ToString(), _improvableFile);
-            var json = _fileSystem.ReadAllText(improvableFile);
-            var improvable = _serializer.FromJson<Improvable>(json);
-            return improvable;
+            var improvableIdAsString = SafeGetImprovableId(improvableId);
+            var improvableFile = Path.Combine(improvableIdAsString, IMPROVABLE);
+            if(!_fileSystem.Exists(improvableFile))
+                throw new NoImprovableFound($"Improvable '{improvableIdAsString}' does not exist at '{improvableFile}'");
+            try
+            {
+                var json = _fileSystem.ReadAllText(improvableFile);
+                var improvable = _serializer.FromJson<Improvable>(json,null);
+                return improvable;
+            }
+            catch(Exception ex)
+            {
+                throw new ErrorReadingImprovable($"Could not read improvable '{improvableIdAsString}' at '{improvableFile}",ex);
+            }
         }
 
         /// <inheritdoc />
@@ -77,9 +108,14 @@ namespace Read.Improvables
         /// <inheritdoc />
         public void Save(Improvable improvable)
         {
-            var improvableFile = Path.Combine(improvable.Id.ToString(), _improvableFile);
+            var improvableFile = Path.Combine(improvable.Id.ToString(), IMPROVABLE);
             var json = _serializer.ToJson(improvable);
             _fileSystem.WriteAllText(improvableFile, json);
+        }
+
+        string SafeGetImprovableId(ImprovableId improvable)
+        {
+            return improvable?.Value.ToString() ?? ImprovableId.Empty.Value.ToString();
         }
     }
 }

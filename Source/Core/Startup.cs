@@ -102,7 +102,7 @@ namespace Core
 
             app.UseDolittle();
 
-            var watcher = app.ApplicationServices.GetService<KubernetesBuildPodWatcher>();
+            var watcher = app.ApplicationServices.GetService<BuildPodWatcher>();
             watcher.StartWatcher();
 
             app.RunAsSinglePageApplication();

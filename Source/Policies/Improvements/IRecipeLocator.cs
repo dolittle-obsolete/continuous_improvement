@@ -6,8 +6,16 @@ using Concepts.Improvables;
 
 namespace Policies.Improvements
 {
+    /// <summary>
+    /// Defines a <see cref="IRecipe">recipe</see> locator
+    /// </summary>
     public interface IRecipeLocator
     {
-        IRecipe GetByName(RecipeType name);
+        /// <summary>
+        /// Gets a Recipe by the <see cref="RecipeType" />
+        /// </summary>
+        /// <param name="name">The <see cref="RecipeType" /> to get</param>
+        /// <returns>A <see cref="IRecipe">recipe</see></returns>
+        IRecipe GetByType(RecipeType name);
     }
 }

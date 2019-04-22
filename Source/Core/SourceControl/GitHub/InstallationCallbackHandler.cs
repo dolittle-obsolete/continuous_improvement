@@ -16,8 +16,17 @@ namespace Core.SourceControl.GitHub
     /// </summary>
     public class InstallationCallbackHandler : ICanHandleInstallationCallbacks
     {
+        /// <summary>
+        /// String constant for the Installation Success path
+        /// </summary>
         public const string SUCCESS = "InstallationSuccess/";
+        /// <summary>
+        /// String constant for the Installation Error path
+        /// </summary>
         public const string ERROR = "Error";
+        /// <summary>
+        /// String constant for the Installation Updated path
+        /// </summary>        
         public const string UPDATED = "InstallationUpdated/";
 
         private string _baseUrl;
@@ -27,6 +36,7 @@ namespace Core.SourceControl.GitHub
         /// Instantiates an instance of <see cref="InstallationCallbackHandler" />
         /// </summary>
         /// <param name="commandCoordinator">The command coordinator needed to issue commands</param>
+        /// <param name="baseUrl">An optional base path string for the url</param>
         public InstallationCallbackHandler(
             ICommandCoordinator commandCoordinator,
             string baseUrl = null

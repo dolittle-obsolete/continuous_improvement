@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ * --------------------------------------------------------------------------------------------*/
+
 using Concepts;
 using Concepts.Improvables;
 using Concepts.Improvements;
@@ -10,13 +15,6 @@ namespace Domain.Improvements
     /// <param name="id">The Id of the improvement</param>
     /// <returns>True if exists, false otherwise</returns>
     public delegate bool ImprovementExists(ImprovementId id);
-
-    /// <summary>
-    /// Indicates whether or not there is an <see cref="Improvable" /> with the specified Id
-    /// </summary>
-    /// <param name="id">The Id of the improvable</param>
-    /// <returns>True if exists, false otherwise</returns>
-    public delegate bool ImprovableExists(ImprovableId id);
 
     /// <summary>
     /// Indicates whether the improvement has been initiated

@@ -5,13 +5,29 @@
 
 using Dolittle.Concepts;
 
-namespace Concepts.SourceControl.GitHub
+namespace Concepts.SourceControl
 {
     /// <summary>
-    /// Repsents the name of a repository. Expressed as a string.
+    /// A unique name for a repository, expressed as a string.
     /// </summary>
     public class RepositoryFullName : ConceptAs<string>
     {
+        /// <summary>
+        /// Represents an Empty or Unset <see cref="RepositoryFullName" />
+        /// </summary>
+        /// <value></value>
+        public static RepositoryFullName Empty { get; } = string.Empty;
+
+        /// <summary>
+        /// Instantiates an instance of a <see cref="RepositoryFullName" />
+        /// </summary>
+        public RepositoryFullName() => Value = string.Empty;
+
+        /// <summary>
+        /// Instantiats an instance of a <see cref="RepositoryFullName" />
+        /// </summary>
+        /// <param name="value">The value to set the name to</param>
+        public RepositoryFullName(string value) => Value = value;
         /// <summary>
         /// Implicitly converts a <see cref="string" /> to a <see cref="RepositoryFullName" />
         /// </summary>

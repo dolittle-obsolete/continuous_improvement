@@ -22,7 +22,7 @@ namespace Infrastructure.Services.Github.Webhooks.Handling.for_WebhookProcessor.
             webhook = BuildWebhook<given.void_task_webhook_handler>(payload);
         };
 
-        Because of = async () => await processor.Process(webhook);
+        Because of = () => processor.Process(webhook).Wait();
 
         It should_call_the_handler_method_with_the_payload = () => handler_instance.CalledWithPayload.ShouldEqual(payload);
     }
